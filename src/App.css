@@ -3,7 +3,7 @@
 }
 
 .App-logo {
-  height: 40vmin;
+  height: 20vmin;
   pointer-events: none;
 }
 
@@ -35,4 +35,163 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.chessboard {
+  color: rgb(255, 255, 255);
+  border: rgb(255, 255, 255);
+  width: 424px;
+  height: 424px;
+  border-width: 1px;
+  border-style:solid
+}
+
+.whiteSquare {
+  border-style: solid;
+  width: 50px;
+  height: 50px;
+  /* vertical-align: auto; */
+  float:left;
+  background-color: rgb(237, 197, 154)
+}
+.blackSquare {
+  border-style: solid;
+  width: 50px;
+  height: 50px;
+  /* vertical-align: auto; */
+  float:left;
+  background-color: rgb(122, 93, 36);
+}
+
+.redSquare1 {
+  border-style: solid;
+  width: 50px;
+  height: 50px;
+  float:left;
+  background: linear-gradient(rgba(251, 163, 208, 0.841), rgba(255, 141, 200, 0.851)),
+  linear-gradient(white, white);
+
+}
+
+.redSquare2 {
+  border-style: solid;
+  width: 50px;
+  height: 50px;
+  float:left;
+  background: linear-gradient(rgba(230, 58, 147, 0.767), rgba(181, 9, 98, 0.5)),
+  linear-gradient(white, white);
+
+}
+
+.redSquare3 {
+  border-style: solid;
+  width: 50px;
+  height: 50px;
+  float:left;
+  background: linear-gradient(rgb(194, 56, 81), rgba(233, 109, 109, 0.5)),
+  linear-gradient(white, white);
+
+}
+.redSquare4 {
+  border-style: solid;
+  width: 50px;
+  height: 50px;
+  float:left;
+  background: linear-gradient(rgb(185, 27, 27), rgba(196, 75, 34, 0.762)),
+  linear-gradient(white, white);
+}
+.redSquare5{
+  border-style: solid;
+  width: 50px;
+  height: 50px;
+  float:left;
+  background: linear-gradient(rgba(143, 36, 22, 0.821), rgba(135, 14, 14, 0.762)),
+  linear-gradient(white, white);
+}
+.redSquare6{
+  border-style: solid;
+  width: 50px;
+  height: 50px;
+  float:left;
+  background: linear-gradient(rgb(94, 2, 2), rgba(124, 6, 2, 0.762)),
+  linear-gradient(white, white);
+}
+
+.redSquare7{
+  border-style: solid;
+  width: 50px;
+  height: 50px;
+  float:left;
+  background: linear-gradient(rgb(65, 0, 0), rgba(56, 0, 0, 0.762)),
+  linear-gradient(white, white);
+}
+
+.blueSquare1 {
+  border-style: solid;
+  width: 50px;
+  height: 50px;
+  float:left;
+  background: linear-gradient(rgba(167, 236, 255, 0.841), rgba(185, 240, 255, 0.851)),
+  linear-gradient(white, white);
+}
+.blueSquare2 {
+  border-style: solid;
+  width: 50px;
+  height: 50px;
+  float:left;
+  background: linear-gradient(rgba(42, 169, 205, 0.841), rgba(10, 130, 163, 0.851)),
+  linear-gradient(white, white);
+}
+.blueSquare3 {
+  border-style: solid;
+  width: 50px;
+  height: 50px;
+  float:left;
+  background: linear-gradient(rgba(13, 93, 232, 0.841), rgba(10, 73, 168, 0.851)),
+  linear-gradient(white, white);
+}
+.blueSquare4 {
+  border-style: solid;
+  width: 50px;
+  height: 50px;
+  float:left;
+  background: linear-gradient(rgba(41, 73, 234, 0.841), rgba(20, 6, 175, 0.851)),
+  linear-gradient(white, white);
+}
+.blueSquare5 {
+  border-style: solid;
+  width: 50px;
+  height: 50px;
+  float:left;
+  background: linear-gradient(rgba(74, 15, 175, 0.841), rgba(121, 46, 249, 0.851)),
+  linear-gradient(white, white);
+}
+.blueSquare6 {
+  border-style: solid;
+  width: 50px;
+  height: 50px;
+  float:left;
+  background: linear-gradient(rgba(46, 14, 100, 0.841), rgba(72, 33, 139, 0.851)),
+  linear-gradient(white, white);
+}
+.blueSquare7 {
+  border-style: solid;
+  width: 50px;
+  height: 50px;
+  float:left;
+  background: linear-gradient(rgba(39, 8, 94, 0.841), rgba(38, 18, 98, 0.851)),
+  linear-gradient(white, white);
+}
+.blueSquare8 {
+  border-style: solid;
+  width: 50px;
+  height: 50px;
+  float:left;
+  background: linear-gradient(rgba(33, 7, 79, 0.841), rgba(43, 4, 78, 0.851)),
+  linear-gradient(white, white);
+}
+
+
+.chessPiece {
+  z-index: 1;
 }
