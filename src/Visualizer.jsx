@@ -4,6 +4,8 @@ import './App.css';
 import ChessIcons from './ChessIcons.jsx';
 import calcRedSqs from './calcRedSqs.jsx';
 import calcBlueSqs from './calcBlueSqs.jsx';
+import isWhiteSquare from './HelperFunctions/isWhiteSquare.jsx';
+import indexToCoord from './HelperFunctions/indexToCoord.jsx';
 
 var currentHoverPosition;
 var globalBoard;
@@ -14,20 +16,6 @@ var whiteCtrlOn = false;
 var blackCtrlOn = false;
 
 const Visualizer = () => {
-
-  const isWhiteSquare = (coords) => {
-    if ((coords[0] + coords[1]) % 2 === 0) {
-      return 'whiteSquare';
-    } else {
-      return 'blackSquare';
-    }
-  };
-
-  const indexToCoord = (index) => {
-      var remainder = index % 8;
-      var multiple = (index - remainder) / 8;
-      return [multiple, remainder]
-    }
 
   const [initialRen, setInitialRen] = useState(true);
 

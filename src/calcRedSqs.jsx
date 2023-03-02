@@ -1,5 +1,7 @@
 import React, { useState, useRef } from 'react';
 
+// import isInBounds from './HelperFunctions/isInBounds.jsx';
+// console.log('isinbounds', isInBounds);
 
 
 const calcRedSqs = (id, piece, positionBoard, alwaysEmptyMatrix, calcForWhite) => {
