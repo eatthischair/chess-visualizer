@@ -1,7 +1,5 @@
 import React, { useState, useRef } from 'react';
 
-// import isInBounds from './HelperFunctions/isInBounds.jsx';
-// console.log('isinbounds', isInBounds);
 
 
 const calcRedSqs = (id, piece, positionBoard, alwaysEmptyMatrix, calcForWhite) => {
@@ -35,9 +33,10 @@ const calcRedSqs = (id, piece, positionBoard, alwaysEmptyMatrix, calcForWhite) =
 
         var sqPieceIsWhite = positionBoard[newRow][newColumn] === positionBoard[newRow][newColumn].toUpperCase();
 
-        // var sqPieceIsWhite = true;
-        var bothSameColor = isWhitePiece && sqPieceIsWhite;
-        // var bothSameColor = true;
+        var bothSameColor = isWhitePiece && sqPieceIsWhite
+        // var bothSameColor = isWhitePiece && sqPieceIsWhite || (!isWhitePiece && !sqPieceisWhite)
+
+        // var checkForPawn = (checkType === 'B' && sqPiece[0] === 'P')
 
         var samePieceType = sqPiece[0] === checkType || sqPiece === 'Q';
         console.log('samepiecetype', sqPiece, checkType, samePieceType);
@@ -45,7 +44,12 @@ const calcRedSqs = (id, piece, positionBoard, alwaysEmptyMatrix, calcForWhite) =
         if (samePieceType && bothSameColor) {
           bigArray.push(newIndex);
           recursiveFunc(newIndex, incrementX, incrementY);
-        } else {
+        }
+        //else if {
+          //
+
+        // }
+        else {
           bigArray.push(newIndex);
         return;
         };
@@ -70,7 +74,6 @@ const calcRedSqs = (id, piece, positionBoard, alwaysEmptyMatrix, calcForWhite) =
     }
 
     return bigArray;
-    //return array of indexes
   }
 
   const isInBounds = (rowIndex, columnIndex) => {
@@ -93,6 +96,11 @@ const calcRedSqs = (id, piece, positionBoard, alwaysEmptyMatrix, calcForWhite) =
         var isWhitePiece = (sqValue !== 0) && (sqValue.toUpperCase() === sqValue);
         // var isWhitePiece = true;
         //first check if piece is there, if so convert it to uppercase
+
+        // if (sqValue !== 0) {
+        //   sqValue = sqValue.toUpperCase();
+        // }
+        var correctPieceColor = (calcForWhite && isWhitePiece) || (!calcForWhite && !isWhitePiece);
 
         if (sqValue === 'K') {
           kingSqVals.forEach(num => {

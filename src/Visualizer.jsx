@@ -6,48 +6,49 @@ import calcRedSqs from './calcRedSqs.jsx';
 import calcBlueSqs from './calcBlueSqs.jsx';
 import isWhiteSquare from './HelperFunctions/isWhiteSquare.jsx';
 import indexToCoord from './HelperFunctions/indexToCoord.jsx';
+import RenderInitialBoard from './RenderInitialBoard.jsx';
 
-var currentHoverPosition;
+
+// var currentHoverPosition;
 var globalBoard;
 var globalwhiteSqCountBoard;
 var globalBlackSqCountBoard;
 var alwaysEmptyMatrix;
+var alwaysInitialBoard;
 var whiteCtrlOn = false;
 var blackCtrlOn = false;
 
 const Visualizer = () => {
+  var currentHoverPosition;
 
   const [initialRen, setInitialRen] = useState(true);
-
   if (initialRen) {
-    var blankBoard = [];
-    var positionArray = [];
-    for (var i = 0; i < 8; i++) {
-      var pieceArray = [];
-      for (var j = 0; j < 8; j++) {
-        let id = [i, j]
-        var color = isWhiteSquare(id);
-        blankBoard.push(<div id={id} className={color}
-          onDragOver={()=> {setPos(id)}}
-          ></div>)
-          pieceArray.push(0);
-        }
-        positionArray.push(pieceArray);
-
-      };
-      //initialize empty boards
-      globalBoard = positionArray;
+    // var blankBoard = [];
+    // var positionArray = [];
+    // for (var i = 0; i < 8; i++) {
+    //   var pieceArray = [];
+    //   for (var j = 0; j < 8; j++) {
+    //     let id = [i, j]
+    //     var color = isWhiteSquare(id);
+    //     blankBoard.push(<div id={id} className={color}
+    //       onDragOver={()=> {setPos(id)}}
+    //       ></div>)
+    //       pieceArray.push(0);
+    //     }
+    //     positionArray.push(pieceArray);
+    //   };
+      var boards = RenderInitialBoard();
+      var positionArray = boards[1];
+      var blankBoard = boards[0];
       var deepCopy = JSON.parse(JSON.stringify(positionArray));
       globalwhiteSqCountBoard = deepCopy;
       alwaysEmptyMatrix = JSON.parse(JSON.stringify(deepCopy));
-
       setInitialRen(false);
     }
 
-   const [chessBoard, setChessBoard] = useState(blankBoard);
+  const [chessBoard, setChessBoard] = useState(blankBoard);
 
   const renderBoard = (position, sqCtrl) => {
-
       var renderedBoard = chessBoard.map((square, currentIndex) => {
         var matrixIndex = indexToCoord(currentIndex);
         var row = matrixIndex[0];
@@ -59,7 +60,6 @@ const Visualizer = () => {
         if (positionBoardpiece !== 0) {
           divInnerText = b[positionBoardpiece];
         }
-
        if (whiteCtrlOn && blackCtrlOn) {
         let indexColorSum = sqCtrl[row][column];
         if (indexColorSum !== 0) {
@@ -115,10 +115,8 @@ const Visualizer = () => {
         }
       }
     }
-
     slice[id[0]][id[1]] = piece;
     globalBoard = slice;
-
     var redSqBoard = calcRedSqs(id, piece, slice, alwaysEmptyMatrix);
     globalwhiteSqCountBoard = redSqBoard;
     var blueSqBoard = calcBlueSqs(id, piece, slice, alwaysEmptyMatrix);
@@ -128,7 +126,6 @@ const Visualizer = () => {
   }
 
   const preRenderBoard = (slice, redSqBoard, blueSqBoard) => {
-
     if (whiteCtrlOn && blackCtrlOn) {
       var totalBoard = JSON.parse(JSON.stringify(alwaysEmptyMatrix));
         for (var i = 0; i < 8; i++) {
@@ -290,6 +287,8 @@ const setInitialBoardPosition = () => {
       }
     }
   }
+  alwaysInitialBoard = emptyMatrixCopy;
+  // console.log('always initial', alwaysInitialBoard)
   renderBoard(emptyMatrixCopy, JSON.parse(JSON.stringify(alwaysEmptyMatrix)));
 }
 
@@ -305,6 +304,7 @@ const reRenderBoard = (viewToToggle) => {
   let redSqBoard = calcRedSqs(null, null, globalBoard, emptyMatrixCopy)
   preRenderBoard(globalBoard, redSqBoard, blueSqBoard);
 }
+
 
   return (
     <div className='bigDiv'>
@@ -349,13 +349,14 @@ const reRenderBoard = (viewToToggle) => {
       {b.P6}
       {b.P7}
       {b.P8}
-      </div>
-
+      {/* </div> */}
       <button onClick={() => {reRenderBoard('white')}} type="button">Show White Sq Ctrl</button>
       <button onClick={() => {reRenderBoard('black')}} type="button">Show Black Sq Ctrl</button>
       <button onClick={() => {setInitialBoardPosition()}} type="button">Set Initial Board Position</button>
       <button onClick={() => {renderBoard(alwaysEmptyMatrix, alwaysEmptyMatrix)}} type="button">Clear Board</button>
- </div>
+      {/* <button onClick={() => readPgn(pgnString)} type="button">Read PGN</button> */}
+       </div>
+  </div>
   </div>
   )
 };
