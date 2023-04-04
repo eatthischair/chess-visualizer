@@ -23,11 +23,11 @@ const calcBlueSqs = (id, piece, positionBoard, alwaysEmptyMatrix) => {
           //if piece is same color, and a pawn, add next index to array
 
       //if bishop or queen on same diagonal as a pawn thats the same color (going from base to other side of the board)
-    
+
 
     //absolute pins func
-    //input: board, color calculating for, 
-    //before rending sq ctrl, must pass over the board to find the kings, then check for piece sandwich, if so, 
+    //input: board, color calculating for,
+    //before rending sq ctrl, must pass over the board to find the kings, then check for piece sandwich, if so,
       //if come across enemy piece, stop
         //if reach edge of board, stop
 
@@ -40,7 +40,7 @@ const calcBlueSqs = (id, piece, positionBoard, alwaysEmptyMatrix) => {
 
     //check diagonals for K, pieceofsamecolor, bishop/queen
     //and columns/rows,
-    //just run recurse func? 
+    //just run recurse func?
 
   var kingSqVals = [[-1, -1], [-1, 0], [-1, 1], [0, -1], [0, 1], [1, -1], [1, 0], [1, 1]];
   var knightSqVals = [[-2, -1], [-2, 1], [-1, 2], [1, 2], [2, 1], [2, -1], [-1, -2], [1, -2]];
@@ -205,7 +205,7 @@ const calcBlueSqs = (id, piece, positionBoard, alwaysEmptyMatrix) => {
       }
     }
     // setWhiteSqCtrlBoard(JSON.parse(JSON.stringify(sliced)));
-    console.log('sliced', sliced);
+    // console.log('sliced', sliced);
       return sliced;
   }
 

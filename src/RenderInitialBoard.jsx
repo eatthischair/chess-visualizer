@@ -12,9 +12,13 @@ const RenderInitialBoard = () => {
     for (var j = 0; j < 8; j++) {
       let id = [i, j]
       var color = isWhiteSquare(id);
+      // blankBoard.push(<div id={id} className={color}
+      //   onDragOver={()=> {setPos(id)}}
+      //   ></div>)
       blankBoard.push(<div id={id} className={color}
         onDragOver={()=> {setPos(id)}}
         ></div>)
+
         pieceArray.push(0);
       }
       positionArray.push(pieceArray);
@@ -26,3 +30,5 @@ const RenderInitialBoard = () => {
 
 
 export default RenderInitialBoard;
+
+

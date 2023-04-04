@@ -39,7 +39,7 @@ const calcRedSqs = (id, piece, positionBoard, alwaysEmptyMatrix, calcForWhite) =
         // var checkForPawn = (checkType === 'B' && sqPiece[0] === 'P')
 
         var samePieceType = sqPiece[0] === checkType || sqPiece === 'Q';
-        console.log('samepiecetype', sqPiece, checkType, samePieceType);
+        // console.log('samepiecetype', sqPiece, checkType, samePieceType);
 
         if (samePieceType && bothSameColor) {
           bigArray.push(newIndex);
@@ -185,7 +185,7 @@ const calcRedSqs = (id, piece, positionBoard, alwaysEmptyMatrix, calcForWhite) =
       }
     }
     // setWhiteSqCtrlBoard(JSON.parse(JSON.stringify(sliced)));
-    console.log('sliced', sliced);
+    // console.log('sliced', sliced);
       return sliced;
   }
 
