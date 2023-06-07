@@ -1,265 +1,208 @@
 import React, { useState, useRef, useEffect } from 'react';
-import ReactDOM from 'react-dom';
+import axios from "axios";
 import './App.css';
 import ChessIcons from './ChessIcons.jsx';
-import calcRedSqs from './calcRedSqs.jsx';
-import calcBlueSqs from './calcBlueSqs.jsx';
-import isWhiteSquare from './HelperFunctions/isWhiteSquare.jsx';
-import indexToCoord from './HelperFunctions/indexToCoord.jsx';
-import RenderInitialBoard from './RenderInitialBoard.jsx';
 import RenderPieces from './RenderPieces.jsx';
-import setPos from './HelperFunctions/setPos.jsx';
+import CalcSqs from './CalcSqs.jsx';
+import isWhiteSquare from './HelperFunctions/isWhiteSquare.jsx';
+import makeEmptyMatrix from './HelperFunctions/makeEmptyMatrix.jsx';
+import PgnReader from './PgnReader.jsx';
 
-var globalBoard;
-var globalwhiteSqCountBoard;
-var globalBlackSqCountBoard;
-var alwaysEmptyMatrix;
-var alwaysInitialBoard;
-var whiteCtrlOn = false;
-var blackCtrlOn = false;
-var currentHoverPosition;
-var globalPieceObj;
+// var currentHoverPosition;
+// var globalBoard;
+const Visualizer = ({setPos, currentHoverPosition, getPos, globalBoard, updateGlobalBoard, getGlobalBoard, updateInitialBoard, getInitialBoard, updatePgnBoardArray, getNextBoard, getPreviousBoard, cookies}) => {
 
-const Visualizer = () => {
-
-  // const setPos = (id) => {
-  //   currentHoverPosition = id;
-  // }
-  // var globalBoard;
-  const [pieceObj, setPieceObj] = useState({});
   const [initialRen, setInitialRen] = useState(true);
+  const [pieceObj, setPieceObj] = useState({});
+  const [blackCtrlOn, setBlackCtrlOn] = useState(false);
+  const [whiteCtrlOn, setWhiteCtrlOn] = useState(false);
+  const [currentBoard, setCurrentBoard] = useState([])
+  const [alwaysEmptyMatrix, setAlwaysEmptyMatrix] = useState([]);
+  const [currentPgn, setCurrentPgn] = useState('');
+  const [boardIsFlipped, setBoardIsFlipped] = useState(false);
+  const [toggleImportPgn, setToggleImportPgn] = useState(false);
+  const [showPieceElements, setShowPieceElements] = useState(false);
+  const [currentUser, setCurrentUser] = useState('');
+  const [userGames, setUserGames] = useState([]);
 
   var makePieceElements = () => {
-    var pieceElementObj = {};
+    var pieceElementsObj = {};
     let pieceArray = ['K', 'N', 'B', 'R', 'Q', 'P', 'k', 'n', 'b', 'r', 'q', 'p'];
     pieceArray.forEach(piece => {
       let pieceUrl = ChessIcons()[piece]
-      for (var i = 1; i <= 9; i++) {
+      for (var i = 1; i <= 64; i++) {
         let pieceString = `${piece}${i}`
-        pieceElementObj[pieceString] =
-        <img draggable='true' alt='' src={pieceUrl} width='50' height='50'
+        pieceElementsObj[pieceString] =
+        <img draggable='true' alt='' src={pieceUrl} width='63' height='63'
         onDragEnd={(e)=> {onDrop(e, pieceString)}}></img>
       }
     })
-    // console.log('piecelementobj', pieceElementObj);
-    setPieceObj(pieceElementObj);
-    globalPieceObj = pieceElementObj;
-    return pieceElementObj;
+    console.log('piece el obj', pieceElementsObj)
+    setPieceObj(pieceElementsObj);
   }
-  if (initialRen) {
-      var boards = RenderInitialBoard();
-      var positionArray = boards[1];
-      var blankBoard = boards[0];
-      var deepCopy = JSON.parse(JSON.stringify(positionArray));
-      globalwhiteSqCountBoard = deepCopy;
-      globalBoard = deepCopy;
-      alwaysEmptyMatrix = JSON.parse(JSON.stringify(deepCopy));
-      setInitialRen(false);
-      makePieceElements();
-      // renderBoard(positionArray, blankBoard)
+
+  const setInitialBoardPosition = (emptyMatrix) => {
+    emptyMatrix = emptyMatrix || alwaysEmptyMatrix;
+    var newBoard = JSON.parse(JSON.stringify(emptyMatrix));
+    var blackPieces = ['r1', 'n1', 'b1', 'q1', 'k1', 'b2', 'n2', 'r2']
+    var blackPawns = ['p1', 'p2', 'p3', 'p4', 'p5', 'p6', 'p7', 'p8'];
+    var whitePawns = blackPawns.map(pawn => {
+      return pawn.toUpperCase();
+    })
+    var whitePieces = blackPieces.map(piece => {
+      return piece.toUpperCase();
+    })
+    newBoard[0] = blackPieces;
+    newBoard[1] = blackPawns;
+    newBoard[6] = whitePawns;
+    newBoard[7] = whitePieces;
+    updateGlobalBoard(newBoard)
+    setCurrentBoard(newBoard);
+    updateInitialBoard(newBoard)
+  }
+
+  React.useEffect(() => {
+    window.addEventListener('keydown', (event) => {
+    if (event.key === 'ArrowRight') {
+      setCurrentBoard(getNextBoard())
     }
+    if (event.key === 'ArrowLeft') {
+      setCurrentBoard(getPreviousBoard())
+    }
+    });
+  }, []);
 
-  const [chessBoard, setChessBoard] = useState(blankBoard);
+  React.useEffect(() => {
 
-  // useEffect(() => {
-  //   // makePieceElements();
-  //   // let pieceUrl = ChessIcons();
-  // }, []);
+    if (currentUser !== '') {
+      axios.get(`http://localhost:8000/getGames?username=${currentUser}`)
+      .then(results => {
+        console.log('games results', results.data.rows);
+        setUserGames(results.data.rows)
+      })
+    .catch(err => {
+        console.log('err in submit', err);
+      })
+    }
+  }, [])
 
 
-  const renderBoard = (position, sqCtrl) => {
-      var renderedBoard = chessBoard.map((square, currentIndex) => {
-        var matrixIndex = indexToCoord(currentIndex);
-        var row = matrixIndex[0];
-        var column = matrixIndex[1];
-        var color;
 
-        var positionBoardPiece = position[row][column];
-        var divInnerText;
-        // console.log('renderboard pieceobj', pieceObj[positionBoardPiece])
-        if (positionBoardPiece !== 0) {
-          // divInnerText = b[positionBoardPiece];
-          divInnerText = globalPieceObj[positionBoardPiece];
-
-        }
-       if (whiteCtrlOn && blackCtrlOn) {
-        let indexColorSum = sqCtrl[row][column];
-        if (indexColorSum !== 0) {
-          if (indexColorSum > 0) {
-            color = `redSquare${indexColorSum}`
-          }
-          if (indexColorSum < 0) {
-            indexColorSum = indexColorSum * -1;
-            color = `blueSquare${indexColorSum}`
-          }
-        } else {
-          color = isWhiteSquare(matrixIndex);
-        };
-       } else {
-         if (whiteCtrlOn) {
-          let indexColorSum = sqCtrl[row][column];
-          if (indexColorSum !== 0) {
-            color = `redSquare${indexColorSum}`
-          } else {
-            color = isWhiteSquare(matrixIndex);
-          };
-        }
-        if (blackCtrlOn) {
-          let indexColorSum = sqCtrl[row][column];
-          if (indexColorSum !== 0) {
-            color = `blueSquare${indexColorSum}`
-          } else {
-            color = isWhiteSquare(matrixIndex);
-          };
-        }
-        if (!whiteCtrlOn && !blackCtrlOn) {
-        color = isWhiteSquare(matrixIndex);
-        }
-       }
-      return (<div id={matrixIndex} className={color}
-        onDragOver={()=> {setPos(matrixIndex)}}
-        >{divInnerText}</div>
-        );
-      });
-
-    globalBoard = JSON.parse(JSON.stringify(position));
-    console.log('renderedboard', renderedBoard)
-    setChessBoard(renderedBoard);
+  if (initialRen) {
+    let emptyMatrix = makeEmptyMatrix();
+    setAlwaysEmptyMatrix(emptyMatrix);
+    setInitialRen(false);
+    makePieceElements();
+    setInitialBoardPosition(emptyMatrix);
+    setCurrentUser(cookies.name)
   }
 
-
-  const movePiece = (id, piece) => {
-    let slice = JSON.parse(JSON.stringify(globalBoard));
-    console.log('globalboard', globalBoard)
-    // let slice = chessBoard.map(piece => {
-    //   return piece;
-    // });
-
+  const movePiece = (squareId, pieceId) => {
+    let currentBoard = getGlobalBoard();
+    console.log('movepiece cur board', currentBoard)
+    let boardMatrix = JSON.parse(JSON.stringify(currentBoard))
+    let pieceIsOnBoard = false
+    let pieceType = pieceId[0];
+    let pieceTypeCounter = 0
     for (var i = 0; i < 8; i++) {
       for (var j = 0; j < 8; j++) {
-          var current = slice[i][j];
-        if (current === piece) {
-          slice[i][j] = 0;
+        let current = boardMatrix[i][j];
+        if (current === pieceId) {
+          boardMatrix[i][j] = 0;
+          pieceIsOnBoard = true;
+        }
+        if (boardMatrix[i][j][0] === pieceType) {
+          pieceTypeCounter++
         }
       }
     }
-    slice[id[0]][id[1]] = piece;
-    globalBoard = slice;
-    var redSqBoard = calcRedSqs(id, piece, slice, alwaysEmptyMatrix);
-    globalwhiteSqCountBoard = redSqBoard;
-    var blueSqBoard = calcBlueSqs(id, piece, slice, alwaysEmptyMatrix);
-    globalBlackSqCountBoard = blueSqBoard;
+    if (!pieceIsOnBoard) {
+      boardMatrix[squareId[0]][squareId[1]] = `${pieceType}${pieceTypeCounter + 1}`;
+    } else {
+      boardMatrix[squareId[0]][squareId[1]] = pieceId;
+    }
 
-    preRenderBoard(slice, redSqBoard, blueSqBoard);
+    updateGlobalBoard(boardMatrix)
+    setCurrentBoard(boardMatrix);
   }
 
-  const preRenderBoard = (slice, redSqBoard, blueSqBoard) => {
-    if (whiteCtrlOn && blackCtrlOn) {
-      var totalBoard = JSON.parse(JSON.stringify(alwaysEmptyMatrix));
-        for (var i = 0; i < 8; i++) {
-          for (var j = 0; j < 8; j++) {
-            var redSum = redSqBoard[i][j];
-            var blueSum = blueSqBoard[i][j];
-            var totalSum = redSum - blueSum;
-            totalBoard[i][j] = totalSum;
-          }
-        }
-        renderBoard(slice, totalBoard);
-      } else {
-        if (whiteCtrlOn) {
-          renderBoard(slice, redSqBoard);
-        }
-        if (blackCtrlOn) {
-          renderBoard(slice, blueSqBoard);
-        }
-      }
-      if (!whiteCtrlOn && !blackCtrlOn) {
-        renderBoard(slice, alwaysEmptyMatrix);
-      }
-  }
-
-  const onDrop = (e, piece) => {
-    console.log('ondroppiece', piece);
+  const onDrop = (e, pieceId) => {
+    let hoverPosition = getPos();
     e.preventDefault();
     e.stopPropagation();
-    movePiece(currentHoverPosition, piece);
+    movePiece(hoverPosition, pieceId);
   }
 
-  // const setPos = (id) => {
-  //   currentHoverPosition = id;
-  // }
-
-const setInitialBoardPosition = () => {
-
-  var initialBoard = JSON.parse(JSON.stringify(alwaysEmptyMatrix));
-  var piecearray = ['r1', 'n1', 'b1', 'q1', 'k1', 'b2', 'n2', 'r2']
-  var pawnarray = ['p1', 'p2', 'p3', 'p4', 'p5', 'p6', 'p7', 'p8'];
-  var whitePieceArray = piecearray.map(piece => {
-    return piece.toUpperCase();
-  })
-  var whitePawnArray = pawnarray.map(pawn => {
-    return pawn.toUpperCase();
-  })
-
-  for (var i = 0; i < 8; i++) {
-    for (var j = 0; j < 8; j++) {
-      if (i === 0) {
-        initialBoard[i][j] = piecearray[j];
-      }
-      if (i === 1) {
-        initialBoard[i][j] = pawnarray[j];
-      }
-      if (i === 6) {
-        initialBoard[i][j] = whitePawnArray[j];
-      }
-      if (i === 7) {
-        initialBoard[i][j] = whitePieceArray[j];
-      }
-    }
-  }
-  alwaysInitialBoard = initialBoard;
-  // console.log('always initial', alwaysInitialBoard)
-  renderBoard(initialBoard, JSON.parse(JSON.stringify(alwaysEmptyMatrix)));
+const clearBoard = () => {
+  updateGlobalBoard(alwaysEmptyMatrix)
+  setCurrentBoard(alwaysEmptyMatrix);
 }
 
-const reRenderBoard = (viewToToggle) => {
-  let emptyMatrixCopy = JSON.parse(JSON.stringify(alwaysEmptyMatrix));
-
-  if (viewToToggle === 'white') {
-    whiteCtrlOn = !whiteCtrlOn
-  } else {
-    blackCtrlOn = !blackCtrlOn;
-  }
-  let blueSqBoard = calcBlueSqs(null, null, globalBoard, emptyMatrixCopy);
-  let redSqBoard = calcRedSqs(null, null, globalBoard, emptyMatrixCopy)
-  preRenderBoard(globalBoard, redSqBoard, blueSqBoard);
+const readPgn = () => {
+  let initBoard = getInitialBoard();
+  let boards = PgnReader(initBoard, currentPgn);
+  console.log('readpgn boards', boards, currentPgn);
+  updatePgnBoardArray(boards)
 }
 
+const pgnInput = (e) => {
+  console.log('e', e.target.value, typeof e.target.value);
+  setCurrentPgn(e.target.value);
+}
+
+const saveGameToDB = () => {
+
+  let sendObj = {
+    pgn: currentPgn,
+    user: currentUser
+  };
+  console.log('sendobj', sendObj)
+
+  axios.post('http://localhost:8000/saveGame', sendObj)
+  .then(results => {
+    console.log('results', results);
+  }).catch(err => {
+    console.log('err in submit', err);
+   })
+
+}
 
   return (
-    <div className='bigDiv'>
-      <div className='blackDiv'>
+    <div className='bigDiv' class='flex grid grid-cols-3'>
+    <div class='flex flex-row w-64 h-[512px] ml-[230px] border-black border-2 overflow-scroll overflow-y-scroll'>
+      {userGames.length !== 0 ? JSON.stringify(userGames[0].pgn) : ''}
+    </div>
+
+    <CalcSqs blackCtrlOn={blackCtrlOn} whiteCtrlOn={whiteCtrlOn} currentBoard={currentBoard} pieceObj={pieceObj} alwaysEmptyMatrix={alwaysEmptyMatrix} setPos={setPos} boardIsFlipped={boardIsFlipped}/>
+
+    <div class='flex grid grid-rows-2 w-64 h-[300px] mt-[100px]'>
+      <button class='btn-secondary' onClick={() => {setInitialBoardPosition()}}>Starting Position</button>
+      <button class='btn-secondary' onClick={() => clearBoard(currentBoard)}>Clear Board</button>
+      <button class='btn-secondary' onClick={() => setShowPieceElements(!showPieceElements)}>Add Pieces</button>
+      {showPieceElements ?
+       <div className='pieceDiv' class='flex h-[200px] flex-none grid grid-rows-8 w-66 overflow-scroll overflow-y-scroll'>
       {Object.keys(pieceObj).map((pieceId, index) => {
         return (
-        <RenderPieces pieceId={pieceId} pieceElement={Object.entries(pieceObj)[index][1]}/>
-        )
-      })}
+          <RenderPieces currentBoard={currentBoard} pieceId={pieceId} pieceElement={Object.entries(pieceObj)[index][1]}/>
+          )}
+          )}
+        </div> : ''}
+
+    </div>
+    <div className='buttons' class='flex ml-[500px] align-items-center grid grid-cols-4 w-[512px] max-w-[512px]'>
+      <button class='btn-primary' onClick={() => setWhiteCtrlOn(!whiteCtrlOn)}>Show White Sq Ctrl</button>
+      <button class='btn-primary' onClick={() => {setBlackCtrlOn(!blackCtrlOn)}} >Show Black Sq Ctrl</button>
+      <button class='btn-primary' onClick={() => setBoardIsFlipped(!boardIsFlipped)} type="button">Flip Board</button>
+      <button class='btn-primary' onClick={() => setToggleImportPgn(!toggleImportPgn)} type="button">Import Pgn</button>
+      {toggleImportPgn ?
+      <div>
+        <button class='btn-primary' onClick={() => setCurrentBoard(getNextBoard())}>Next Move</button>
+        <button class='btn-primary' onClick={() => setCurrentBoard(getPreviousBoard())} >Previous Move</button>
+        <textarea class='w-[512px] text-black' onChange={(e) => pgnInput(e)} id="w3review" name="w3review" rows="4" cols="50">
+        </textarea><button class='btn-primary' onClick={() => readPgn()} type="button">Render Game</button>
+        <button class='btn-primary' onClick={() => saveGameToDB()} type="button">Save Game</button>
+      </div> : ''}
       </div>
-    <div className='chessboard'>
-      {/* {b.k} */}
-      {chessBoard}
-
-
-    <div className='whiteDiv'>
-
-      {/* </div> */}
-      <button onClick={() => {reRenderBoard('white')}} type="button">Show White Sq Ctrl</button>
-      <button onClick={() => {reRenderBoard('black')}} type="button">Show Black Sq Ctrl</button>
-      <button onClick={() => {setInitialBoardPosition()}} type="button">Set Initial Board Position</button>
-      <button onClick={() => {renderBoard(alwaysEmptyMatrix, alwaysEmptyMatrix)}} type="button">Clear Board</button>
-      {/* <button onClick={() => readPgn(pgnString)} type="button">Read PGN</button> */}
-       </div>
-  </div>
   </div>
   )
 };

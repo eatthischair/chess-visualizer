@@ -1,10 +1,22 @@
 import React, { useState, useRef } from 'react';
 import axios from 'axios';
+var bcrypt = require('bcryptjs');
 
 
 const SignUp = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+
+  const saltRounds = 10;
+
+  // var salt = bcrypt.genSaltSync(10);
+  // var hash = bcrypt.hashSync("B4c0/\/", salt);
+  // bcrypt.genSalt(saltRounds, function(err, salt) {
+  //   bcrypt.hash(password, salt, function(err, hash) {
+  //   // returns hash
+  //   console.log(hash);
+  //   });
+  // });
 
   const usernameHolder = (e) => {
   console.log('ee', e);
@@ -17,16 +29,25 @@ const SignUp = () => {
   }
 
   const checkSubmit = (e) => {
+
+    var salt = bcrypt.genSaltSync(10);
+
+    var hash = bcrypt.hashSync(password, salt);
+
+    let tru = bcrypt.compareSync(password, hash); // true
+    let falmse = bcrypt.compareSync("not_bacon", hash);
+
+    console.log('salt hash;', salt)
     e.preventDefault()
     let sendObj = {
       username: username,
-      password: password
+      password: hash
     };
-    console.log('im in checksubmit boss', sendObj)
+    console.log('im in signup boss', sendObj)
 
-    axios.post('/signuptest', sendObj)
+    axios.post('http://localhost:8000/signUp', sendObj)
     .then(results => {
-      console.log('results', results)
+      console.log('results', results);
     }).catch(err => {
       console.log('err in submit', err);
      })
@@ -35,7 +56,7 @@ const SignUp = () => {
 
 return (
   <div>
-  <div class="container">
+  <div class="container text-black">
   <label for="uname"><b>Username</b></label>
   <input onChange={(e) => {usernameHolder(e.target.value)}} type="text" placeholder="Choose Username" name="uname" required/>
   <label for="psw"><b>Password</b></label>

@@ -1,11 +1,17 @@
 import React, { useState, useRef } from 'react';
 import axios from "axios";
+import { useCookies } from 'react-cookie';
+
+const bcrypt = require('bcryptjs');
+
+// const bcrypt = require ('bcrypt');
 
 function Login() {
   // var axios = require('axios');
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [cookies, setCookie] = useCookies(['user']);
 
   const usernameHolder = (e) => {
   console.log('ee', e);
@@ -25,9 +31,17 @@ function Login() {
     };
     console.log('im in checksubmit boss', sendObj)
 
-    axios.get('/logintest', sendObj)
+    axios.get(`http://localhost:8000/getLogin?username=${username}&password=${password}`)
     .then(results => {
-      console.log('results', results)
+      let DbPassword = results.data.password;
+      let passwordIsCorrect = bcrypt.compareSync(password, DbPassword);
+      console.log('results', results.data, password, DbPassword, passwordIsCorrect)
+      if (passwordIsCorrect) {
+        alert('Login successful!!!!!!!')
+        setCookie('name', username, { path: '/' })
+      } else {
+        alert('please check your fuckin password or username')
+      }
     }).catch(err => {
       console.log('err in submit', err);
      })

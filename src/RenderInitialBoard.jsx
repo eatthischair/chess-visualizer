@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import ReactDOM from 'react-dom';
 import isWhiteSquare from './HelperFunctions/isWhiteSquare.jsx';
-import setPos from './HelperFunctions/setPos.jsx';
+import setPos from './Visualizer.jsx';
 
 
 const RenderInitialBoard = () => {
@@ -12,14 +12,10 @@ const RenderInitialBoard = () => {
     for (var j = 0; j < 8; j++) {
       let id = [i, j]
       var color = isWhiteSquare(id);
-      // blankBoard.push(<div id={id} className={color}
-      //   onDragOver={()=> {setPos(id)}}
-      //   ></div>)
       blankBoard.push(<div id={id} className={color}
-        onDragOver={()=> {setPos(id)}}
-        ></div>)
-
-        pieceArray.push(0);
+      onDragOver={()=> {setPos(id)}}
+      ></div>);
+      pieceArray.push(0);
       }
       positionArray.push(pieceArray);
     };

@@ -1,8 +1,6 @@
 import React, { useState, useRef } from 'react';
 
 const ChessIcons = () => {
-
-
   var b = {};
   //white pieces
   b['K'] = 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/Chess_klt45.svg/1920px-Chess_klt45.svg.png'
@@ -17,7 +15,6 @@ const ChessIcons = () => {
 
   b['P'] = 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/Chess_plt45.svg/1920px-Chess_plt45.svg.png'
 
-
   //black pieces
   b['k'] = 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/Chess_kdt45.svg/1920px-Chess_kdt45.svg.png'
 
@@ -30,9 +27,7 @@ const ChessIcons = () => {
   b['q'] = 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Chess_qdt45.svg/1920px-Chess_qdt45.svg.png'
 
   b['p'] = 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Chess_pdt45.svg/1920px-Chess_pdt45.svg.png'
-
 return b;
 }
-
 
 export default ChessIcons;
