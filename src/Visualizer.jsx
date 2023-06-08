@@ -8,8 +8,6 @@ import isWhiteSquare from './HelperFunctions/isWhiteSquare.jsx';
 import makeEmptyMatrix from './HelperFunctions/makeEmptyMatrix.jsx';
 import PgnReader from './PgnReader.jsx';
 
-// var currentHoverPosition;
-// var globalBoard;
 const Visualizer = ({setPos, currentHoverPosition, getPos, globalBoard, updateGlobalBoard, getGlobalBoard, updateInitialBoard, getInitialBoard, updatePgnBoardArray, getNextBoard, getPreviousBoard, cookies}) => {
 
   const [initialRen, setInitialRen] = useState(true);
@@ -24,6 +22,7 @@ const Visualizer = ({setPos, currentHoverPosition, getPos, globalBoard, updateGl
   const [showPieceElements, setShowPieceElements] = useState(false);
   const [currentUser, setCurrentUser] = useState('');
   const [userGames, setUserGames] = useState([]);
+  const [sumMode, setSumMode] = useState(true);
 
   var makePieceElements = () => {
     var pieceElementsObj = {};
@@ -73,7 +72,6 @@ const Visualizer = ({setPos, currentHoverPosition, getPos, globalBoard, updateGl
   }, []);
 
   React.useEffect(() => {
-
     if (currentUser !== '') {
       axios.get(`http://localhost:8000/getGames?username=${currentUser}`)
       .then(results => {
@@ -85,8 +83,6 @@ const Visualizer = ({setPos, currentHoverPosition, getPos, globalBoard, updateGl
       })
     }
   }, [])
-
-
 
   if (initialRen) {
     let emptyMatrix = makeEmptyMatrix();
@@ -121,7 +117,7 @@ const Visualizer = ({setPos, currentHoverPosition, getPos, globalBoard, updateGl
     } else {
       boardMatrix[squareId[0]][squareId[1]] = pieceId;
     }
-
+    console.log('sum mode', sumMode)
     updateGlobalBoard(boardMatrix)
     setCurrentBoard(boardMatrix);
   }
@@ -173,7 +169,7 @@ const saveGameToDB = () => {
       {userGames.length !== 0 ? JSON.stringify(userGames[0].pgn) : ''}
     </div>
 
-    <CalcSqs blackCtrlOn={blackCtrlOn} whiteCtrlOn={whiteCtrlOn} currentBoard={currentBoard} pieceObj={pieceObj} alwaysEmptyMatrix={alwaysEmptyMatrix} setPos={setPos} boardIsFlipped={boardIsFlipped}/>
+    <CalcSqs blackCtrlOn={blackCtrlOn} whiteCtrlOn={whiteCtrlOn} currentBoard={currentBoard} pieceObj={pieceObj} alwaysEmptyMatrix={alwaysEmptyMatrix} setPos={setPos} boardIsFlipped={boardIsFlipped} sumMode={sumMode}/>
 
     <div class='flex grid grid-rows-2 w-64 h-[300px] mt-[100px]'>
       <button class='btn-secondary' onClick={() => {setInitialBoardPosition()}}>Starting Position</button>
@@ -193,6 +189,16 @@ const saveGameToDB = () => {
       <button class='btn-primary' onClick={() => setWhiteCtrlOn(!whiteCtrlOn)}>Show White Sq Ctrl</button>
       <button class='btn-primary' onClick={() => {setBlackCtrlOn(!blackCtrlOn)}} >Show Black Sq Ctrl</button>
       <button class='btn-primary' onClick={() => setBoardIsFlipped(!boardIsFlipped)} type="button">Flip Board</button>
+
+    <div class="flex items-center mb-4">
+      <input onChange={() => setSumMode(true)} id="default-radio-1" type="radio" value="" checked={sumMode}  name="default-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"/>
+      <label for="default-radio-1" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">By Sum</label>
+    </div>
+    <div class="flex items-center">
+      <input onChange={() => setSumMode(false)} id="default-radio-2" type="radio" value="" checked={!sumMode} name="default-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"/>
+      <label for="default-radio-2" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">By Priority</label>
+    </div>
+
       <button class='btn-primary' onClick={() => setToggleImportPgn(!toggleImportPgn)} type="button">Import Pgn</button>
       {toggleImportPgn ?
       <div>

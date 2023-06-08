@@ -24,6 +24,7 @@ const RenderBoard = ({currentBoard, pieceObj, colorMatrix, setPos, boardIsFlippe
       piece = pieceObj[positionBoardPiece];
     }
     if (colorSum !== 0) {
+      color *= 1;
       if (colorSum > 0) {
         color = `redSquare${colorSum}`
       }

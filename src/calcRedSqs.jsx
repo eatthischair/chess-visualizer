@@ -85,10 +85,7 @@ const calcRedSqs = (positionBoard, alwaysEmptyMatrix, calcForWhite) => {
   }
 
     let sliced = JSON.parse(JSON.stringify(alwaysEmptyMatrix));
-    let col = Array.from('0'.repeat(8));
-    let sliced2 = col.map(el => {
-      return Array.from(el.repeat(8))
-    });
+    let sliced2 = JSON.parse(JSON.stringify(alwaysEmptyMatrix))
     let sliced3 = JSON.parse(JSON.stringify(alwaysEmptyMatrix));
 
 
@@ -128,7 +125,9 @@ const calcRedSqs = (positionBoard, alwaysEmptyMatrix, calcForWhite) => {
               var inBounds = isInBounds(rowIndex, columnIndex)
               if (inBounds) {
                 sliced[rowIndex][columnIndex] += 1;
-                sliced2[rowIndex][columnIndex] += '1'
+                // sliced2[rowIndex][columnIndex] += '1'
+                sliced2[rowIndex][columnIndex] = Math.max(sliced2[rowIndex][columnIndex], 1)
+
               }
             })
           }
@@ -141,7 +140,8 @@ const calcRedSqs = (positionBoard, alwaysEmptyMatrix, calcForWhite) => {
                 var inBounds = isInBounds(rowIndex, columnIndex)
                 if (inBounds) {
                   sliced[rowIndex][columnIndex] += 1;
-                  sliced2[rowIndex][columnIndex] += '4'
+                  // sliced2[rowIndex][columnIndex] += '4'
+                  sliced2[rowIndex][columnIndex] = Math.max(sliced2[rowIndex][columnIndex], 4)
                 }
               });
             }
@@ -156,7 +156,8 @@ const calcRedSqs = (positionBoard, alwaysEmptyMatrix, calcForWhite) => {
                 var inBounds = isInBounds(rowIndex, columnIndex)
                 if (inBounds) {
                   sliced[rowIndex][columnIndex] += 1;
-                  sliced2[rowIndex][columnIndex] += '5'
+                  // sliced2[rowIndex][columnIndex] += '5'
+                  sliced2[rowIndex][columnIndex] = Math.max(sliced2[rowIndex][columnIndex], 5)
                 }
               }
             }
@@ -169,7 +170,9 @@ const calcRedSqs = (positionBoard, alwaysEmptyMatrix, calcForWhite) => {
               var row = square[0];
               var column = square[1];
               sliced[row][column] += 1;
-              sliced2[row][column] += '4'
+              // sliced2[row][column] += '4'
+              sliced2[row][column] = Math.max(sliced2[row][column], 4)
+
             })
           }
           if (sqValue[0] === 'R') {
@@ -180,7 +183,9 @@ const calcRedSqs = (positionBoard, alwaysEmptyMatrix, calcForWhite) => {
               var row = square[0];
               var column = square[1];
               sliced[row][column] += 1;
-              sliced2[row][column] += '3'
+              // sliced2[row][column] += '3'
+              sliced2[row][column] = Math.max(sliced2[row][column], 3)
+
             })
           }
           if (sqValue[0] === 'Q') {
@@ -191,14 +196,17 @@ const calcRedSqs = (positionBoard, alwaysEmptyMatrix, calcForWhite) => {
               var row = square[0];
               var column = square[1];
               sliced[row][column] += 1;
-              sliced2[row][column] += '2'
+              // sliced2[row][column] += '2'
+              sliced2[row][column] = Math.max(sliced2[row][column], 2)
+
             })
             let rookArray = checkDiagonals(coordinates, 'R', isWhitePiece, callObj.R);
             rookArray.forEach(square => {
               var row = square[0];
               var column = square[1];
               sliced[row][column] += 1;
-              sliced2[row][column] += '2'
+              // sliced2[row][column] += '2'
+              sliced2[row][column] = Math.max(sliced2[row][column], 2)
             })
           }
         }
@@ -211,20 +219,6 @@ const calcRedSqs = (positionBoard, alwaysEmptyMatrix, calcForWhite) => {
           sliced[rowIndex][columnIndex] = square * -1;
         })
       })
-    }
-
-  let pieceNames = ['P', 'N', 'B', 'R', 'Q', 'K', 'p', 'n', 'b', 'r', 'q', 'k'];
-  let piecePriority = ['a', 'b', 'b', 'c', 'd', 'e', 'a', 'b', 'b', 'c', 'd', 'e']
-  var priority = {};
-    pieceNames.forEach((el, ind) => {
-    priority[el] = piecePriority[ind]
-  });
-
-    for (let i = 0; i < sliced2.length; i++) {
-      for (let j = 0; j < sliced2.length; j++) {
-        let sqString = sliced2[i][j].split('').sort((a, b) => { return b - a})[0];
-        sliced2[i][j] = sqString
-      }
     }
 
     console.log('sliced3', sliced2, sliced3);

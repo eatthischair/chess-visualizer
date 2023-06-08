@@ -56,7 +56,7 @@ const BigFunction = (cookies) => {
 
     if (moveNum > 0) {
       moveNum--
-      console.log('movenum', moveNum, pgnBoardArray)
+      // console.log('movenum', moveNum, pgnBoardArray)
       updateGlobalBoard(pgnBoardArray[moveNum])
       return pgnBoardArray[moveNum]
     }

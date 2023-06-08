@@ -3,8 +3,9 @@ import calcRedSqs from './calcRedSqs.jsx';
 import RenderBoard from './RenderBoard.jsx';
 import calcPriority from './calcPriority.js';
 
-const CalcSqs = ({blackCtrlOn, whiteCtrlOn, currentBoard, pieceObj, alwaysEmptyMatrix, setPos, boardIsFlipped}) => {
+const CalcSqs = ({blackCtrlOn, whiteCtrlOn, currentBoard, pieceObj, alwaysEmptyMatrix, setPos, boardIsFlipped, sumMode}) => {
 
+  console.log('CURRENTBOARD', currentBoard)
   var colorMatrix;
   var redSqBoardAll = calcRedSqs(currentBoard, alwaysEmptyMatrix, true);
   var redSqBoard = redSqBoardAll[0];
@@ -21,40 +22,46 @@ const CalcSqs = ({blackCtrlOn, whiteCtrlOn, currentBoard, pieceObj, alwaysEmptyM
 
       for (var i = 0; i < 8; i++) {
         for (var j = 0; j < 8; j++) {
-          var redSum = redSqBoard[i][j];
-          var blueSum = blueSqBoard[i][j];
-          var totalSum = redSum + blueSum;
-          totalBoard[i][j] = totalSum;
-
-          let hasWhitePiece = !!redSqBoardPiecePriority[i][j] && redSqBoardPiecePriority[i][j]!== 5;
-          let hasBlackPiece = !!blueSqBoardPiecePriority[i][j] && blueSqBoardPiecePriority[i][j] !== 5;
-          if (hasWhitePiece) {
-            blueSqBoardPriority[i][j] > redSqBoardPiecePriority[i][j] ? priorityBoard[i][j] = blueSqBoardPriority[i][j] * -1 : priorityBoard[i][j] = redSqBoardPiecePriority[i][j]
-          }
-          else if (hasBlackPiece) {
-            redSqBoardPriority[i][j] > blueSqBoardPiecePriority[i][j] ? priorityBoard[i][j] = redSqBoardPriority[i][j] : priorityBoard[i][j] = blueSqBoardPiecePriority[i][j] * -1
-          }
-          else if (blueSqBoardPriority[i][j] === redSqBoardPriority[i][j]) {
-              priorityBoard[i][j] = 0;
+          if (sumMode) {
+            var redSum = redSqBoard[i][j];
+            var blueSum = blueSqBoard[i][j];
+            var totalSum = redSum + blueSum;
+            totalBoard[i][j] = totalSum;
           } else {
-            redSqBoardPriority[i][j] > blueSqBoardPriority[i][j] ? priorityBoard[i][j] = redSqBoardPriority[i][j] : priorityBoard[i][j] = blueSqBoardPriority[i][j] * -1
+            let hasWhitePiece = !!redSqBoardPiecePriority[i][j] && redSqBoardPiecePriority[i][j]!== 5;
+            let hasBlackPiece = !!blueSqBoardPiecePriority[i][j] && blueSqBoardPiecePriority[i][j] !== 5;
+            if (hasWhitePiece) {
+              blueSqBoardPriority[i][j] > redSqBoardPiecePriority[i][j] ? priorityBoard[i][j] = blueSqBoardPriority[i][j] * -1 : priorityBoard[i][j] = redSqBoardPiecePriority[i][j]
+            }
+            else if (hasBlackPiece) {
+              redSqBoardPriority[i][j] > blueSqBoardPiecePriority[i][j] ? priorityBoard[i][j] = redSqBoardPriority[i][j] : priorityBoard[i][j] = blueSqBoardPiecePriority[i][j] * -1
+            }
+            else if (blueSqBoardPriority[i][j] === redSqBoardPriority[i][j]) {
+                priorityBoard[i][j] = 0;
+            } else {
+              redSqBoardPriority[i][j] > blueSqBoardPriority[i][j] ? priorityBoard[i][j] = redSqBoardPriority[i][j] : priorityBoard[i][j] = blueSqBoardPriority[i][j] * -1
+            }
           }
         }
       }
+      sumMode ? colorMatrix = totalBoard : colorMatrix = priorityBoard
       // console.log('priorityboard', priorityBoard)
       // colorMatrix = totalBoard;
-      colorMatrix = priorityBoard;
+      // colorMatrix = priorityBoard;
     } else {
       if (whiteCtrlOn) {
-        colorMatrix = redSqBoard;
+        sumMode ? colorMatrix = redSqBoard : colorMatrix = redSqBoardPriority
+        // colorMatrix = redSqBoard;
       }
       else if (blackCtrlOn) {
-        colorMatrix = blueSqBoard;
+        sumMode ? colorMatrix = blueSqBoard : colorMatrix = blueSqBoardPriority
+        // colorMatrix = blueSqBoard;
       }
       else if (!whiteCtrlOn && !blackCtrlOn) {
         colorMatrix = alwaysEmptyMatrix;
       }
     }
+    console.log('COLORMATRIX', colorMatrix)
     return (<div class='flex place-content-center'>
       <RenderBoard currentBoard={currentBoard} pieceObj={pieceObj} colorMatrix={colorMatrix} setPos={setPos} boardIsFlipped={boardIsFlipped}/>
     </div>
