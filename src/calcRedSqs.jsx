@@ -221,7 +221,7 @@ const calcRedSqs = (positionBoard, alwaysEmptyMatrix, calcForWhite) => {
       })
     }
 
-    console.log('sliced3', sliced2, sliced3);
+    // console.log('sliced3', sliced2, sliced3);
 
     return [sliced, sliced2, sliced3];
   }

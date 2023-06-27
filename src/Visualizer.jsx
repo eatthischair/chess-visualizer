@@ -1,14 +1,20 @@
 import React, { useState, useRef, useEffect } from 'react';
 import axios from "axios";
 import './App.css';
-import ChessIcons from './ChessIcons.jsx';
+// import ChessIcons from './ChessIcons.jsx';
 import RenderPieces from './RenderPieces.jsx';
 import CalcSqs from './CalcSqs.jsx';
-import isWhiteSquare from './HelperFunctions/isWhiteSquare.jsx';
 import makeEmptyMatrix from './HelperFunctions/makeEmptyMatrix.jsx';
 import PgnReader from './PgnReader.jsx';
 
+
+import { ColorPicker, useColor } from "react-color-palette";
+import "react-color-palette/lib/css/styles.css";
+
+
 const Visualizer = ({setPos, currentHoverPosition, getPos, globalBoard, updateGlobalBoard, getGlobalBoard, updateInitialBoard, getInitialBoard, updatePgnBoardArray, getNextBoard, getPreviousBoard, cookies}) => {
+
+  const [color, setColor] = useColor("hex", "#121212");
 
   const [initialRen, setInitialRen] = useState(true);
   const [pieceObj, setPieceObj] = useState({});
@@ -27,8 +33,10 @@ const Visualizer = ({setPos, currentHoverPosition, getPos, globalBoard, updateGl
   var makePieceElements = () => {
     var pieceElementsObj = {};
     let pieceArray = ['K', 'N', 'B', 'R', 'Q', 'P', 'k', 'n', 'b', 'r', 'q', 'p'];
+    // let pieces = ChessIcons();
+    let pieces = require('./ChessIcons').b;
     pieceArray.forEach(piece => {
-      let pieceUrl = ChessIcons()[piece]
+      let pieceUrl = pieces[piece];
       for (var i = 1; i <= 64; i++) {
         let pieceString = `${piece}${i}`
         pieceElementsObj[pieceString] =
@@ -36,7 +44,6 @@ const Visualizer = ({setPos, currentHoverPosition, getPos, globalBoard, updateGl
         onDragEnd={(e)=> {onDrop(e, pieceString)}}></img>
       }
     })
-    console.log('piece el obj', pieceElementsObj)
     setPieceObj(pieceElementsObj);
   }
 
@@ -75,11 +82,11 @@ const Visualizer = ({setPos, currentHoverPosition, getPos, globalBoard, updateGl
     if (currentUser !== '') {
       axios.get(`http://localhost:8000/getGames?username=${currentUser}`)
       .then(results => {
-        console.log('games results', results.data.rows);
+        // console.log('games results', results.data.rows);
         setUserGames(results.data.rows)
       })
     .catch(err => {
-        console.log('err in submit', err);
+        // console.log('err in submit', err);
       })
     }
   }, [])
@@ -94,8 +101,9 @@ const Visualizer = ({setPos, currentHoverPosition, getPos, globalBoard, updateGl
   }
 
   const movePiece = (squareId, pieceId) => {
+    console.log('COLOR IN MOVEPIECE', color)
     let currentBoard = getGlobalBoard();
-    console.log('movepiece cur board', currentBoard)
+    // console.log('movepiece cur board', currentBoard)
     let boardMatrix = JSON.parse(JSON.stringify(currentBoard))
     let pieceIsOnBoard = false
     let pieceType = pieceId[0];
@@ -117,51 +125,48 @@ const Visualizer = ({setPos, currentHoverPosition, getPos, globalBoard, updateGl
     } else {
       boardMatrix[squareId[0]][squareId[1]] = pieceId;
     }
-    console.log('sum mode', sumMode)
     updateGlobalBoard(boardMatrix)
     setCurrentBoard(boardMatrix);
   }
 
   const onDrop = (e, pieceId) => {
-    let hoverPosition = getPos();
     e.preventDefault();
     e.stopPropagation();
-    movePiece(hoverPosition, pieceId);
+    movePiece(getPos(), pieceId);
   }
 
-const clearBoard = () => {
-  updateGlobalBoard(alwaysEmptyMatrix)
-  setCurrentBoard(alwaysEmptyMatrix);
-}
+  const clearBoard = () => {
+    updateGlobalBoard(alwaysEmptyMatrix)
+    setCurrentBoard(alwaysEmptyMatrix);
+  }
 
-const readPgn = () => {
-  let initBoard = getInitialBoard();
-  let boards = PgnReader(initBoard, currentPgn);
-  console.log('readpgn boards', boards, currentPgn);
-  updatePgnBoardArray(boards)
-}
+  const readPgn = () => {
+    let initBoard = getInitialBoard();
+    let boards = PgnReader(initBoard, currentPgn);
+    updatePgnBoardArray(boards)
+  }
 
-const pgnInput = (e) => {
-  console.log('e', e.target.value, typeof e.target.value);
-  setCurrentPgn(e.target.value);
-}
+  const pgnInput = (e) => {
+    setCurrentPgn(e.target.value);
+  }
 
-const saveGameToDB = () => {
+  const colorChange = (event) => {
+    setColor(event);
+    console.log('color change event', event.hex)
+  }
 
-  let sendObj = {
-    pgn: currentPgn,
-    user: currentUser
-  };
-  console.log('sendobj', sendObj)
-
-  axios.post('http://localhost:8000/saveGame', sendObj)
-  .then(results => {
-    console.log('results', results);
-  }).catch(err => {
-    console.log('err in submit', err);
-   })
-
-}
+  const saveGameToDB = () => {
+    let sendObj = {
+      pgn: currentPgn,
+      user: currentUser
+    };
+    axios.post('http://localhost:8000/saveGame', sendObj)
+    .then(results => {
+      console.log('results', results);
+    }).catch(err => {
+      console.log('err in submit', err);
+    })
+  }
 
   return (
     <div className='bigDiv' class='flex grid grid-cols-3'>
@@ -169,7 +174,7 @@ const saveGameToDB = () => {
       {userGames.length !== 0 ? JSON.stringify(userGames[0].pgn) : ''}
     </div>
 
-    <CalcSqs blackCtrlOn={blackCtrlOn} whiteCtrlOn={whiteCtrlOn} currentBoard={currentBoard} pieceObj={pieceObj} alwaysEmptyMatrix={alwaysEmptyMatrix} setPos={setPos} boardIsFlipped={boardIsFlipped} sumMode={sumMode}/>
+    <CalcSqs blackCtrlOn={blackCtrlOn} whiteCtrlOn={whiteCtrlOn} currentBoard={currentBoard} pieceObj={pieceObj} alwaysEmptyMatrix={alwaysEmptyMatrix} setPos={setPos} boardIsFlipped={boardIsFlipped} sumMode={sumMode} color={color}/>
 
     <div class='flex grid grid-rows-2 w-64 h-[300px] mt-[100px]'>
       <button class='btn-secondary' onClick={() => {setInitialBoardPosition()}}>Starting Position</button>
@@ -185,6 +190,16 @@ const saveGameToDB = () => {
         </div> : ''}
 
     </div>
+    <div>
+      <div>
+        <ColorPicker width={456} height={228}
+                   color={color}
+                  hideHSV dark alpha
+                  onChange={(e) => {colorChange(e)}} />
+    </div>
+    <div>color haha</div>
+    </div>
+
     <div className='buttons' class='flex ml-[500px] align-items-center grid grid-cols-4 w-[512px] max-w-[512px]'>
       <button class='btn-primary' onClick={() => setWhiteCtrlOn(!whiteCtrlOn)}>Show White Sq Ctrl</button>
       <button class='btn-primary' onClick={() => {setBlackCtrlOn(!blackCtrlOn)}} >Show Black Sq Ctrl</button>

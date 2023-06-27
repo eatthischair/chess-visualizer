@@ -6,14 +6,7 @@ import GameList from './GameList';
 
 const BigFunction = (cookies) => {
 
-  console.log('big func cookies', cookies.cookies)
-
   var currentHoverPosition;
-  var globalBoard;
-  var alwaysInitialBoard;
-  var pgnBoardArray;
-  var moveNum = -1;
-
   const setPos = (id) => {
     currentHoverPosition = id;
     return currentHoverPosition;
@@ -21,6 +14,8 @@ const BigFunction = (cookies) => {
   const getPos = () => {
     return currentHoverPosition;
   }
+
+  var globalBoard;
   const updateGlobalBoard = (newBoard) => {
     globalBoard = newBoard;
     return globalBoard;
@@ -28,15 +23,21 @@ const BigFunction = (cookies) => {
   const getGlobalBoard = () => {
     return globalBoard;
   }
+
+  var alwaysInitialBoard;
   const updateInitialBoard = (newBoard) => {
     alwaysInitialBoard = newBoard;
   }
   const getInitialBoard = () => {
     return alwaysInitialBoard;
   }
+
+  var pgnBoardArray;
   const updatePgnBoardArray = (array) => {
     pgnBoardArray = array;
   }
+
+  var moveNum = -1;
   const getNextBoard = () => {
     if (moveNum < pgnBoardArray.length - 1) {
       moveNum++
@@ -56,11 +57,9 @@ const BigFunction = (cookies) => {
 
     if (moveNum > 0) {
       moveNum--
-      // console.log('movenum', moveNum, pgnBoardArray)
       updateGlobalBoard(pgnBoardArray[moveNum])
       return pgnBoardArray[moveNum]
     }
-
   }
 
   return (

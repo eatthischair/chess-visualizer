@@ -3,11 +3,8 @@ import callRecurse from './PgnFunctions/callRecurse';
 
 const PgnReader = (initialBoard, pgn) => {
 
-  var boardArray = [];
 
-  let pgnArray = pgn.split('')
   let pgnStart;
-
   let onlyMoves;
   let foundStart = false;
   let commentIndexes = [];
@@ -16,6 +13,8 @@ const PgnReader = (initialBoard, pgn) => {
   let insidePgnData = false;
   let commentNestCounter = 0;
   //filter pgndata (contained within []) and comments
+  let pgnArray = pgn.split('')
+
   for (let i = 0; i < pgnArray.length; i++) {
     if (pgnArray[i] === '1' && !foundStart && !insidePgnData) {
       if (pgnArray[i + 1] === '.') {
@@ -59,9 +58,9 @@ const PgnReader = (initialBoard, pgn) => {
   }
   for (let i = 0; i < dataIndexes.length; i += 2) {
     let slice = pgnArray.slice(dataIndexes[i] + 1, dataIndexes[i + 1]).join('').split("'")
-    console.log('data slice', slice)
+    // console.log('data slice', slice)
   }
-  console.log('data')
+  // console.log('data')
   commentIndexes.unshift(pgnStart - 1);
 
   let noComments = [];
@@ -129,6 +128,7 @@ const PgnReader = (initialBoard, pgn) => {
     }
   })
 
+  var boardArray = [];
   finalPgn.forEach((item, index) => {
     let calcForWhite = false;
     if (index % 2 === 0) {

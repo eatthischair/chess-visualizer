@@ -1,11 +1,10 @@
 import React, { useState, useRef, useEffect } from 'react';
 import calcRedSqs from './calcRedSqs.jsx';
 import RenderBoard from './RenderBoard.jsx';
-import calcPriority from './calcPriority.js';
 
-const CalcSqs = ({blackCtrlOn, whiteCtrlOn, currentBoard, pieceObj, alwaysEmptyMatrix, setPos, boardIsFlipped, sumMode}) => {
+const CalcSqs = ({blackCtrlOn, whiteCtrlOn, currentBoard, pieceObj, alwaysEmptyMatrix, setPos, boardIsFlipped, sumMode, color}) => {
 
-  console.log('CURRENTBOARD', currentBoard)
+  // console.log('CURRENTBOARD', currentBoard)
   var colorMatrix;
   var redSqBoardAll = calcRedSqs(currentBoard, alwaysEmptyMatrix, true);
   var redSqBoard = redSqBoardAll[0];
@@ -61,9 +60,9 @@ const CalcSqs = ({blackCtrlOn, whiteCtrlOn, currentBoard, pieceObj, alwaysEmptyM
         colorMatrix = alwaysEmptyMatrix;
       }
     }
-    console.log('COLORMATRIX', colorMatrix)
+    // console.log('COLORMATRIX', colorMatrix)
     return (<div class='flex place-content-center'>
-      <RenderBoard currentBoard={currentBoard} pieceObj={pieceObj} colorMatrix={colorMatrix} setPos={setPos} boardIsFlipped={boardIsFlipped}/>
+      <RenderBoard currentBoard={currentBoard} pieceObj={pieceObj} colorMatrix={colorMatrix} setPos={setPos} boardIsFlipped={boardIsFlipped} color={color}/>
     </div>
     )
 }

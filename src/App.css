@@ -94,7 +94,9 @@ body {
   width: var(--sqWidth);
   height: var(--sqWidth);
   float:left;
-  background: linear-gradient(rgb(255, 148, 209), rgba(233, 109, 109, 0.5)),
+  /* background: linear-gradient(rgb(255, 148, 209), rgba(233, 109, 109, 0.5)),
+  linear-gradient(white, white); */
+  background: linear-gradient(rgb(242, 204, 255), rgb(255, 199, 251)),
   linear-gradient(white, white);
 
 }
@@ -103,7 +105,9 @@ body {
   width: var(--sqWidth);
   height: var(--sqWidth);
   float:left;
-  background: linear-gradient(rgb(255, 132, 209), rgba(205, 75, 32, 0.762)),
+  /* background: linear-gradient(rgb(255, 132, 209), rgba(205, 75, 32, 0.762)),
+  linear-gradient(white, white); */
+  background: linear-gradient(rgb(236, 181, 255), rgb(255, 170, 249)),
   linear-gradient(white, white);
 }
 .redSquare5{
@@ -111,7 +115,9 @@ body {
   width: var(--sqWidth);
   height: var(--sqWidth);
   float:left;
-  background: linear-gradient(rgb(255, 116, 209), rgba(135, 14, 14, 0.762)),
+  /* background: linear-gradient(rgb(255, 116, 209), rgba(135, 14, 14, 0.762)),
+  linear-gradient(white, rgb(255, 255, 255)); */
+  background: linear-gradient(rgb(220, 116, 255), rgba(255, 116, 246, 0.897)),
   linear-gradient(white, rgb(255, 255, 255));
 }
 .redSquare6{
@@ -161,7 +167,7 @@ body {
   width: var(--sqWidth);
   height: var(--sqWidth);
   float:left;
-  background: linear-gradient(rgba(198, 126, 255, 0.841), rgba(20, 6, 175, 0.851)),
+  background: linear-gradient(rgba(198, 126, 255, 0.841), rgba(205, 147, 255, 0.851)),
   linear-gradient(white, white);
 }
 .blueSquare5 {
@@ -169,7 +175,9 @@ body {
   width: var(--sqWidth);
   height: var(--sqWidth);
   float:left;
-  background: linear-gradient(rgba(198, 93, 255, 0.841), rgba(121, 46, 249, 0.851)),
+  /* background: linear-gradient(rgba(198, 90, 255, 0.841), rgba(104, 39, 217, 0.851)),
+  linear-gradient(white, white); */
+  background: linear-gradient(rgb(255, 204, 0), rgba(218, 235, 109, 0.941)),
   linear-gradient(white, white);
 }
 .blueSquare6 {

@@ -4,12 +4,13 @@ import isWhiteSquare from './HelperFunctions/isWhiteSquare.jsx';
 import indexToCoord from './HelperFunctions/indexToCoord.jsx';
 import './App.css';
 
-const RenderBoard = ({currentBoard, pieceObj, colorMatrix, setPos, boardIsFlipped}) => {
-
+const RenderBoard = ({currentBoard, pieceObj, colorMatrix, setPos, boardIsFlipped, color}) => {
+  console.log('COLOR FROM PAGE', color.hex, typeof color.hex)
   let chessBoard = []
   for (var i = 0; i < 64; i++) {
     chessBoard.push(0);
   }
+  var aaaa = color.hex;
 
   var renderedBoard = chessBoard.map((square, currentIndex) => {
     var matrixIndex = indexToCoord(currentIndex);
@@ -35,7 +36,16 @@ const RenderBoard = ({currentBoard, pieceObj, colorMatrix, setPos, boardIsFlippe
     } else {
       color = isWhiteSquare(matrixIndex);
     }
-    return (<div id={matrixIndex} className={color}
+
+    let isWhite = ((row * 1) % 2 === 0) === ((column * 1) % 2 === 0);
+    let eee;
+    if (isWhite) {
+      eee = '#ffffff';
+    } else {
+      eee = aaaa;
+    }
+
+    return (<div style={{backgroundColor: eee}} id={matrixIndex} className={color}
       onDragOver={()=> {setPos(matrixIndex)}}
       >{piece}</div>
       );
