@@ -1,6 +1,5 @@
 /* eslint-disable no-loop-func */
-import React, { useState, useRef } from 'react';
-import isInBounds from './HelperFunctions/isInBounds.jsx';
+import isInBounds from '../HelperFunctions/isInBounds.jsx';
 
 const checkForAbsolutePin = (currentBoard, calcForWhite, recurseCallObj) => {
 
@@ -65,6 +64,7 @@ const checkForAbsolutePin = (currentBoard, calcForWhite, recurseCallObj) => {
       }
     }
 
+
     for (var checkType in recurseCallObj) {
       for (var checkDirection in recurseCallObj[checkType]) {
       recurseCallObj[checkType][checkDirection].forEach(callIncrements => {
@@ -76,4 +76,5 @@ const checkForAbsolutePin = (currentBoard, calcForWhite, recurseCallObj) => {
     }
     return pinnedPieceArray;
   }
+
 export default checkForAbsolutePin;

@@ -1,6 +1,6 @@
 /* eslint-disable no-loop-func */
 import React, { useState, useRef } from 'react';
-import isInBounds from './HelperFunctions/isInBounds.jsx';
+import isInBounds from '../HelperFunctions/isInBounds';
 import checkForAbsolutePin from './checkForAbsolutePin.jsx';
 
 const calcRedSqs = (positionBoard, alwaysEmptyMatrix, calcForWhite) => {

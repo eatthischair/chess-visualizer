@@ -1,8 +1,5 @@
-import React, { useState, useRef } from 'react';
-import ReactDOM from 'react-dom';
 import isWhiteSquare from './HelperFunctions/isWhiteSquare.jsx';
 import setPos from './Visualizer.jsx';
-
 
 const RenderInitialBoard = () => {
   var blankBoard = [];
@@ -20,11 +17,6 @@ const RenderInitialBoard = () => {
       positionArray.push(pieceArray);
     };
     return [blankBoard, positionArray];
-
-
 }
 
-
 export default RenderInitialBoard;
-
-

@@ -1,10 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react';
 import calcRedSqs from './calcRedSqs.jsx';
-import RenderBoard from './RenderBoard.jsx';
+import RenderBoard from '../RenderBoard';
 
-const CalcSqs = ({blackCtrlOn, whiteCtrlOn, currentBoard, pieceObj, alwaysEmptyMatrix, setPos, boardIsFlipped, sumMode, color}) => {
+const CalcSqs = ({blackCtrlOn, whiteCtrlOn, currentBoard, pieceObj, alwaysEmptyMatrix, setPos, boardIsFlipped, sumMode, color1, color2, hexObj}) => {
 
-  // console.log('CURRENTBOARD', currentBoard)
+  console.log('hexObj calcsqs', hexObj, color1, color2)
+
   var colorMatrix;
   var redSqBoardAll = calcRedSqs(currentBoard, alwaysEmptyMatrix, true);
   var redSqBoard = redSqBoardAll[0];
@@ -62,7 +63,7 @@ const CalcSqs = ({blackCtrlOn, whiteCtrlOn, currentBoard, pieceObj, alwaysEmptyM
     }
     // console.log('COLORMATRIX', colorMatrix)
     return (<div class='flex place-content-center'>
-      <RenderBoard currentBoard={currentBoard} pieceObj={pieceObj} colorMatrix={colorMatrix} setPos={setPos} boardIsFlipped={boardIsFlipped} color={color}/>
+      <RenderBoard currentBoard={currentBoard} pieceObj={pieceObj} colorMatrix={colorMatrix} setPos={setPos} boardIsFlipped={boardIsFlipped} color1={color1} color2={color2} hexObj={hexObj}/>
     </div>
     )
 }

@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import Visualizer from './Visualizer.jsx';
-import PgnReader from './PgnReader.jsx';
+import PgnReader from './PgnFunctions/PgnReader.jsx';
 import { Link } from "react-router-dom";
 
 import { Fragment} from 'react'

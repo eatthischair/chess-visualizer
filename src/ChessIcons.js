@@ -37,4 +37,4 @@ b["q"] =
 b["p"] =
   "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Chess_pdt45.svg/1920px-Chess_pdt45.svg.png";
 
-module.exports.b = b;
+module.exports = b;

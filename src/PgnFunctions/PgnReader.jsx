@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import callRecurse from './PgnFunctions/callRecurse';
+import callRecurse from './callRecurse';
 
 const PgnReader = (initialBoard, pgn) => {
 
