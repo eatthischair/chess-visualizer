@@ -8,7 +8,7 @@ import PgnReader from './PgnFunctions/PgnReader.jsx';
 
 import { ColorPicker, useColor } from "react-color-palette";
 import "react-color-palette/lib/css/styles.css";
-
+import RadioButtons from './RenderRadioButtons.js';
 
 const Visualizer = ({setPos, currentHoverPosition, getPos, globalBoard, updateGlobalBoard, getGlobalBoard, updateInitialBoard,        getInitialBoard, updatePgnBoardArray, getNextBoard, getPreviousBoard, cookies, colorToUpdate, updateColor, getColor}) => {
 
@@ -186,30 +186,57 @@ const Visualizer = ({setPos, currentHoverPosition, getPos, globalBoard, updateGl
   const [hexObj, setHexObj] = useState({
     whiteSquare1: '#ffffff',
     whiteSquare2: '#ffffff',
-    blackSquare1: '#000000',
-    blackSquare2: '#000000'
+    blackSquare1: '#fff0e1',
+    blackSquare2: '#edddc2',
+    redSquare11: '#ffc9e1ff',
+    redSquare12: '#ffd8edff',
+    redSquare21: '#ffc7e8',
+    redSquare22: '#fb90cf',
+    redSquare31: '#ff7ad6',
+    redSquare32: '#ff96fc',
+    redSquare41: '#ff70c3',
+    redSquare42: '#f5489a',
+    redSquare51: '#f12792',
+    redSquare52: '#ff2083',
+
+    redSquare61: '#f12799',
+    redSquare62: '#ff2099',
+    redSquare71: '#ff00000',
+    redSquare72: '#ff00000',
+
+    blueSquare11: '#b8edff',
+    blueSquare12: '#c1cfff',
+    blueSquare21: '#96bfffff',
+    blueSquare22: '#6ca1ff',
+    blueSquare31: '#4d57ff',
+    blueSquare32: '#9cadff',
+    blueSquare41: '#471bff',
+    blueSquare42: '#753eab',
+    blueSquare51: '#2140ff',
+    blueSquare52: '#2f304c',
+
+    blueSquare61: '#471bff',
+    blueSquare62: '#753eab',
+    blueSquare71: '#2140ff',
+    blueSquare72: '#2f304c',
   })
 
 
   const colorChange1 = (event) => {
     setColor1(event);
     setHexObj({...hexObj, [getColor() + '1']: event.hex});
-    console.log('color change event', hexObj)
+    console.log('color change event 11', hexObj)
   }
 
   const colorChange2 = (event) => {
     setColor2(event);
     setHexObj({...hexObj, [getColor() + '2']: event.hex});
-    console.log('color change event', hexObj)
+    console.log('color change event 22', hexObj)
   }
 
   const hexUpdate = (hexToUpdate) => {
     updateColor(hexToUpdate);
-
     setShowWheel(true);
-    // // hexObj[hexToUpdate] = color.hex;
-    // setHexObj({...hexObj, [hexToUpdate]: color.hex});
-    // console.log('hexupdate hexobj', hexObj, color.hex)
     console.log('updated', getColor())
   }
 
@@ -230,6 +257,8 @@ const Visualizer = ({setPos, currentHoverPosition, getPos, globalBoard, updateGl
   const [whiteCtrlOn, setWhiteCtrlOn] = useState(false);
   const [showColorWheel, setShowColorWheel] = useState(false);
   const [showWheel, setShowWheel] = useState(false);
+
+  console.log('radiobuttons', RadioButtons('whiteSquare', 0, hexUpdate))
 
   return (
     <div className='bigDiv' class='flex grid grid-cols-3'>
@@ -259,6 +288,7 @@ const Visualizer = ({setPos, currentHoverPosition, getPos, globalBoard, updateGl
       <button class='btn-primary' onClick={() => setBoardIsFlipped(!boardIsFlipped)} type="button">Flip Board</button>
     </div>
 
+      {RadioButtons('whiteSquare', 0, hexUpdate)}
     <button class='btn-primary flex ml-[500px] align-items-center grid grid-cols-4 w-[512px] max-w-[512px]' onClick={() => setShowColorWheel(!showColorWheel)}>Color Wheel</button>
     {showColorWheel ?
     <div>
@@ -273,6 +303,7 @@ const Visualizer = ({setPos, currentHoverPosition, getPos, globalBoard, updateGl
             <label for="radio-1" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">White Sq Color</label>
             <input onClick={() => hexUpdate('blackSquare')} type="radio" name="radio-1" className="radio" />
             <label for="radio-1" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Black Sq Color</label>
+
             {showWheel ?
               <div>
                 <ColorPicker width={256} height={128}
@@ -294,7 +325,34 @@ const Visualizer = ({setPos, currentHoverPosition, getPos, globalBoard, updateGl
             White Sq Colors
           </div>
           <div className="collapse-content">
-            <p>hello</p>
+            <input onClick={() => hexUpdate('redSquare1')} type="radio" name="radio-1" className="radio"/>
+            <label for="radio-1" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">White Sq Ctrl 1</label>
+            <input onClick={() => hexUpdate('redSquare2')} type="radio" name="radio-1" className="radio" />
+            <label for="radio-1" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">White Sq Ctrl 2</label>
+            <input onClick={() => hexUpdate('redSquare3')} type="radio" name="radio-1" className="radio" />
+            <label for="radio-1" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">White Sq Ctrl 3</label>
+
+            <input onClick={() => hexUpdate('redSquare4')} type="radio" name="radio-1" className="radio"/>
+            <label for="radio-1" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">White Sq Ctrl 4</label>
+            <input onClick={() => hexUpdate('redSquare5')} type="radio" name="radio-1" className="radio" />
+            <label for="radio-1" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">White Sq Ctrl 5</label>
+            <input onClick={() => hexUpdate('redSquare6')} type="radio" name="radio-1" className="radio" />
+            <label for="radio-1" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">White Sq Ctrl 6</label>
+            <input onClick={() => hexUpdate('redSquare7')} type="radio" name="radio-1" className="radio" />
+            <label for="radio-1" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">White Sq Ctrl 7</label>
+
+            {showWheel ?
+              <div>
+                <ColorPicker width={256} height={128}
+                  color={color1}
+                  hideHSV dark alpha
+                  onChange={(e) => {colorChange1(e)}} />
+
+                   <ColorPicker width={256} height={128}
+                  color={color2}
+                  hideHSV dark alpha
+                  onChange={(e) => {colorChange2(e)}} />
+              </div> : ''}
           </div>
         </div>
       <div className="collapse bg-base-200">
@@ -303,10 +361,38 @@ const Visualizer = ({setPos, currentHoverPosition, getPos, globalBoard, updateGl
             Black Sq Colors
           </div>
           <div className="collapse-content">
-            <p>hello</p>
+            <input onClick={() => hexUpdate('blueSquare1')} type="radio" name="radio-1" className="radio"/>
+            <label for="radio-1" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Black Sq Ctrl 1</label>
+            <input onClick={() => hexUpdate('blueSquare2')} type="radio" name="radio-1" className="radio" />
+            <label for="radio-1" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Black Sq Ctrl 2</label>
+            <input onClick={() => hexUpdate('blueSquare3')} type="radio" name="radio-1" className="radio" />
+            <label for="radio-1" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Black Sq Ctrl 3</label>
+
+            <input onClick={() => hexUpdate('blueSquare4')} type="radio" name="radio-1" className="radio"/>
+            <label for="radio-1" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Black Sq Ctrl 4</label>
+            <input onClick={() => hexUpdate('blueSquare5')} type="radio" name="radio-1" className="radio" />
+            <label for="radio-1" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Black Sq Ctrl 5</label>
+            <input onClick={() => hexUpdate('blueSquare6')} type="radio" name="radio-1" className="radio" />
+            <label for="radio-1" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Black Sq Ctrl 6</label>
+            <input onClick={() => hexUpdate('blueSquare7')} type="radio" name="radio-1" className="radio" />
+            <label for="radio-1" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Black Sq Ctrl 7</label>
+
+            {showWheel ?
+              <div>
+                <ColorPicker width={256} height={128}
+                  color={color1}
+                  hideHSV dark alpha
+                  onChange={(e) => {colorChange1(e)}} />
+
+                   <ColorPicker width={256} height={128}
+                  color={color2}
+                  hideHSV dark alpha
+                  onChange={(e) => {colorChange2(e)}} />
+              </div> : ''}
           </div>
       </div>
 </div> : ''}
+
 {/*
       <div class="flex items-center mb-4">
         <input onChange={() => setSumMode(true)} id="default-radio-2" type="radio" value="" checked={sumMode}  name="default-radio" class="radio-1"/>

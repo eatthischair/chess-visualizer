@@ -8,6 +8,7 @@ const BigFunction = (cookies) => {
 
   var currentHoverPosition;
   var colorToUpdate = '';
+
   const updateColor = (color) => {
     colorToUpdate = color;
   }

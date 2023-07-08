@@ -1,12 +1,10 @@
-import React, { useState, useRef, useEffect } from 'react';
-import ReactDOM from 'react-dom';
 import isWhiteSquare from './HelperFunctions/isWhiteSquare.jsx';
 import indexToCoord from './HelperFunctions/indexToCoord.jsx';
 import './App.css';
 
 const RenderBoard = ({currentBoard, pieceObj, colorMatrix, setPos, boardIsFlipped, color1, color2, hexObj, currentColor}) => {
-  console.log('COLOR FROM RENDERBOARD', hexObj, color1, color2)
 
+  console.log('hexobj', hexObj)
   let chessBoard = []
   for (var i = 0; i < 64; i++) {
     chessBoard.push(0);
@@ -20,10 +18,13 @@ const RenderBoard = ({currentBoard, pieceObj, colorMatrix, setPos, boardIsFlippe
     var positionBoardPiece = currentBoard[row][column];
     var piece;
     let colorSum = colorMatrix[row][column];
+    if (colorSum > 7) colorSum = 7;
+    if (colorSum < -7) colorSum = -7;
 
     if (positionBoardPiece !== 0) {
       piece = pieceObj[positionBoardPiece];
     }
+
     if (colorSum !== 0) {
       color *= 1;
       if (colorSum > 0) {
@@ -35,7 +36,10 @@ const RenderBoard = ({currentBoard, pieceObj, colorMatrix, setPos, boardIsFlippe
       }
     } else {
       color = isWhiteSquare(matrixIndex);
+      colorSum = 1;
     }
+
+    // console.log('COLOR', color + '1', color + '2')
 
     return (<div style={{ background: `linear-gradient(${hexObj[color + '1']}, ${hexObj[color + '2']})`}} id={matrixIndex} className={color}
 
