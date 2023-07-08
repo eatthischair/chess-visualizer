@@ -6,6 +6,9 @@ import CalcSqs from './ColorCalcFunctions/CalcSqs.jsx';
 import makeEmptyMatrix from './HelperFunctions/makeEmptyMatrix.js';
 import PgnReader from './PgnFunctions/PgnReader.jsx';
 
+import makePieceElements from './makePieceElements.js';
+import setInitialBoardPosition from './setInitialBoard.js';
+
 import { ColorPicker, useColor } from "react-color-palette";
 import "react-color-palette/lib/css/styles.css";
 import RadioButtons from './RenderRadioButtons.js';
@@ -26,66 +29,8 @@ const Visualizer = ({setPos, currentHoverPosition, getPos, globalBoard, updateGl
   const [sumMode, setSumMode] = useState(true);
 
   var emptyMatrix = makeEmptyMatrix();
-  var pieceCoordsObj = {};
 
   const [pieceObj, setPieceObj] = useState({});
-  var makePieceElements = () => {
-    var pieceElementsObj = {};
-    let pieceArray = ['K', 'N', 'B', 'R', 'Q', 'P', 'k', 'n', 'b', 'r', 'q', 'p'];
-    let pieces = require('./ChessIcons');
-    pieceArray.forEach(piece => {
-      let pieceUrl = pieces[piece];
-      for (var i = 1; i <= 64; i++) {
-        let pieceString = `${piece}${i}`;
-        pieceCoordsObj[pieceString] = null;
-        pieceElementsObj[pieceString] =
-        <img draggable='true' alt='' src={pieceUrl} width='63' height='63'
-        onDragEnd={(e)=> {onDrop(e, pieceString)}}></img>;
-      }
-    })
-    setPieceObj(pieceElementsObj);
-  }
-
-
-  const setInitialBoardPosition = () => {
-    var newBoard = JSON.parse(JSON.stringify(emptyMatrix));
-    var blackPieces = ['r1', 'n1', 'b1', 'q1', 'k1', 'b2', 'n2', 'r2']
-    var blackPawns = ['p1', 'p2', 'p3', 'p4', 'p5', 'p6', 'p7', 'p8'];
-    var whitePawns = blackPawns.map(pawn => {
-      return pawn.toUpperCase();
-    })
-    var whitePieces = blackPieces.map(piece => {
-      return piece.toUpperCase();
-    })
-
-    for (let i = 0; i < 8; i++) {
-      for (let j = 0; j < 8; j++) {
-        if (i === 0) {
-          let piece = blackPieces[j];
-          newBoard[i][j] = piece;
-          pieceCoordsObj[piece] = [i, j];
-        }
-        if (i === 1) {
-          let piece = blackPawns[j];
-          newBoard[i][j] = piece;
-          pieceCoordsObj[piece] = [i, j];
-        }
-        if (i === 6) {
-          let piece = whitePawns[j];
-          newBoard[i][j] = piece;
-          pieceCoordsObj[piece] = [i, j]
-        }
-        if (i === 7) {
-          let piece = whitePieces[j];
-          newBoard[i][j] = piece;
-          pieceCoordsObj[piece] = [i, j];
-        }
-      }
-    }
-    updateGlobalBoard(newBoard)
-    setCurrentBoard(newBoard);
-    updateInitialBoard(newBoard)
-  }
 
   React.useEffect(() => {
     window.addEventListener('keydown', (event) => {
@@ -111,13 +56,6 @@ const Visualizer = ({setPos, currentHoverPosition, getPos, globalBoard, updateGl
   //   }
   // }, [])
 
-  const [initialRen, setInitialRen] = useState(true);
-  if (initialRen) {
-    makePieceElements();
-    setInitialBoardPosition(emptyMatrix);
-    setCurrentUser(cookies.name)
-    setInitialRen(false);
-  }
 
   const movePiece = (squareId, pieceId) => {
 
@@ -258,7 +196,18 @@ const Visualizer = ({setPos, currentHoverPosition, getPos, globalBoard, updateGl
   const [showColorWheel, setShowColorWheel] = useState(false);
   const [showWheel, setShowWheel] = useState(false);
 
-  console.log('radiobuttons', RadioButtons('whiteSquare', 0, hexUpdate))
+  const [initialRen, setInitialRen] = useState(true);
+
+  if (initialRen) {
+    setPieceObj(makePieceElements(onDrop))
+    let newBoard = setInitialBoardPosition(emptyMatrix);
+    updateGlobalBoard(newBoard)
+    setCurrentBoard(newBoard);
+    updateInitialBoard(newBoard)
+    setCurrentUser(cookies.name)
+    setInitialRen(false);
+  }
+
 
   return (
     <div className='bigDiv' class='flex grid grid-cols-3'>
@@ -288,7 +237,7 @@ const Visualizer = ({setPos, currentHoverPosition, getPos, globalBoard, updateGl
       <button class='btn-primary' onClick={() => setBoardIsFlipped(!boardIsFlipped)} type="button">Flip Board</button>
     </div>
 
-      {RadioButtons('whiteSquare', 0, hexUpdate)}
+      {/* {RadioButtons('whiteSquare', 0, hexUpdate)} */}
     <button class='btn-primary flex ml-[500px] align-items-center grid grid-cols-4 w-[512px] max-w-[512px]' onClick={() => setShowColorWheel(!showColorWheel)}>Color Wheel</button>
     {showColorWheel ?
     <div>
@@ -367,7 +316,6 @@ const Visualizer = ({setPos, currentHoverPosition, getPos, globalBoard, updateGl
             <label for="radio-1" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Black Sq Ctrl 2</label>
             <input onClick={() => hexUpdate('blueSquare3')} type="radio" name="radio-1" className="radio" />
             <label for="radio-1" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Black Sq Ctrl 3</label>
-
             <input onClick={() => hexUpdate('blueSquare4')} type="radio" name="radio-1" className="radio"/>
             <label for="radio-1" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Black Sq Ctrl 4</label>
             <input onClick={() => hexUpdate('blueSquare5')} type="radio" name="radio-1" className="radio" />
@@ -393,7 +341,7 @@ const Visualizer = ({setPos, currentHoverPosition, getPos, globalBoard, updateGl
       </div>
 </div> : ''}
 
-{/*
+
       <div class="flex items-center mb-4">
         <input onChange={() => setSumMode(true)} id="default-radio-2" type="radio" value="" checked={sumMode}  name="default-radio" class="radio-1"/>
         <label for="default-radio-2" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">By Sum</label>
@@ -402,7 +350,7 @@ const Visualizer = ({setPos, currentHoverPosition, getPos, globalBoard, updateGl
         <input onChange={() => setSumMode(false)} id="default-radio-2" type="radio" value="" checked={!sumMode} name="default-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"/>
         <label for="default-radio-2" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">By Priority</label>
       </div>
-      <button class='btn-primary' onClick={() => setToggleImportPgn(!toggleImportPgn)} type="button">Import Pgn</button> */}
+      <button class='btn-primary' onClick={() => setToggleImportPgn(!toggleImportPgn)} type="button">Import Pgn</button>
 
       {toggleImportPgn ?
         <div>
