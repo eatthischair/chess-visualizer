@@ -1,10 +1,14 @@
-const RadioButtons = (square, num, updateFunc) => {
+const RadioButtons = (square, num, hexUpdate) => {
   let className = square + num;
   num = num || "";
+  // let realSquare = { square };
+  // let realNum = square.num;
+  // hexUpdate = square.hexUpdate;
+  if (num) square += num;
   return (
     <div>
       <input
-        onClick={() => updateFunc(className)}
+        onClick={() => hexUpdate(square)}
         type="radio"
         name="radio-1"
         className="radio"
@@ -19,5 +23,4 @@ const RadioButtons = (square, num, updateFunc) => {
   );
 };
 
-// module.exports = RadioButtons;
 export default RadioButtons;

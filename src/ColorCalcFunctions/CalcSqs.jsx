@@ -4,8 +4,6 @@ import RenderBoard from '../RenderBoard';
 
 const CalcSqs = ({blackCtrlOn, whiteCtrlOn, currentBoard, pieceObj, alwaysEmptyMatrix, setPos, boardIsFlipped, sumMode, color1, color2, hexObj}) => {
 
-  console.log('buttons', blackCtrlOn, whiteCtrlOn)
-
   var colorMatrix;
   var redSqBoardAll = calcRedSqs(currentBoard, alwaysEmptyMatrix, true);
   var redSqBoard = redSqBoardAll[0];
