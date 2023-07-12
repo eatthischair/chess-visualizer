@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState } from 'react';
 import axios from "axios";
 import './App.css';
 import RenderPieces from './RenderPieces.js';
@@ -10,13 +10,13 @@ import makePieceElements from './makePieceElements.js';
 import setInitialBoardPosition from './setInitialBoard.js';
 import movePiece from './movePiece.js';
 
-import { ColorPicker, useColor } from "react-color-palette";
+import { useColor } from "react-color-palette";
 import "react-color-palette/lib/css/styles.css";
 import RadioButtons from './RadioButtons';
 import renderRadioButtons from './renderRadioButtons.js';
 import renderColorPalletes from './renderColorPalletes.js';
 
-const Visualizer = ({setPos, currentHoverPosition, getPos, globalBoard, updateGlobalBoard, getGlobalBoard, updateInitialBoard, getInitialBoard, updatePgnBoardArray, getNextBoard, getPreviousBoard, cookies, colorToUpdate, updateColor, getColor}) => {
+const Visualizer = ({setPos, currentHoverPosition, getPos, globalBoard, updateGlobalBoard, getGlobalBoard, updateInitialBoard, getInitialBoard, updatePgnBoardArray, getNextBoard, getPreviousBoard, cookies, colorToUpdate, updateColor, getColor, resetMoveNum}) => {
 
   const [color1, setColor1] = useColor("hex", "#121212");
   const [color2, setColor2] = useColor("hex", "#121212");
@@ -72,14 +72,18 @@ const Visualizer = ({setPos, currentHoverPosition, getPos, globalBoard, updateGl
   }
 
   const readPgn = () => {
-    // let initBoard = getInitialBoard();
-    // let boards = PgnReader(initBoard, currentPgn);
-    // updatePgnBoardArray(boards);
     updatePgnBoardArray(PgnReader(getInitialBoard(), currentPgn));
   }
 
   const pgnInput = (e) => {
     setCurrentPgn(e.target.value);
+  }
+
+  const handlePgn = (index) => {
+    setCurrentPgn(userGames[index]);
+    updatePgnBoardArray(PgnReader(getInitialBoard(), userGames[index]));
+    setCurrentBoard(getInitialBoard())
+    resetMoveNum();
   }
 
   const saveGameToDB = () => {
@@ -116,7 +120,6 @@ const Visualizer = ({setPos, currentHoverPosition, getPos, globalBoard, updateGl
   const [whiteCtrlOn, setWhiteCtrlOn] = useState(false);
   const [showColorWheel, setShowColorWheel] = useState(false);
   const [showWheel, setShowWheel] = useState(false);
-
   const [initialRen, setInitialRen] = useState(true);
 
   if (initialRen) {
@@ -131,23 +134,24 @@ const Visualizer = ({setPos, currentHoverPosition, getPos, globalBoard, updateGl
   }
 
   return (
-  <div class='flex grid-cols-3 grid-rows-2 border-2 border-red-50 h-[520px] justify-center'>
+  <div class='grid grid-cols-3 grid-auto-rows border-2 border-red-50 h-[520px] justify-center'>
     <div class='flex-row w-64 h-[520px] border-2 border-red-950 overflow-x-clip overflow-y-scroll'>
         <div class='flex flex-row'>
-        <button class="btn btn-primary basis-2 grow text-[9px] leading-3 indent-0">Famous Games</button>
-        <button class="btn btn-primary basis-2 shrink text-[9px] leading-3 indent-0">Agadmator's Games</button>
-        <button class="btn btn-primary basis-2 shrink text-[9px] leading-3 indent-0">User Games</button>
+        <button class="btn join-item btn-primary basis-2 grow text-[9px] leading-3 indent-0">Famous Games</button>
+        <button class="btn join-item btn-primary basis-2 shrink text-[9px] leading-3 indent-0">Agadmator's Games</button>
+        <button class="btn join-item btn-primary basis-2 shrink text-[9px] leading-3 indent-0">User Games</button>
         </div>
       {userGames ?
-       userGames.map(game => <div class='border-2 border-red-50 h-[100px] overflow-clip'>{game}</div>) : ''}
+       userGames.map((game, index) => <div onClick={() => {handlePgn(index)}} class='border-2 border-red-50 h-[100px] overflow-clip text-[8px]'>{game}</div>) : ''}
     </div>
 
     <CalcSqs blackCtrlOn={blackCtrlOn} whiteCtrlOn={whiteCtrlOn} currentBoard={currentBoard} pieceObj={pieceObj}      alwaysEmptyMatrix={emptyMatrix} setPos={setPos} boardIsFlipped={boardIsFlipped} sumMode={sumMode} color1={color1.hex} color2={color2.hex} hexObj={hexObj}/>
 
     <div class='grid w-64 h-[300px] border-2 border-red-50'>
-      <button class='btn-secondary' onClick={() => {setCurrentBoard(getInitialBoard())}}>Starting Position</button>
-      <button class='btn-secondary' onClick={() => clearBoard()}>Clear Board</button>
-      <button class='btn-secondary' onClick={() => setShowPieceElements(!showPieceElements)}>Add Pieces</button>
+
+      {/* <button class='btn-secondary' onClick={() => {setCurrentBoard(getInitialBoard())}}>Starting Position</button> */}
+      {/* <button class='btn-secondary' onClick={() => clearBoard()}>Clear Board</button> */}
+      {/* <button class='btn-secondary' onClick={() => setShowPieceElements(!showPieceElements)}>Add Pieces</button> */}
       {showPieceElements ?
       <div className='pieceDiv' class='flex flex-wrap h-[200px] w-66 overflow-scroll overflow-y-scroll'>
       {Object.keys(pieceObj).map((pieceId, index) => {
@@ -156,13 +160,48 @@ const Visualizer = ({setPos, currentHoverPosition, getPos, globalBoard, updateGl
             )}
           )}
         </div> : ''}
+
+      <ul className="menu menu-vertical lg:menu-horizontal bg-base-200 rounded-box">
+        <li><a><button class='btn-secondary' onClick={() => {setCurrentBoard(getInitialBoard())}}>Starting Position
+        </button></a></li>
+        <li><a><button class='btn-secondary' onClick={() => clearBoard()}>Clear Board
+        </button></a></li>
+        <li><a><button class='btn-secondary' onClick={() => setShowPieceElements(!showPieceElements)}>Add Pieces
+        </button></a></li>
+        <li><a>
+          <div className="form-control w-52">
+            <label className="cursor-pointer label">
+            <span className="label-text">Show White Sq Ctrl</span>
+            <input type="checkbox" className="toggle toggle-primary" onClick={() => setWhiteCtrlOn(!whiteCtrlOn)}/>
+            </label>
+          </div>
+        </a></li>
+        <li><a>
+          <div className="form-control w-52">
+            <label className="cursor-pointer label">
+            <span className="label-text">Show Black Sq Ctrl</span>
+            <input type="checkbox" className="toggle toggle-primary" onClick={() => {setBlackCtrlOn(!blackCtrlOn)}}/>
+            </label>
+          </div>
+        </a></li>
+      </ul>
     </div>
 
-    <div className='buttons' class='grid grid-rows-3'>
+    {/* <div className='buttons' class='grid grid-rows-3'>
       <button class='btn-primary' onClick={() => setWhiteCtrlOn(!whiteCtrlOn)}>Show White Sq Ctrl</button>
       <button class='btn-primary' onClick={() => {setBlackCtrlOn(!blackCtrlOn)}} >Show Black Sq Ctrl</button>
       <button class='btn-primary' onClick={() => setBoardIsFlipped(!boardIsFlipped)} type="button">Flip Board</button>
-    </div>
+    </div> */}
+
+  <ul className="menu menu-vertical lg:menu-horizontal bg-base-200 rounded-box">
+    <li><a><button class='btn-primary' onClick={() => setWhiteCtrlOn(!whiteCtrlOn)}>Show White Sq Ctrl
+    </button></a></li>
+    <li><a><button class='btn-primary' onClick={() => {setBlackCtrlOn(!blackCtrlOn)}} >Show Black Sq Ctrl
+    </button></a></li>
+    <li><a><button class='btn-primary' onClick={() => setBoardIsFlipped(!boardIsFlipped)} type="button">Flip Board
+    </button></a></li>
+  </ul>
+
 
     <button class='btn-primary' onClick={() => setShowColorWheel(!showColorWheel)}>Color Wheel</button>
     {showColorWheel ?
@@ -180,7 +219,7 @@ const Visualizer = ({setPos, currentHoverPosition, getPos, globalBoard, updateGl
           </div>
         </div>
       <div className="collapse bg-base-200">
-          <input type="radio" name="my-accordion-1" />
+          <input type="checkbox" name="my-accordion-1" />
           <div className="collapse-title bg-primary text-primary-content peer-checked:bg-secondary peer-checked:text-secondary-content">
             White Sq Colors
           </div>
@@ -190,7 +229,7 @@ const Visualizer = ({setPos, currentHoverPosition, getPos, globalBoard, updateGl
               </div>
         </div>
       <div className="collapse bg-base-200">
-          <input type="radio" name="my-accordion-1" />
+          <input type="checkbox" name="my-accordion-1" />
           <div className="collapse-title bg-primary text-primary-content peer-checked:bg-secondary peer-checked:text-secondary-content">
             Black Sq Colors
           </div>

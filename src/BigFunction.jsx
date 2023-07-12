@@ -1,8 +1,5 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React from 'react';
 import Visualizer from './Visualizer.jsx';
-import PgnReader from './PgnFunctions/PgnReader.jsx';
-import { Link } from "react-router-dom";
-import GameList from './GameList';
 
 const BigFunction = (cookies) => {
 
@@ -50,6 +47,9 @@ const BigFunction = (cookies) => {
   }
 
   var moveNum = -1;
+  const resetMoveNum = () => {
+    moveNum = -1;
+  }
 
   const getNextBoard = () => {
     if (moveNum < pgnBoardArray.length - 1) {
@@ -77,13 +77,10 @@ const BigFunction = (cookies) => {
   }
 
   return (
-    <div class=''>
-      {/* <GameList/> */}
-      {/* <div class='flex flex-row w-64 h-[512px] border-black border-2'></div> */}
+    <div>
       <div>
-      <Visualizer setPos={setPos} currentHoverPosition={currentHoverPosition} getPos={getPos} globalBoard={globalBoard} updateGlobalBoard={updateGlobalBoard} getGlobalBoard={getGlobalBoard} updateInitialBoard={updateInitialBoard} getInitialBoard={getInitialBoard} updatePgnBoardArray={updatePgnBoardArray} getNextBoard={getNextBoard} getPreviousBoard={getPreviousBoard} cookies={cookies.cookies} colorToUpdate={colorToUpdate} updateColor={updateColor} getColor={getColor}/>
+      <Visualizer setPos={setPos} currentHoverPosition={currentHoverPosition} getPos={getPos} globalBoard={globalBoard} updateGlobalBoard={updateGlobalBoard} getGlobalBoard={getGlobalBoard} updateInitialBoard={updateInitialBoard} getInitialBoard={getInitialBoard} updatePgnBoardArray={updatePgnBoardArray} getNextBoard={getNextBoard} getPreviousBoard={getPreviousBoard} cookies={cookies.cookies} colorToUpdate={colorToUpdate} updateColor={updateColor} getColor={getColor} resetMoveNum={resetMoveNum}/>
       </div>
-      {/* <div class='flex flex-row w-64 h-[512px] border-black border-2'></div> */}
     </div>
   )
 }
