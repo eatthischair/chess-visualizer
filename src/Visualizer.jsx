@@ -131,28 +131,25 @@ const Visualizer = ({setPos, currentHoverPosition, getPos, globalBoard, updateGl
   }
 
   return (
-    // <div class='grid grid-cols-3 border-2 border-red-50 h-[560px]'>
-    <div class='flex grid-cols-3 border-2 border-red-50 h-1/2 justify-center'>
-
-    <div class='flex-row w-64 h-max border-2 border-red-950 overflow-x-clip overflow-y-scroll'>
+  <div class='flex grid-cols-3 grid-rows-2 border-2 border-red-50 h-[520px] justify-center'>
+    <div class='flex-row w-64 h-[520px] border-2 border-red-950 overflow-x-clip overflow-y-scroll'>
         <div class='flex flex-row'>
         <button class="btn btn-primary basis-2 grow text-[9px] leading-3 indent-0">Famous Games</button>
         <button class="btn btn-primary basis-2 shrink text-[9px] leading-3 indent-0">Agadmator's Games</button>
         <button class="btn btn-primary basis-2 shrink text-[9px] leading-3 indent-0">User Games</button>
         </div>
-
       {userGames ?
        userGames.map(game => <div class='border-2 border-red-50 h-[100px] overflow-clip'>{game}</div>) : ''}
     </div>
 
     <CalcSqs blackCtrlOn={blackCtrlOn} whiteCtrlOn={whiteCtrlOn} currentBoard={currentBoard} pieceObj={pieceObj}      alwaysEmptyMatrix={emptyMatrix} setPos={setPos} boardIsFlipped={boardIsFlipped} sumMode={sumMode} color1={color1.hex} color2={color2.hex} hexObj={hexObj}/>
 
-    <div class='grid grid-rows-2 w-64 h-[300px] border-2 border-red-50 '>
-      <button class='btn-secondary' onClick={() => {setInitialBoardPosition()}}>Starting Position</button>
+    <div class='grid w-64 h-[300px] border-2 border-red-50'>
+      <button class='btn-secondary' onClick={() => {setCurrentBoard(getInitialBoard())}}>Starting Position</button>
       <button class='btn-secondary' onClick={() => clearBoard()}>Clear Board</button>
       <button class='btn-secondary' onClick={() => setShowPieceElements(!showPieceElements)}>Add Pieces</button>
       {showPieceElements ?
-      <div className='pieceDiv' class='flex h-[200px] flex-none grid grid-rows-8 w-66 overflow-scroll overflow-y-scroll'>
+      <div className='pieceDiv' class='flex flex-wrap h-[200px] w-66 overflow-scroll overflow-y-scroll'>
       {Object.keys(pieceObj).map((pieceId, index) => {
         return (
           <RenderPieces pieceId={pieceId} pieceElement={Object.entries(pieceObj)[index][1]}/>
@@ -161,14 +158,13 @@ const Visualizer = ({setPos, currentHoverPosition, getPos, globalBoard, updateGl
         </div> : ''}
     </div>
 
-    {/* <div className='buttons' class='ml-[500px] align-items-center grid grid-cols-4 w-[512px] max-w-[512px]'>
+    <div className='buttons' class='grid grid-rows-3'>
       <button class='btn-primary' onClick={() => setWhiteCtrlOn(!whiteCtrlOn)}>Show White Sq Ctrl</button>
       <button class='btn-primary' onClick={() => {setBlackCtrlOn(!blackCtrlOn)}} >Show Black Sq Ctrl</button>
       <button class='btn-primary' onClick={() => setBoardIsFlipped(!boardIsFlipped)} type="button">Flip Board</button>
     </div>
 
-    <button class='btn-primary ml-[500px] align-items-center grid grid-cols-4 w-[512px] max-w-[512px]' onClick={() => setShowColorWheel(!showColorWheel)}>Color Wheel</button>
-
+    <button class='btn-primary' onClick={() => setShowColorWheel(!showColorWheel)}>Color Wheel</button>
     {showColorWheel ?
     <div>
       <br></br>
@@ -224,7 +220,6 @@ const Visualizer = ({setPos, currentHoverPosition, getPos, globalBoard, updateGl
           </textarea><button class='btn-primary' onClick={() => readPgn()} type="button">Render Game</button>
           <button class='btn-primary' onClick={() => saveGameToDB()} type="button">Save Game</button>
         </div> : ''}
-      </div> */}
       </div>
   )
 };
