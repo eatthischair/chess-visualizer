@@ -77,10 +77,10 @@ const BigFunction = (cookies) => {
   }
 
   return (
-    <div class='flex flex-row justify-center align-items-center'>
+    <div class=''>
       {/* <GameList/> */}
       {/* <div class='flex flex-row w-64 h-[512px] border-black border-2'></div> */}
-      <div className='visualizer' class='flex place-content-center'>
+      <div>
       <Visualizer setPos={setPos} currentHoverPosition={currentHoverPosition} getPos={getPos} globalBoard={globalBoard} updateGlobalBoard={updateGlobalBoard} getGlobalBoard={getGlobalBoard} updateInitialBoard={updateInitialBoard} getInitialBoard={getInitialBoard} updatePgnBoardArray={updatePgnBoardArray} getNextBoard={getNextBoard} getPreviousBoard={getPreviousBoard} cookies={cookies.cookies} colorToUpdate={colorToUpdate} updateColor={updateColor} getColor={getColor}/>
       </div>
       {/* <div class='flex flex-row w-64 h-[512px] border-black border-2'></div> */}

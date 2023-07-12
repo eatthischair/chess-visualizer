@@ -50,8 +50,8 @@ const RenderBoard = ({currentBoard, pieceObj, colorMatrix, setPos, boardIsFlippe
     }
 
   return (
-    <div class='flex place-content-center'>
-      <div className="chessboard ">{renderedBoard}</div>
+    <div class='border-2 border-red-50'>
+      <div className="chessboard">{renderedBoard}</div>
     </div>
     )
   }
