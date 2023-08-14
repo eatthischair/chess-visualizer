@@ -16,6 +16,9 @@ import RadioButtons from './RadioButtons';
 import renderRadioButtons from './renderRadioButtons.js';
 import renderColorPalletes from './renderColorPalletes.js';
 
+import GrabTitle from './PgnFunctions/GrabTitle';
+
+
 const Visualizer = ({setPos, currentHoverPosition, getPos, globalBoard, updateGlobalBoard, getGlobalBoard, updateInitialBoard, getInitialBoard, updatePgnBoardArray, getNextBoard, getPreviousBoard, cookies, colorToUpdate, updateColor, getColor, resetMoveNum}) => {
 
   const [color1, setColor1] = useColor("hex", "#121212");
@@ -79,11 +82,16 @@ const Visualizer = ({setPos, currentHoverPosition, getPos, globalBoard, updateGl
     setCurrentPgn(e.target.value);
   }
 
+  const [playerNames, setPlayerNames] = useState([]);
+
   const handlePgn = (index) => {
     setCurrentPgn(userGames[index]);
     updatePgnBoardArray(PgnReader(getInitialBoard(), userGames[index]));
     setCurrentBoard(getInitialBoard())
     resetMoveNum();
+    let names = GrabTitle(userGames[index])
+    console.log('NAMES', names)
+    setPlayerNames(names);
   }
 
   const saveGameToDB = () => {
@@ -147,7 +155,7 @@ const Visualizer = ({setPos, currentHoverPosition, getPos, globalBoard, updateGl
 
     <CalcSqs blackCtrlOn={blackCtrlOn} whiteCtrlOn={whiteCtrlOn} currentBoard={currentBoard} pieceObj={pieceObj}      alwaysEmptyMatrix={emptyMatrix} setPos={setPos} boardIsFlipped={boardIsFlipped} sumMode={sumMode} color1={color1.hex} color2={color2.hex} hexObj={hexObj}/>
 
-    <div class='grid w-64 h-[300px] border-2 border-red-50'>
+    <div class='grid w-64 h-[300px] border-2 border-red-50 ml-[5px]'>
 
       {/* <button class='btn-secondary' onClick={() => {setCurrentBoard(getInitialBoard())}}>Starting Position</button> */}
       {/* <button class='btn-secondary' onClick={() => clearBoard()}>Clear Board</button> */}
@@ -164,7 +172,7 @@ const Visualizer = ({setPos, currentHoverPosition, getPos, globalBoard, updateGl
       <ul className="menu menu-vertical lg:menu-horizontal bg-base-200 rounded-box">
         <li><a><button class='btn-secondary' onClick={() => {setCurrentBoard(getInitialBoard())}}>Starting Position
         </button></a></li>
-        <li><a><button class='btn-secondary' onClick={() => clearBoard()}>Clear Board
+        <li><a><button class='btn-secondary' onClick={() => clearBoard()}> Clear Board
         </button></a></li>
         <li><a><button class='btn-secondary' onClick={() => setShowPieceElements(!showPieceElements)}>Add Pieces
         </button></a></li>
@@ -184,6 +192,8 @@ const Visualizer = ({setPos, currentHoverPosition, getPos, globalBoard, updateGl
             </label>
           </div>
         </a></li>
+        <li><a><button class='btn-primary' onClick={() => setBoardIsFlipped(!boardIsFlipped)} type="button">Flip Board
+    </button></a></li>
       </ul>
     </div>
 
@@ -193,17 +203,20 @@ const Visualizer = ({setPos, currentHoverPosition, getPos, globalBoard, updateGl
       <button class='btn-primary' onClick={() => setBoardIsFlipped(!boardIsFlipped)} type="button">Flip Board</button>
     </div> */}
 
-  <ul className="menu menu-vertical lg:menu-horizontal bg-base-200 rounded-box">
-    <li><a><button class='btn-primary' onClick={() => setWhiteCtrlOn(!whiteCtrlOn)}>Show White Sq Ctrl
+  {/* <ul className="menu menu-vertical lg:menu-horizontal bg-base-200 rounded-box"> */}
+    {/* <li><a><button class='btn-primary' onClick={() => setWhiteCtrlOn(!whiteCtrlOn)}>Show White Sq Ctrl
     </button></a></li>
     <li><a><button class='btn-primary' onClick={() => {setBlackCtrlOn(!blackCtrlOn)}} >Show Black Sq Ctrl
-    </button></a></li>
-    <li><a><button class='btn-primary' onClick={() => setBoardIsFlipped(!boardIsFlipped)} type="button">Flip Board
-    </button></a></li>
-  </ul>
+    </button></a></li> */}
+    {/* <li><a><button class='btn-primary' onClick={() => setBoardIsFlipped(!boardIsFlipped)} type="button">Flip Board
+    </button></a></li> */}
+  {/* </ul> */}
 
+    <div>{playerNames.length > 0 ? `${playerNames[0]} vs ${playerNames[1]}` : ''}</div>
 
-    <button class='btn-primary' onClick={() => setShowColorWheel(!showColorWheel)}>Color Wheel</button>
+    <div class='grid grid-cols-3'>
+
+    <button class='grid btn-primary' onClick={() => setShowColorWheel(!showColorWheel)}>Color Wheel</button>
     {showColorWheel ?
     <div>
       <br></br>
@@ -238,18 +251,22 @@ const Visualizer = ({setPos, currentHoverPosition, getPos, globalBoard, updateGl
             {showWheel ? renderColorPalletes(color1, colorChange1, color2, colorChange2): ''}
           </div>
       </div>
-</div> : ''}
+      </div> : ''}
 
 
-      <div class="items-center mb-4">
+      {/* <div class="items-center mb-4"> */}
+      {/* <div>
+
         <input onChange={() => setSumMode(true)} id="default-radio-2" type="radio" value="" checked={sumMode}  name="default-radio" class="radio-1"/>
         <label for="default-radio-2" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">By Sum</label>
-      </div>
-      <div class="items-center">
+      </div> */}
+      {/* <div class="items-center">
         <input onChange={() => setSumMode(false)} id="default-radio-2" type="radio" value="" checked={!sumMode} name="default-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"/>
         <label for="default-radio-2" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">By Priority</label>
-      </div>
+      </div> */}
       <button class='btn-primary' onClick={() => setToggleImportPgn(!toggleImportPgn)} type="button">Import Pgn</button>
+
+      </div>
 
       {toggleImportPgn ?
         <div>
@@ -260,6 +277,8 @@ const Visualizer = ({setPos, currentHoverPosition, getPos, globalBoard, updateGl
           <button class='btn-primary' onClick={() => saveGameToDB()} type="button">Save Game</button>
         </div> : ''}
       </div>
+
+
   )
 };
 

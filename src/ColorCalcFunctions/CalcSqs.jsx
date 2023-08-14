@@ -14,12 +14,14 @@ const CalcSqs = ({blackCtrlOn, whiteCtrlOn, currentBoard, pieceObj, alwaysEmptyM
   var blueSqBoardPriority = blueSqBoardAll[1];
   var blueSqBoardPiecePriority = blueSqBoardAll[2];
 
+  console.log('priority', redSqBoardPriority, redSqBoardPiecePriority)
   if (whiteCtrlOn && blackCtrlOn) {
     let totalBoard = JSON.parse(JSON.stringify(alwaysEmptyMatrix));
     let priorityBoard = JSON.parse(JSON.stringify(alwaysEmptyMatrix));
 
       for (var i = 0; i < 8; i++) {
         for (var j = 0; j < 8; j++) {
+
           if (sumMode) {
             var redSum = redSqBoard[i][j];
             var blueSum = blueSqBoard[i][j];
