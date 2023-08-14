@@ -104,7 +104,17 @@ module.exports = [
  25. Qf1 {Absolutely forced.} Bxf1 26. Rxf1 Re2 27. Ra1 Rh6
  28. d4 Be3 0-1`,
 
-  "Nulla massa tortor, rhoncus vel porttitor a, aliquet ut libero. Vivamus id euismod nunc. Nunc erat arcu, fermentum non tortor et, consequat maximus elit. Nullam vehicula, sapien sed feugiat semper, purus elit sollicitudin velit, vel dapibus leo libero at velit. Mauris semper tincidunt massa, quis suscipit lorem rutrum quis. In ac ex est. Duis scelerisque varius sem eget blandit. Suspendisse in consectetur odio, quis rhoncus lacus. Vivamus et egestas magna. Proin eget ligula in neque elementum posuere. Aenean orci nulla, placerat ac mattis a, consectetur nec nulla.",
+  `[Event "New York USA"]
+ [Site "New York  USA"]
+ [Date "1857.??.??"]
+ [Round "?"]
+ [White "Paul Morphy"]
+ [Black "NN"]
+ [Result "1-0"]
+
+ 1. e4 e5 2. Nf3 Nc6 3. Bc4 Bc5 4. b4 Bxb4 5. c3 Ba5 6. d4 exd4 7. O-O Nf6 8. Ba3
+ Bb6 9. Qb3 d5 10. exd5 Na5 11. Re1+ Be6 12. dxe6 Nxb3 13. exf7+ Kd7 14. Be6+ Kc6
+ 15. Ne5+ Kb5 16. Bc4+ Ka5 17. Bb4+ Ka4 18. axb3# 1-0`,
 
   "Pellentesque vulputate, erat non consequat pretium, ex turpis cursus lectus, eu semper urna felis ut libero. Morbi ut justo posuere, faucibus dolor quis, pulvinar lorem. Sed sagittis mauris sit amet lacus eleifend, at semper felis semper. Mauris rutrum quam eget arcu sodales, a consectetur nisi viverra. Phasellus ante dui, finibus et tincidunt vitae, vestibulum lobortis lorem. Phasellus efficitur elit at nisi elementum cursus. Mauris tellus nisi, sollicitudin vel vestibulum eu, laoreet at nisl.",
 ];

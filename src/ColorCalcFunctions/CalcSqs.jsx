@@ -14,54 +14,59 @@ const CalcSqs = ({blackCtrlOn, whiteCtrlOn, currentBoard, pieceObj, alwaysEmptyM
   var blueSqBoardPriority = blueSqBoardAll[1];
   var blueSqBoardPiecePriority = blueSqBoardAll[2];
 
-  console.log('priority', redSqBoardPriority, redSqBoardPiecePriority)
   if (whiteCtrlOn && blackCtrlOn) {
     let totalBoard = JSON.parse(JSON.stringify(alwaysEmptyMatrix));
     let priorityBoard = JSON.parse(JSON.stringify(alwaysEmptyMatrix));
+    let whiteKingCoord;
+    let blackKingCoord;
 
       for (var i = 0; i < 8; i++) {
         for (var j = 0; j < 8; j++) {
-
-          if (sumMode) {
-            var redSum = redSqBoard[i][j];
-            var blueSum = blueSqBoard[i][j];
-            var totalSum = redSum + blueSum;
-            totalBoard[i][j] = totalSum;
+          let isWhiteKing = currentBoard[i][j] === 'K1';
+          let isBlackKing = currentBoard[i][j] === 'k1';
+          if (isWhiteKing) {
+            whiteKingCoord = [i, j];
+          } else if (isBlackKing) {
+            blackKingCoord = [i, j];
           } else {
-            let hasWhitePiece = !!redSqBoardPiecePriority[i][j] && redSqBoardPiecePriority[i][j]!== 5;
-            let hasBlackPiece = !!blueSqBoardPiecePriority[i][j] && blueSqBoardPiecePriority[i][j] !== 5;
-            if (hasWhitePiece) {
-              blueSqBoardPriority[i][j] > redSqBoardPiecePriority[i][j] ? priorityBoard[i][j] = blueSqBoardPriority[i][j] * -1 : priorityBoard[i][j] = redSqBoardPiecePriority[i][j]
-            }
-            else if (hasBlackPiece) {
-              redSqBoardPriority[i][j] > blueSqBoardPiecePriority[i][j] ? priorityBoard[i][j] = redSqBoardPriority[i][j] : priorityBoard[i][j] = blueSqBoardPiecePriority[i][j] * -1
-            }
-            else if (blueSqBoardPriority[i][j] === redSqBoardPriority[i][j]) {
-                priorityBoard[i][j] = 0;
-            } else {
-              redSqBoardPriority[i][j] > blueSqBoardPriority[i][j] ? priorityBoard[i][j] = redSqBoardPriority[i][j] : priorityBoard[i][j] = blueSqBoardPriority[i][j] * -1
-            }
+              var redSum = redSqBoard[i][j];
+              var blueSum = blueSqBoard[i][j];
+              var totalSum = redSum + blueSum;
+              totalBoard[i][j] = totalSum;
+
+              let hasWhitePiece = !!redSqBoardPiecePriority[i][j] && redSqBoardPiecePriority[i][j] !== 5;
+              let hasBlackPiece = !!blueSqBoardPiecePriority[i][j] && blueSqBoardPiecePriority[i][j] !== 5;
+              if (hasWhitePiece) {
+                blueSqBoardPriority[i][j] > redSqBoardPiecePriority[i][j] ? totalBoard[i][j] = -1 : priorityBoard[i][j] = redSqBoardPiecePriority[i][j]
+              }
+              else if (hasBlackPiece) {
+                redSqBoardPriority[i][j] > blueSqBoardPiecePriority[i][j] ? totalBoard[i][j] = 1 : priorityBoard[i][j] = blueSqBoardPiecePriority[i][j] * -1
+              }
           }
         }
       }
-      sumMode ? colorMatrix = totalBoard : colorMatrix = priorityBoard
-      // console.log('priorityboard', priorityBoard)
-      // colorMatrix = totalBoard;
-      // colorMatrix = priorityBoard;
+
+      let whiteKinginCheck = blueSqBoard[whiteKingCoord[0]][whiteKingCoord[1]] < 0;
+      let blackKinginCheck = redSqBoard[blackKingCoord[0]][blackKingCoord[1]] > 0;
+      if (whiteKinginCheck) {
+        colorMatrix = blueSqBoard;
+      } else if (blackKinginCheck) {
+        colorMatrix = redSqBoard;
+      } else {
+        colorMatrix = totalBoard;
+      }
+
     } else {
       if (whiteCtrlOn) {
-        sumMode ? colorMatrix = redSqBoard : colorMatrix = redSqBoardPriority
-        // colorMatrix = redSqBoard;
+       colorMatrix = redSqBoard
       }
       else if (blackCtrlOn) {
-        sumMode ? colorMatrix = blueSqBoard : colorMatrix = blueSqBoardPriority
-        // colorMatrix = blueSqBoard;
+       colorMatrix = blueSqBoard
       }
       else if (!whiteCtrlOn && !blackCtrlOn) {
         colorMatrix = alwaysEmptyMatrix;
       }
     }
-    // console.log('COLORMATRIX', colorMatrix)
     return (<div class='flex place-content-center'>
       <RenderBoard currentBoard={currentBoard} pieceObj={pieceObj} colorMatrix={colorMatrix} setPos={setPos} boardIsFlipped={boardIsFlipped} color1={color1} color2={color2} hexObj={hexObj}/>
     </div>
