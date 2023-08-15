@@ -1,5 +1,4 @@
 /* eslint-disable no-loop-func */
-import React, { useState, useRef } from 'react';
 import isInBounds from '../HelperFunctions/isInBounds';
 import checkForAbsolutePin from './checkForAbsolutePin.jsx';
 
@@ -10,12 +9,7 @@ const calcRedSqs = (positionBoard, alwaysEmptyMatrix, calcForWhite) => {
   var whitePawnVals = [[-1, -1], [-1, 1]];
   var blackPawnVals = [[1, 1], [1, -1]];
   var pawnVals;
-
-  if (calcForWhite) {
-    pawnVals = whitePawnVals
-  } else {
-    pawnVals = blackPawnVals;
-  }
+  calcForWhite ? pawnVals = whitePawnVals : pawnVals = blackPawnVals;
 
   var recurseCallObj = {
   B: {
@@ -37,6 +31,7 @@ const calcRedSqs = (positionBoard, alwaysEmptyMatrix, calcForWhite) => {
 
   const checkDiagonals = (index, checkType, isWhitePiece, callObj) => {
     var bigArray = [];
+
     const recursiveFunc = (index, incrementX, incrementY) => {
       var row = index[0];
       var newRow = row + incrementX
@@ -64,6 +59,7 @@ const calcRedSqs = (positionBoard, alwaysEmptyMatrix, calcForWhite) => {
         var bothSameColor = isWhitePiece === sqPieceIsWhite;
         var samePieceType = sqPiece[0] === checkType || sqPiece[0] === 'Q';
         let pieceIsOppKing = sqPiece === 'K1' && !bothSameColor;
+        console.log('opps', pieceIsOppKing, calcForWhite, isWhitePiece)
         var pawnBattery = checkType === 'B' && sqPiece[0] === 'P';
         if (pawnBattery && bothSameColor) {
           let pawnBatteryIndex = [newRow + incrementX, newColumn + incrementY];
@@ -118,9 +114,7 @@ const calcRedSqs = (positionBoard, alwaysEmptyMatrix, calcForWhite) => {
 
 
         var isWhitePiece = (sqValue !== 0) && (sqValue.toUpperCase() === sqValue);
-        if (sqValue !== 0) {
-          sqValue = sqValue.toUpperCase();
-        }
+        if (sqValue !== 0) sqValue = sqValue.toUpperCase()
         var correctPieceColor = calcForWhite === isWhitePiece;
 
         if (correctPieceColor) {
@@ -220,7 +214,7 @@ const calcRedSqs = (positionBoard, alwaysEmptyMatrix, calcForWhite) => {
         })
       })
     }
-
+    console.log('slices', sliced, sliced2, sliced3)
     return [sliced, sliced2, sliced3];
   }
 

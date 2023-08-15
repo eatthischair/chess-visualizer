@@ -5,14 +5,9 @@ import RenderBoard from '../RenderBoard';
 const CalcSqs = ({blackCtrlOn, whiteCtrlOn, currentBoard, pieceObj, alwaysEmptyMatrix, setPos, boardIsFlipped, sumMode, color1, color2, hexObj}) => {
 
   var colorMatrix;
-  var redSqBoardAll = calcRedSqs(currentBoard, alwaysEmptyMatrix, true);
-  var redSqBoard = redSqBoardAll[0];
-  var redSqBoardPriority = redSqBoardAll[1];
-  var redSqBoardPiecePriority = redSqBoardAll[2]
-  var blueSqBoardAll = calcRedSqs(currentBoard, alwaysEmptyMatrix, false);
-  var blueSqBoard = blueSqBoardAll[0];
-  var blueSqBoardPriority = blueSqBoardAll[1];
-  var blueSqBoardPiecePriority = blueSqBoardAll[2];
+  let [redSqBoard, redSqBoardPriority, redSqBoardPiecePriority] = calcRedSqs(currentBoard, alwaysEmptyMatrix, true);
+  let [blueSqBoard, blueSqBoardPriority, blueSqBoardPiecePriority] = calcRedSqs(currentBoard, alwaysEmptyMatrix, false);
+
 
   if (whiteCtrlOn && blackCtrlOn) {
     let totalBoard = JSON.parse(JSON.stringify(alwaysEmptyMatrix));
@@ -21,19 +16,20 @@ const CalcSqs = ({blackCtrlOn, whiteCtrlOn, currentBoard, pieceObj, alwaysEmptyM
 
       for (var i = 0; i < 8; i++) {
         for (var j = 0; j < 8; j++) {
+
           let isWhiteKing = currentBoard[i][j] === 'K1';
           let isBlackKing = currentBoard[i][j] === 'k1';
-
           if (isWhiteKing) {
             whiteKingCoord = {i, j};
           } else if (isBlackKing) {
             blackKingCoord = {i, j};
           } else {
 
-              var redSum = redSqBoard[i][j];
-              var blueSum = blueSqBoard[i][j];
-              var totalSum = redSum + blueSum;
+              let redSum = redSqBoard[i][j];
+              let blueSum = blueSqBoard[i][j];
+              let totalSum = redSum + blueSum;
               totalBoard[i][j] = totalSum;
+
               let hasWhitePiece = !!redSqBoardPiecePriority[i][j] && redSqBoardPiecePriority[i][j] !== 5;
               let hasBlackPiece = !!blueSqBoardPiecePriority[i][j] && blueSqBoardPiecePriority[i][j] !== 5;
 

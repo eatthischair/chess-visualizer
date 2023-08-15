@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-// import axios from "axios";
 import './App.css';
 import RenderPieces from './RenderPieces.js';
 import CalcSqs from './ColorCalcFunctions/CalcSqs.jsx';
@@ -29,9 +28,7 @@ const Visualizer = ({setPos, currentHoverPosition, getPos, globalBoard, updateGl
   const [boardIsFlipped, setBoardIsFlipped] = useState(false);
   const [toggleImportPgn, setToggleImportPgn] = useState(false);
   const [showPieceElements, setShowPieceElements] = useState(false);
-  const [currentUser, setCurrentUser] = useState('');
   const [userGames, setUserGames] = useState([]);
-  const [sumMode, setSumMode] = useState(true);
 
 
   const [pieceObj, setPieceObj] = useState({});
@@ -47,20 +44,6 @@ const Visualizer = ({setPos, currentHoverPosition, getPos, globalBoard, updateGl
     });
   }, []);
 
-  // React.useEffect(() => {
-  //   if (currentUser !== '') {
-  //     axios.get(`http://localhost:8000/getGames?username=${currentUser}`)
-  //     .then(results => {
-  //       // console.log('games results', results.data.rows);
-  //       setUserGames(results.data.rows)
-  //     })
-  //   .catch(err => {
-  //       // console.log('err in submit', err);
-  //     })
-  //   }
-  // }, [])
-
-
   const onDrop = (e, pieceId) => {
     e.preventDefault();
     e.stopPropagation();
@@ -68,57 +51,38 @@ const Visualizer = ({setPos, currentHoverPosition, getPos, globalBoard, updateGl
   }
 
   var emptyMatrix = makeEmptyMatrix();
-
   const clearBoard = () => {
     updateGlobalBoard(emptyMatrix)
     setCurrentBoard(emptyMatrix);
   }
 
+  //pgn functions
   const readPgn = () => {
     updatePgnBoardArray(PgnReader(getInitialBoard(), currentPgn));
   }
-
   const pgnInput = (e) => {
     setCurrentPgn(e.target.value);
   }
-
   const [playerNames, setPlayerNames] = useState([]);
-
   const handlePgn = (index) => {
     setCurrentPgn(userGames[index]);
     updatePgnBoardArray(PgnReader(getInitialBoard(), userGames[index]));
     setCurrentBoard(getInitialBoard())
     resetMoveNum();
     let names = GrabTitle(userGames[index])
-    console.log('NAMES', names)
     setPlayerNames(names);
   }
 
-  // const saveGameToDB = () => {
-  //   let sendObj = {
-  //     pgn: currentPgn,
-  //     user: currentUser
-  //   };
-  //   axios.post('http://localhost:8000/saveGame', sendObj)
-  //   .then(results => {
-  //     console.log('results', results);
-  //   }).catch(err => {
-  //     console.log('err in submit', err);
-  //   })
-  // }
-
+  //color change functions
   const [hexObj, setHexObj] = useState(require('./hexObj.js'))
-
   const colorChange1 = (event) => {
     setColor1(event);
     setHexObj({...hexObj, [getColor() + '1']: event.hex});
   }
-
   const colorChange2 = (event) => {
     setColor2(event);
     setHexObj({...hexObj, [getColor() + '2']: event.hex});
   }
-
   const hexUpdate = (hexToUpdate) => {
     updateColor(hexToUpdate);
     setShowWheel(true);
@@ -136,7 +100,6 @@ const Visualizer = ({setPos, currentHoverPosition, getPos, globalBoard, updateGl
     updateGlobalBoard(newBoard)
     setCurrentBoard(newBoard);
     updateInitialBoard(newBoard)
-    setCurrentUser(cookies.name)
     setInitialRen(false);
     setUserGames(require('./loremIpsum.js'))
   }
@@ -146,14 +109,12 @@ const Visualizer = ({setPos, currentHoverPosition, getPos, globalBoard, updateGl
     <div class='flex-row w-64 h-[520px] border-2 border-red-950 overflow-x-clip overflow-y-scroll'>
         <div class='flex flex-row'>
         <button class="btn join-item btn-primary basis-2 grow text-[9px] leading-3 indent-0">Famous Games</button>
-        <button class="btn join-item btn-primary basis-2 shrink text-[9px] leading-3 indent-0">Agadmator's Games</button>
-        <button class="btn join-item btn-primary basis-2 shrink text-[9px] leading-3 indent-0">User Games</button>
         </div>
       {userGames ?
        userGames.map((game, index) => <div onClick={() => {handlePgn(index)}} class='border-2 border-red-50 h-[100px] overflow-clip text-[8px]'>{game}</div>) : ''}
     </div>
 
-    <CalcSqs blackCtrlOn={blackCtrlOn} whiteCtrlOn={whiteCtrlOn} currentBoard={currentBoard} pieceObj={pieceObj}      alwaysEmptyMatrix={emptyMatrix} setPos={setPos} boardIsFlipped={boardIsFlipped} sumMode={sumMode} color1={color1.hex} color2={color2.hex} hexObj={hexObj}/>
+    <CalcSqs blackCtrlOn={blackCtrlOn} whiteCtrlOn={whiteCtrlOn} currentBoard={currentBoard} pieceObj={pieceObj}      alwaysEmptyMatrix={emptyMatrix} setPos={setPos} boardIsFlipped={boardIsFlipped} color1={color1.hex} color2={color2.hex} hexObj={hexObj}/>
 
     <div class='grid w-64 h-[300px] border-2 border-red-50 ml-[5px]'>
       {showPieceElements ?
@@ -175,7 +136,7 @@ const Visualizer = ({setPos, currentHoverPosition, getPos, globalBoard, updateGl
         <li><a>
           <div className="form-control w-52">
             <label className="cursor-pointer label">
-            <span className="label-text" >Disable White Sq Ctrl</span>
+            <span className="label-text"> Disable White Sq Ctrl</span>
             <input type="checkbox" value='' className="toggle toggle-primary" onClick={() => setWhiteCtrlOn(!whiteCtrlOn)}/>
             </label>
           </div>
@@ -233,9 +194,7 @@ const Visualizer = ({setPos, currentHoverPosition, getPos, globalBoard, updateGl
           </div>
       </div>
       </div> : ''}
-
       <button class='btn-primary' onClick={() => setToggleImportPgn(!toggleImportPgn)} type="button">Import Pgn</button>
-
       </div>
 
       {toggleImportPgn ?
@@ -244,11 +203,8 @@ const Visualizer = ({setPos, currentHoverPosition, getPos, globalBoard, updateGl
           <button class='btn-primary' onClick={() => setCurrentBoard(getPreviousBoard())} >Previous Move</button>
           <textarea class='w-[512px] text-black' onChange={(e) => pgnInput(e)} id="w3review" name="w3review" rows="4" cols="50">
           </textarea><button class='btn-primary' onClick={() => readPgn()} type="button">Render Game</button>
-          {/* <button class='btn-primary' onClick={() => saveGameToDB()} type="button">Save Game</button> */}
         </div> : ''}
       </div>
-
-
   )
 };
 

@@ -4,26 +4,24 @@ import './App.css';
 
 const RenderBoard = ({currentBoard, pieceObj, colorMatrix, setPos, boardIsFlipped, color1, color2, hexObj, currentColor}) => {
 
-  let chessBoard = []
-  for (var i = 0; i < 64; i++) {
-    chessBoard.push(0);
-  }
+  let chessBoard = Array.from('0'.repeat(64))
 
   var renderedBoard = chessBoard.map((square, currentIndex) => {
+
     var matrixIndex = indexToCoord(currentIndex);
     var row = matrixIndex[0];
     var column = matrixIndex[1];
-    var color;
     var positionBoardPiece = currentBoard[row][column];
-    var piece;
     let colorSum = colorMatrix[row][column];
+
     if (colorSum > 7) colorSum = 7;
     if (colorSum < -7) colorSum = -7;
 
+    let piece;
     if (positionBoardPiece !== 0) {
       piece = pieceObj[positionBoardPiece];
     }
-
+    let color;
     if (colorSum !== 0) {
       color *= 1;
       if (colorSum > 0) {
@@ -39,15 +37,12 @@ const RenderBoard = ({currentBoard, pieceObj, colorMatrix, setPos, boardIsFlippe
     }
 
     return (<div style={{ background: `linear-gradient(${hexObj[color + '1']}, ${hexObj[color + '2']})`}} id={matrixIndex} className={color}
-
       onDragOver={()=> {setPos(matrixIndex)}}
       >{piece}</div>
       );
     });
 
-    if (boardIsFlipped) {
-      renderedBoard = renderedBoard.reverse();
-    }
+    if (boardIsFlipped) renderedBoard = renderedBoard.reverse();
 
   return (
     <div class='border-2 border-red-50'>
