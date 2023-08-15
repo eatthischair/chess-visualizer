@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React from 'react';
 import calcRedSqs from './calcRedSqs.jsx';
 import RenderBoard from '../RenderBoard';
 
@@ -16,7 +16,6 @@ const CalcSqs = ({blackCtrlOn, whiteCtrlOn, currentBoard, pieceObj, alwaysEmptyM
 
   if (whiteCtrlOn && blackCtrlOn) {
     let totalBoard = JSON.parse(JSON.stringify(alwaysEmptyMatrix));
-    let priorityBoard = JSON.parse(JSON.stringify(alwaysEmptyMatrix));
     let whiteKingCoord;
     let blackKingCoord;
 
@@ -24,34 +23,41 @@ const CalcSqs = ({blackCtrlOn, whiteCtrlOn, currentBoard, pieceObj, alwaysEmptyM
         for (var j = 0; j < 8; j++) {
           let isWhiteKing = currentBoard[i][j] === 'K1';
           let isBlackKing = currentBoard[i][j] === 'k1';
+
           if (isWhiteKing) {
-            whiteKingCoord = [i, j];
+            whiteKingCoord = {i, j};
           } else if (isBlackKing) {
-            blackKingCoord = [i, j];
+            blackKingCoord = {i, j};
           } else {
+
               var redSum = redSqBoard[i][j];
               var blueSum = blueSqBoard[i][j];
               var totalSum = redSum + blueSum;
               totalBoard[i][j] = totalSum;
-
               let hasWhitePiece = !!redSqBoardPiecePriority[i][j] && redSqBoardPiecePriority[i][j] !== 5;
               let hasBlackPiece = !!blueSqBoardPiecePriority[i][j] && blueSqBoardPiecePriority[i][j] !== 5;
-              if (hasWhitePiece) {
-                blueSqBoardPriority[i][j] > redSqBoardPiecePriority[i][j] ? totalBoard[i][j] = -1 : priorityBoard[i][j] = redSqBoardPiecePriority[i][j]
+
+              if (hasWhitePiece && blueSqBoardPriority[i][j] > redSqBoardPiecePriority[i][j]) {
+                totalBoard[i][j] = blueSum
               }
-              else if (hasBlackPiece) {
-                redSqBoardPriority[i][j] > blueSqBoardPiecePriority[i][j] ? totalBoard[i][j] = 1 : priorityBoard[i][j] = blueSqBoardPiecePriority[i][j] * -1
+              else if (hasBlackPiece && redSqBoardPriority[i][j] > blueSqBoardPiecePriority[i][j]) {
+                totalBoard[i][j] = redSum
               }
           }
         }
       }
+      if (whiteKingCoord && blackKingCoord) {
 
-      let whiteKinginCheck = blueSqBoard[whiteKingCoord[0]][whiteKingCoord[1]] < 0;
-      let blackKinginCheck = redSqBoard[blackKingCoord[0]][blackKingCoord[1]] > 0;
-      if (whiteKinginCheck) {
-        colorMatrix = blueSqBoard;
-      } else if (blackKinginCheck) {
-        colorMatrix = redSqBoard;
+        let whiteKinginCheck = blueSqBoard[whiteKingCoord.i][whiteKingCoord.j] < 0;
+        let blackKinginCheck = redSqBoard[blackKingCoord.i][blackKingCoord.j] > 0;
+        if (whiteKinginCheck) {
+          colorMatrix = blueSqBoard;
+        } else if (blackKinginCheck) {
+          colorMatrix = redSqBoard;
+        } else {
+          colorMatrix = totalBoard;
+        }
+
       } else {
         colorMatrix = totalBoard;
       }
@@ -67,6 +73,7 @@ const CalcSqs = ({blackCtrlOn, whiteCtrlOn, currentBoard, pieceObj, alwaysEmptyM
         colorMatrix = alwaysEmptyMatrix;
       }
     }
+
     return (<div class='flex place-content-center'>
       <RenderBoard currentBoard={currentBoard} pieceObj={pieceObj} colorMatrix={colorMatrix} setPos={setPos} boardIsFlipped={boardIsFlipped} color1={color1} color2={color2} hexObj={hexObj}/>
     </div>

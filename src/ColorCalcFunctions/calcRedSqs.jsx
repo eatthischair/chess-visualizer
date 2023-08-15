@@ -50,17 +50,26 @@ const calcRedSqs = (positionBoard, alwaysEmptyMatrix, calcForWhite) => {
       var sqPiece = positionBoard[newRow][newColumn];
       var sqHasPiece = sqPiece !== 0;
       if (sqHasPiece) {
+
+        let pinned = false;
+        for (let i = 0; i < pinnedPieceArray.length; i++) {
+          let index = pinnedPieceArray[i].pinnedPieceIndex;
+          if (index && index[0] === newRow && index[1] === newColumn) {
+            pinned = true;
+          }
+        }
+
         var sqPieceIsWhite = positionBoard[newRow][newColumn] === positionBoard[newRow][newColumn].toUpperCase();
         sqPiece = sqPiece.toUpperCase();
         var bothSameColor = isWhitePiece === sqPieceIsWhite;
         var samePieceType = sqPiece[0] === checkType || sqPiece[0] === 'Q';
-
+        let pieceIsOppKing = sqPiece === 'K1' && !bothSameColor;
         var pawnBattery = checkType === 'B' && sqPiece[0] === 'P';
         if (pawnBattery && bothSameColor) {
           let pawnBatteryIndex = [newRow + incrementX, newColumn + incrementY];
           bigArray.push(pawnBatteryIndex);
         }
-        if (samePieceType && bothSameColor) {
+        if ((samePieceType && bothSameColor && !pinned) || pieceIsOppKing) {
           bigArray.push(newIndex);
           recursiveFunc(newIndex, incrementX, incrementY);
         } else {
@@ -106,9 +115,7 @@ const calcRedSqs = (positionBoard, alwaysEmptyMatrix, calcForWhite) => {
         let update = updateCallObjandPinStatus(pinnedPieceArray, recurseCallObj, i, j);
         let callObj = update[0]
         let pinned = update[1];
-        if (pinned) {
-          // console.log('call obj', callObj)
-        }
+
 
         var isWhitePiece = (sqValue !== 0) && (sqValue.toUpperCase() === sqValue);
         if (sqValue !== 0) {
@@ -125,7 +132,6 @@ const calcRedSqs = (positionBoard, alwaysEmptyMatrix, calcForWhite) => {
               var inBounds = isInBounds(rowIndex, columnIndex)
               if (inBounds) {
                 sliced[rowIndex][columnIndex] += 1;
-                // sliced2[rowIndex][columnIndex] += '1'
                 sliced2[rowIndex][columnIndex] = Math.max(sliced2[rowIndex][columnIndex], 1)
 
               }
@@ -140,7 +146,6 @@ const calcRedSqs = (positionBoard, alwaysEmptyMatrix, calcForWhite) => {
                 var inBounds = isInBounds(rowIndex, columnIndex)
                 if (inBounds) {
                   sliced[rowIndex][columnIndex] += 1;
-                  // sliced2[rowIndex][columnIndex] += '4'
                   sliced2[rowIndex][columnIndex] = Math.max(sliced2[rowIndex][columnIndex], 4)
                 }
               });
@@ -156,7 +161,6 @@ const calcRedSqs = (positionBoard, alwaysEmptyMatrix, calcForWhite) => {
                 var inBounds = isInBounds(rowIndex, columnIndex)
                 if (inBounds) {
                   sliced[rowIndex][columnIndex] += 1;
-                  // sliced2[rowIndex][columnIndex] += '5'
                   sliced2[rowIndex][columnIndex] = Math.max(sliced2[rowIndex][columnIndex], 5)
                 }
               }
@@ -170,7 +174,6 @@ const calcRedSqs = (positionBoard, alwaysEmptyMatrix, calcForWhite) => {
               var row = square[0];
               var column = square[1];
               sliced[row][column] += 1;
-              // sliced2[row][column] += '4'
               sliced2[row][column] = Math.max(sliced2[row][column], 4)
 
             })
@@ -183,7 +186,6 @@ const calcRedSqs = (positionBoard, alwaysEmptyMatrix, calcForWhite) => {
               var row = square[0];
               var column = square[1];
               sliced[row][column] += 1;
-              // sliced2[row][column] += '3'
               sliced2[row][column] = Math.max(sliced2[row][column], 3)
 
             })
@@ -196,7 +198,6 @@ const calcRedSqs = (positionBoard, alwaysEmptyMatrix, calcForWhite) => {
               var row = square[0];
               var column = square[1];
               sliced[row][column] += 1;
-              // sliced2[row][column] += '2'
               sliced2[row][column] = Math.max(sliced2[row][column], 2)
 
             })
@@ -205,7 +206,6 @@ const calcRedSqs = (positionBoard, alwaysEmptyMatrix, calcForWhite) => {
               var row = square[0];
               var column = square[1];
               sliced[row][column] += 1;
-              // sliced2[row][column] += '2'
               sliced2[row][column] = Math.max(sliced2[row][column], 2)
             })
           }
@@ -220,8 +220,6 @@ const calcRedSqs = (positionBoard, alwaysEmptyMatrix, calcForWhite) => {
         })
       })
     }
-
-    // console.log('sliced3', sliced2, sliced3);
 
     return [sliced, sliced2, sliced3];
   }
