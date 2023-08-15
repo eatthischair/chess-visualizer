@@ -12,10 +12,9 @@ function App() {
 
   return (
   <div className="bg-slate-700 w-screen">
-    <h1 class='flex place-content-center'>This be my website</h1>
     <h1 class='flex place-content-end'>
-      <Link class="bg-inherit hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" to="login">Login</Link>
-      <Link class="bg-inherit hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" to="signUp">Sign Up</Link>
+      {/* <Link class="bg-inherit hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" to="login">Login</Link>
+      <Link class="bg-inherit hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" to="signUp">Sign Up</Link> */}
     </h1>
     <Routes>
       <Route path="/" element={ <BigFunction cookies={cookies}/>} />

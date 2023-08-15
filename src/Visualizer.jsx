@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from "axios";
+// import axios from "axios";
 import './App.css';
 import RenderPieces from './RenderPieces.js';
 import CalcSqs from './ColorCalcFunctions/CalcSqs.jsx';
@@ -94,18 +94,18 @@ const Visualizer = ({setPos, currentHoverPosition, getPos, globalBoard, updateGl
     setPlayerNames(names);
   }
 
-  const saveGameToDB = () => {
-    let sendObj = {
-      pgn: currentPgn,
-      user: currentUser
-    };
-    axios.post('http://localhost:8000/saveGame', sendObj)
-    .then(results => {
-      console.log('results', results);
-    }).catch(err => {
-      console.log('err in submit', err);
-    })
-  }
+  // const saveGameToDB = () => {
+  //   let sendObj = {
+  //     pgn: currentPgn,
+  //     user: currentUser
+  //   };
+  //   axios.post('http://localhost:8000/saveGame', sendObj)
+  //   .then(results => {
+  //     console.log('results', results);
+  //   }).catch(err => {
+  //     console.log('err in submit', err);
+  //   })
+  // }
 
   const [hexObj, setHexObj] = useState(require('./hexObj.js'))
 
@@ -124,8 +124,8 @@ const Visualizer = ({setPos, currentHoverPosition, getPos, globalBoard, updateGl
     setShowWheel(true);
   }
 
-  const [blackCtrlOn, setBlackCtrlOn] = useState(false);
-  const [whiteCtrlOn, setWhiteCtrlOn] = useState(false);
+  const [blackCtrlOn, setBlackCtrlOn] = useState(true);
+  const [whiteCtrlOn, setWhiteCtrlOn] = useState(true);
   const [showColorWheel, setShowColorWheel] = useState(false);
   const [showWheel, setShowWheel] = useState(false);
   const [initialRen, setInitialRen] = useState(true);
@@ -156,10 +156,6 @@ const Visualizer = ({setPos, currentHoverPosition, getPos, globalBoard, updateGl
     <CalcSqs blackCtrlOn={blackCtrlOn} whiteCtrlOn={whiteCtrlOn} currentBoard={currentBoard} pieceObj={pieceObj}      alwaysEmptyMatrix={emptyMatrix} setPos={setPos} boardIsFlipped={boardIsFlipped} sumMode={sumMode} color1={color1.hex} color2={color2.hex} hexObj={hexObj}/>
 
     <div class='grid w-64 h-[300px] border-2 border-red-50 ml-[5px]'>
-
-      {/* <button class='btn-secondary' onClick={() => {setCurrentBoard(getInitialBoard())}}>Starting Position</button> */}
-      {/* <button class='btn-secondary' onClick={() => clearBoard()}>Clear Board</button> */}
-      {/* <button class='btn-secondary' onClick={() => setShowPieceElements(!showPieceElements)}>Add Pieces</button> */}
       {showPieceElements ?
       <div className='pieceDiv' class='flex flex-wrap h-[200px] w-66 overflow-scroll overflow-y-scroll'>
       {Object.keys(pieceObj).map((pieceId, index) => {
@@ -179,15 +175,15 @@ const Visualizer = ({setPos, currentHoverPosition, getPos, globalBoard, updateGl
         <li><a>
           <div className="form-control w-52">
             <label className="cursor-pointer label">
-            <span className="label-text">Show White Sq Ctrl</span>
-            <input type="checkbox" className="toggle toggle-primary" onClick={() => setWhiteCtrlOn(!whiteCtrlOn)}/>
+            <span className="label-text" >Disable White Sq Ctrl</span>
+            <input type="checkbox" value='' className="toggle toggle-primary" onClick={() => setWhiteCtrlOn(!whiteCtrlOn)}/>
             </label>
           </div>
         </a></li>
         <li><a>
           <div className="form-control w-52">
-            <label className="cursor-pointer label">
-            <span className="label-text">Show Black Sq Ctrl</span>
+            <label className="cursor-pointer label ">
+            <span className="label-text">Disable Black Sq Ctrl</span>
             <input type="checkbox" className="toggle toggle-primary" onClick={() => {setBlackCtrlOn(!blackCtrlOn)}}/>
             </label>
           </div>
@@ -196,21 +192,6 @@ const Visualizer = ({setPos, currentHoverPosition, getPos, globalBoard, updateGl
     </button></a></li>
       </ul>
     </div>
-
-    {/* <div className='buttons' class='grid grid-rows-3'>
-      <button class='btn-primary' onClick={() => setWhiteCtrlOn(!whiteCtrlOn)}>Show White Sq Ctrl</button>
-      <button class='btn-primary' onClick={() => {setBlackCtrlOn(!blackCtrlOn)}} >Show Black Sq Ctrl</button>
-      <button class='btn-primary' onClick={() => setBoardIsFlipped(!boardIsFlipped)} type="button">Flip Board</button>
-    </div> */}
-
-  {/* <ul className="menu menu-vertical lg:menu-horizontal bg-base-200 rounded-box"> */}
-    {/* <li><a><button class='btn-primary' onClick={() => setWhiteCtrlOn(!whiteCtrlOn)}>Show White Sq Ctrl
-    </button></a></li>
-    <li><a><button class='btn-primary' onClick={() => {setBlackCtrlOn(!blackCtrlOn)}} >Show Black Sq Ctrl
-    </button></a></li> */}
-    {/* <li><a><button class='btn-primary' onClick={() => setBoardIsFlipped(!boardIsFlipped)} type="button">Flip Board
-    </button></a></li> */}
-  {/* </ul> */}
 
     <div>{playerNames.length > 0 ? `${playerNames[0]} vs ${playerNames[1]}` : ''}</div>
 
@@ -253,17 +234,6 @@ const Visualizer = ({setPos, currentHoverPosition, getPos, globalBoard, updateGl
       </div>
       </div> : ''}
 
-
-      {/* <div class="items-center mb-4"> */}
-      {/* <div>
-
-        <input onChange={() => setSumMode(true)} id="default-radio-2" type="radio" value="" checked={sumMode}  name="default-radio" class="radio-1"/>
-        <label for="default-radio-2" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">By Sum</label>
-      </div> */}
-      {/* <div class="items-center">
-        <input onChange={() => setSumMode(false)} id="default-radio-2" type="radio" value="" checked={!sumMode} name="default-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"/>
-        <label for="default-radio-2" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">By Priority</label>
-      </div> */}
       <button class='btn-primary' onClick={() => setToggleImportPgn(!toggleImportPgn)} type="button">Import Pgn</button>
 
       </div>
@@ -274,7 +244,7 @@ const Visualizer = ({setPos, currentHoverPosition, getPos, globalBoard, updateGl
           <button class='btn-primary' onClick={() => setCurrentBoard(getPreviousBoard())} >Previous Move</button>
           <textarea class='w-[512px] text-black' onChange={(e) => pgnInput(e)} id="w3review" name="w3review" rows="4" cols="50">
           </textarea><button class='btn-primary' onClick={() => readPgn()} type="button">Render Game</button>
-          <button class='btn-primary' onClick={() => saveGameToDB()} type="button">Save Game</button>
+          {/* <button class='btn-primary' onClick={() => saveGameToDB()} type="button">Save Game</button> */}
         </div> : ''}
       </div>
 
