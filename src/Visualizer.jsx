@@ -20,9 +20,6 @@ import GrabTitle from './PgnFunctions/GrabTitle';
 
 const Visualizer = ({setPos, currentHoverPosition, getPos, globalBoard, updateGlobalBoard, getGlobalBoard, updateInitialBoard, getInitialBoard, updatePgnBoardArray, getNextBoard, getPreviousBoard, cookies, colorToUpdate, updateColor, getColor, resetMoveNum}) => {
 
-  const [color1, setColor1] = useColor("hex", "#121212");
-  const [color2, setColor2] = useColor("hex", "#121212");
-
   const [currentBoard, setCurrentBoard] = useState([])
   const [currentPgn, setCurrentPgn] = useState('');
   const [boardIsFlipped, setBoardIsFlipped] = useState(false);
@@ -44,16 +41,22 @@ const Visualizer = ({setPos, currentHoverPosition, getPos, globalBoard, updateGl
     });
   }, []);
 
+  //function attached to piece elements, runs when the piece is dropped on a new square
   const onDrop = (e, pieceId) => {
     e.preventDefault();
     e.stopPropagation();
     movePiece(getPos(), pieceId, getGlobalBoard, updateGlobalBoard, setCurrentBoard);
   }
 
-  var emptyMatrix = makeEmptyMatrix();
+  let emptyMatrix = makeEmptyMatrix();
   const clearBoard = () => {
     updateGlobalBoard(emptyMatrix)
     setCurrentBoard(emptyMatrix);
+  }
+  const setInitialBoard = () => {
+    let board = getInitialBoard();
+    updateGlobalBoard(board);
+    setCurrentBoard(board);
   }
 
   //pgn functions
@@ -74,6 +77,8 @@ const Visualizer = ({setPos, currentHoverPosition, getPos, globalBoard, updateGl
   }
 
   //color change functions
+  const [color1, setColor1] = useColor("hex", "#121212");
+  const [color2, setColor2] = useColor("hex", "#121212");
   const [hexObj, setHexObj] = useState(require('./hexObj.js'))
   const colorChange1 = (event) => {
     setColor1(event);
@@ -127,7 +132,7 @@ const Visualizer = ({setPos, currentHoverPosition, getPos, globalBoard, updateGl
         </div> : ''}
 
       <ul className="menu menu-vertical lg:menu-horizontal bg-base-200 rounded-box">
-        <li><a><button class='btn-secondary' onClick={() => {setCurrentBoard(getInitialBoard())}}>Starting Position
+        <li><a><button class='btn-secondary' onClick={() => {setInitialBoard()}}>Starting Position
         </button></a></li>
         <li><a><button class='btn-secondary' onClick={() => clearBoard()}> Clear Board
         </button></a></li>
