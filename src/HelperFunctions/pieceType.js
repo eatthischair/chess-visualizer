@@ -1,11 +1,10 @@
-import React, { useState, useRef, useEffect } from 'react';
-
 const pieceType = (pieceString, isWhitePiece) => {
   let piece;
-  let isPawn = pieceString.charCodeAt(0) >= 97 && pieceString.charCodeAt(0) <= 104;
+  let isPawn =
+    pieceString.charCodeAt(0) >= 97 && pieceString.charCodeAt(0) <= 104;
 
   if (isPawn) {
-    piece = 'P'
+    piece = "P";
   } else {
     piece = pieceString;
   }
@@ -13,6 +12,6 @@ const pieceType = (pieceString, isWhitePiece) => {
     piece = piece.toLowerCase();
   }
   return piece;
-}
+};
 
 export default pieceType;

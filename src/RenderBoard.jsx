@@ -1,5 +1,5 @@
-import isWhiteSquare from './HelperFunctions/isWhiteSquare.jsx';
-import indexToCoord from './HelperFunctions/indexToCoord.jsx';
+import isWhiteSquare from './HelperFunctions/isWhiteSquare';
+import indexToCoord from './HelperFunctions/indexToCoord';
 import './App.css';
 
 const RenderBoard = ({currentBoard, pieceObj, colorMatrix, setPos, boardIsFlipped, color1, color2, hexObj, currentColor}) => {
@@ -20,6 +20,9 @@ const RenderBoard = ({currentBoard, pieceObj, colorMatrix, setPos, boardIsFlippe
     let piece;
     if (positionBoardPiece !== 0) {
       piece = pieceObj[positionBoardPiece];
+    }
+    if (positionBoardPiece === 'Q2') {
+      console.log('found the queen, BOSS', positionBoardPiece, currentBoard)
     }
     let color;
     if (colorSum !== 0) {

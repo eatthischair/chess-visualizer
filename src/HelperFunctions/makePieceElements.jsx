@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React from 'react';
 import ChessIcons from '../ChessIcons.jsx';
 import onDrop from '../Visualizer.jsx';
 
