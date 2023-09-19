@@ -32,51 +32,55 @@ const callRecurse = (pgnItem, calcForWhite, boardArray, initialBoard) => {
     [-1, -2],
     [1, -2],
   ];
-
-  var board = boardArray[boardArray.length - 1] || initialBoard;
+  //either start with the initial position, or the last board rendered
+  let board = boardArray[boardArray.length - 1] || initialBoard;
   let slice = JSON.parse(JSON.stringify(board));
   let piece = pieceType(pgnItem[0], calcForWhite);
   let nextBoard;
 
-  //REVISE LATER
-  let whiteQueenCount = 1;
-  let blackQueenCount = 1;
+  //these are arbitrary numbers. for user freedom, there are 64 copies of each piece to place on the board. For reading games however, all that matters is the newly created pieces via pawn promotion do not have the same ID number as a piece on the board (i.e. higher than 2)
+  let whitePieceCount = 3;
+  let blackPieceCount = 3;
 
-  if (pgnItem.length === 4) {
+  //the second argument is to prevent "0-0-0" from being handled by the collision and pawn queening functions
+  if (pgnItem.length >= 4 && !pgnItem.includes("-")) {
     coords = toMatrixCoords(coords);
     let middleChar = pgnItem[1];
+    console.log("im in boss", pgnItem);
 
-    // console.log("rff7", pgnItem, coords, middleChar);
-
-    if (pgnItem.includes("=Q")) {
-      console.log("found queen, boss", pgnItem);
-      calcForWhite ? whiteQueenCount++ : blackQueenCount++;
-
-      let pawnId = pgnItem.slice(0, 2);
-      coords = `${pgnItem[0]}${pgnItem[1]}`;
-
-      console.log("=Q", isPawnCapture, calcForWhite, coords, slice, pawnId);
+    //this means a pawn was promoted
+    if (pgnItem.includes("=")) {
+      let pawnColumn = pgnItem[0];
+      //if the length is 5, the pawn captured while promoting, so the coordinates of the pawn to queen are different than if the pawn simply promoted. Thus, the actual destination coordinates are different because of the extra symbol (i.e. ba8=Q vs a8=Q. The coords we need are a8 regardless)
+      if (pgnItem.length === 5) {
+        coords = `${pgnItem[1]}${pgnItem[2]}`;
+      } else {
+        coords = `${pgnItem[0]}${pgnItem[1]}`;
+      }
+      let promotedPiece = pgnItem[pgnItem.indexOf("=") + 1];
+      calcForWhite ? whitePieceCount++ : blackPieceCount++;
       coords = toMatrixCoords(coords);
-
       nextBoard = queeningPawn(
         calcForWhite,
         coords,
         slice,
-        calcForWhite ? whiteQueenCount : blackQueenCount
+        calcForWhite ? whitePieceCount : blackPieceCount,
+        pawnColumn,
+        promotedPiece
       );
-      console.log("queeningpawn NEXTBOARD", nextBoard);
-
-      //axb8 or cxb8, in which case find pawn on c7 or a7
     } else {
       nextBoard = handleCollisions(
         board,
         calcForWhite,
         middleChar,
         piece,
-        coords
+        coords,
+        isPawnCapture
       );
     }
   } else {
+    //if the length is 3, it is either a 'normal' move like 'Nd7' or a pawn capture like 'ef4'
+    // let isPawnCapture;
     pgnItem.length === 3 ? (isPawnCapture = true) : (isPawnCapture = false);
 
     let matrixCoords = toMatrixCoords(coords);
@@ -121,7 +125,6 @@ const callRecurse = (pgnItem, calcForWhite, boardArray, initialBoard) => {
       nextBoard = handleCastles(calcForWhite, board, pgnItem);
     }
   }
-  // console.log('nextboard', nextBoard, pgnItem, calcForWhite)
   return nextBoard;
 };
 

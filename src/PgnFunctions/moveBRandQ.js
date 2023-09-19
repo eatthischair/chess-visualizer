@@ -17,7 +17,6 @@ const moveBRandQ = (index, calcForWhite, piece, type, slice) => {
       if (currentSqType === piece) {
         slice[index[0]][index[1]] = pieceId;
         slice[newY][newX] = 0;
-        console.log("slice", slice);
         return;
       } else {
         return;

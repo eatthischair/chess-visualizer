@@ -4,6 +4,7 @@ import './App.css';
 
 const RenderBoard = ({currentBoard, pieceObj, colorMatrix, setPos, boardIsFlipped, color1, color2, hexObj, currentColor}) => {
 
+  //the board is rendered as 64 divs, so this initializes the array of divs that will be rendered
   let chessBoard = Array.from('0'.repeat(64))
 
   var renderedBoard = chessBoard.map((square, currentIndex) => {
@@ -21,9 +22,7 @@ const RenderBoard = ({currentBoard, pieceObj, colorMatrix, setPos, boardIsFlippe
     if (positionBoardPiece !== 0) {
       piece = pieceObj[positionBoardPiece];
     }
-    if (positionBoardPiece === 'Q2') {
-      console.log('found the queen, BOSS', positionBoardPiece, currentBoard)
-    }
+
     let color;
     if (colorSum !== 0) {
       color *= 1;

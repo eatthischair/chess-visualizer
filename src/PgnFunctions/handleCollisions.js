@@ -1,7 +1,6 @@
 const handleCollisions = (board, calcForWhite, middleChar, piece, coords) => {
-  calcForWhite ? piece = piece.toUpperCase() : piece = piece.toLowerCase();
+  calcForWhite ? (piece = piece.toUpperCase()) : (piece = piece.toLowerCase());
 
-  console.log('RFF7', board, middleChar, piece, coords)
   board = JSON.parse(JSON.stringify(board));
   let charCode = middleChar.charCodeAt(0);
   let searchIndex;
@@ -15,20 +14,17 @@ const handleCollisions = (board, calcForWhite, middleChar, piece, coords) => {
         board[i][searchIndex] = 0;
       }
     }
-    board[coords[0]][coords[1]] =  pieceId;
-
-    console.log('searchindex', searchIndex, board);
-
+    board[coords[0]][coords[1]] = pieceId;
   } else {
     let rowNum = Math.abs(middleChar - 8);
     for (var j = 0; j < 8; j++) {
       if (board[rowNum][j][0] === piece) {
-        board[coords[0]][coords[1]] =  board[rowNum][j];
+        board[coords[0]][coords[1]] = board[rowNum][j];
         board[rowNum][j] = 0;
       }
     }
   }
   return board;
-}
+};
 
 export default handleCollisions;

@@ -2,7 +2,6 @@ import callRecurse from "./callRecurse";
 
 const PgnReader = (initialBoard, pgn) => {
   let pgnStart;
-  let onlyMoves;
   let foundStart = false;
   let commentIndexes = [];
   let dataIndexes = [];
@@ -17,10 +16,12 @@ const PgnReader = (initialBoard, pgn) => {
     if (pgnArray[i] === "1" && !foundStart && !insidePgnData) {
       if (pgnArray[i + 1] === ".") {
         pgnStart = i;
-        onlyMoves = pgnArray.slice(i).join("");
+        pgnArray.slice(i).join("");
         foundStart = true;
       }
     }
+    //in PGN format, all comments are nested within {}, so this operation parses out all text inside curly braces.
+
     if (pgnArray[i] === "{") {
       commentIndexes.push(i);
       insideOfComment = true;
@@ -29,6 +30,7 @@ const PgnReader = (initialBoard, pgn) => {
       commentIndexes.push(i);
       insideOfComment = false;
     }
+    //PGN comments can also be nested using (). this operations records the outermost layer of comments, and later removes all text inside
     if (!insideOfComment) {
       if (pgnArray[i] === "(") {
         commentNestCounter++;
@@ -45,6 +47,7 @@ const PgnReader = (initialBoard, pgn) => {
         }
       }
     }
+    //this is for the data at the beginning of some PGNs. sometimes a "1." might be included and mess up the start of the pgn, so it is necessary to know where it ends and begins, and delete all text inside
     if (pgnArray[i] === "[") {
       dataIndexes.push(i);
       insidePgnData = true;
@@ -54,17 +57,21 @@ const PgnReader = (initialBoard, pgn) => {
       insidePgnData = false;
     }
   }
+
   for (let i = 0; i < dataIndexes.length; i += 2) {
-    let slice = pgnArray
+    pgnArray
       .slice(dataIndexes[i] + 1, dataIndexes[i + 1])
       .join("")
       .split("'");
   }
+
+  //where the "1." that begins the game starts
   commentIndexes.unshift(pgnStart - 1);
 
   let noComments = [];
   let resultStr = "";
 
+  //this for loop slices all text that is not inside a comment, to concat into a single string
   for (let i = 0; i < commentIndexes.length; i += 2) {
     let slice = pgnArray.slice(commentIndexes[i] + 1, commentIndexes[i + 1]);
     let newslice = slice.join("").split("\n").join(" ");
@@ -72,10 +79,11 @@ const PgnReader = (initialBoard, pgn) => {
     slice.join(",");
     resultStr += newslice;
   }
-
   let newResultStr = resultStr.split(" ");
 
+  //at this point all superflous PGN data/comments have been parsed. Now to delete all superflous items of the game moves
   let parsedArray = [];
+  //this parses out move numbers, turning "2.Nf3" into "Nf3"
   newResultStr.forEach((item) => {
     let dotIndex = item.indexOf(".");
     if (dotIndex !== -1) {
@@ -94,19 +102,20 @@ const PgnReader = (initialBoard, pgn) => {
   let cleanPgn = [];
   var comments = ["??", "!?", "!!", "?!", "?", "!"];
 
+  //parse all superflous symbols
   parsedArray.forEach((item) => {
     comments.forEach((comment) => {
       if (item.includes(comment)) {
         item = item.split(`${comment}`).join("");
       }
     });
-    if (item.indexOf("x") !== -1) {
+    if (item.includes("x")) {
       item = item.split("x").join("");
     }
-    if (item.indexOf("+") !== -1) {
+    if (item.includes("+")) {
       item = item.split("+").join("");
     }
-    if (item.indexOf("#") !== -1) {
+    if (item.includes("#")) {
       item = item.split("#").join("");
     }
     if (item.length !== 0) {
@@ -115,7 +124,6 @@ const PgnReader = (initialBoard, pgn) => {
   });
 
   let gamesResults = ["1-0", "1/2-1/2", "0-1", "*"];
-
   let finalPgn = cleanPgn.slice(0, cleanPgn.length);
 
   gamesResults.forEach((result) => {
@@ -124,12 +132,11 @@ const PgnReader = (initialBoard, pgn) => {
     }
   });
 
+  //at this point the PGN is clean and time for rendering
   var boardArray = [];
   finalPgn.forEach((item, index) => {
     let calcForWhite = false;
-    if (index % 2 === 0) {
-      calcForWhite = true;
-    }
+    if (index % 2 === 0) calcForWhite = true;
     let nextBoard = callRecurse(item, calcForWhite, boardArray, initialBoard);
     boardArray.push(nextBoard);
   });

@@ -1,10 +1,6 @@
 module.exports = {
-  // whiteSquare1: "#ffffff",
-  // whiteSquare2: "#ffffff",
   whiteSquare1: "#feffd7",
   whiteSquare2: "#e1ddc1",
-  // blackSquare1: "#fff0e1",
-  // blackSquare2: "#edddc2",
   blackSquare1: "#feffd9",
   blackSquare2: "#d4d0b1",
   redSquare11: "#ffc9e1ff",

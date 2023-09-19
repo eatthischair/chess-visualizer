@@ -259,4 +259,23 @@ Ndf6 29.Qg6+ Kg8 30.h6 Ra7 31.Kh2 Re7 32.Rh3 Nh7 33.Rd3 Qa8
   18. Ng5 Nd5 19. Bd2 Bxg5 20. Bxg5 Qd7 21. Qh5 Rfc8 22. Nd2 Nc3
   23. Bf6 Qe8 24. Ne4 g6 25. Qg5 Nxe4 26. Rxe4 c4 27. h5 cxd3
   28. Rh4 Ra7 29. Bg2 dxc2 30. Qh6 Qf8 31. Qxh7+ Kxh7 32. hxg6 Kxg6 33. Be4 1-0`,
+  `[Event "Moscow"]
+  [Site "Moscow RUE"]
+  [Date "1915.??.??"]
+  [EventDate "?"]
+  [Round "?"]
+  [Result "1-0"]
+  [White "Alexander Alekhine"]
+  [Black "NN"]
+  [ECO "C12"]
+  [WhiteElo "?"]
+  [BlackElo "?"]
+  [PlyCount "57"]
+
+  1.e4 e6 2.d4 d5 3.Nc3 Nf6 4.Bg5 Bb4 5.e5 h6 6.exf6 hxg5 7.fxg7
+  Rg8 8.h4 gxh4 9.Qg4 Be7 10.g3 c5 11.gxh4 cxd4 12.h5 dxc3 13.h6
+  cxb2 14.Rb1 Qa5+ 15.Ke2 Qxa2 16.h7 Qxb1 17.hxg8=Q+ Kd7 18.Qxf7
+  Qxc2+ 19.Kf3 Nc6 20.Qgxe6+ Kc7 21.Qf4+ Kb6 22.Qee3+ Bc5
+  23.g8=Q b1=Q 24.Rh6 Qxf1 25.Qb4+ Qb5 26.Qd8+ Ka6 27. Qea3+
+  Qca4 28.Qaxa4 Qxa4 29.Qxa4# 1-0`,
 ];

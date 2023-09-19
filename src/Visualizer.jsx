@@ -19,7 +19,7 @@ const Visualizer = ({setPos, currentHoverPosition, getPos, globalBoard, updateGl
   const [currentBoard, setCurrentBoard] = useState([])
   const [currentPgn, setCurrentPgn] = useState('');
   const [boardIsFlipped, setBoardIsFlipped] = useState(false);
-  const [toggleImportPgn, setToggleImportPgn] = useState(false);
+  // const [toggleImportPgn, setToggleImportPgn] = useState(false);
   const [showPieceElements, setShowPieceElements] = useState(false);
   const [userGames, setUserGames] = useState([]);
   const [pieceObj, setPieceObj] = useState({});
@@ -68,6 +68,7 @@ const Visualizer = ({setPos, currentHoverPosition, getPos, globalBoard, updateGl
     resetMoveNum();
     let names = GrabTitle(userGames[index])
     setPlayerNames(names);
+
   }
 
   //color change functions
@@ -89,7 +90,7 @@ const Visualizer = ({setPos, currentHoverPosition, getPos, globalBoard, updateGl
 
   const [blackCtrlOn, setBlackCtrlOn] = useState(true);
   const [whiteCtrlOn, setWhiteCtrlOn] = useState(true);
-  const [showColorWheel, setShowColorWheel] = useState(false);
+  // const [showColorWheel, setShowColorWheel] = useState(false);
   const [showWheel, setShowWheel] = useState(false);
   const [initialRen, setInitialRen] = useState(true);
 
@@ -154,56 +155,72 @@ const Visualizer = ({setPos, currentHoverPosition, getPos, globalBoard, updateGl
 
     <div>{playerNames.length > 0 ? `${playerNames[0]} vs ${playerNames[1]}` : ''}</div>
 
+
     <div class='grid grid-cols-1 grid-rows-7 w-[512px] border-amber-300 border-2'>
-      <button class='grid btn-primary w-32 min-w-32 max-w-32 h-16 min-h-16 max-h-16 border-amber-300 border-2' onClick={() => setShowColorWheel(!showColorWheel)}>Color Wheel</button>
-            {/* <div class='border-amber-300 border-2'></div>
-            <div class='border-amber-300 border-2'></div> */}
-      {showColorWheel ?
 
-      <div>
-        <div className="collapse bg-base-200">
-          <input type="radio" name="my-accordion-1" />
-          <div className="collapse-title bg-base-200 text-primary-content peer-checked:bg-primary peer-checked:text-primary-content text-sm w-64">
-            Normal Sq Colors
-          </div>
-          <div className="collapse-content bg-base-200 text-primary-content peer-checked:bg-primary peer-checked:text-primary-content 2 w-64 min-w-64 ">
-            {RadioButtons('whiteSquare', 0, hexUpdate)}
-            {RadioButtons('blackSquare', 0, hexUpdate)}
-            {showWheel ? renderColorPalletes(color1, colorChange1, color2, colorChange2): ''}
-          </div>
-        </div>
-        <div className="collapse bg-base-200">
-          <input type="radio" name="my-accordion-1" />
-          <div className="collapse-title bg-base-200 text-primary-content peer-checked:bg-secondary peer-checked:text-secondary-content text-sm">
-            White Sq Colors
-          </div>
-          <div className="collapse-content bg-base-200 text-primary-content peer-checked:bg-secondary peer-checked:text-secondary-content text-sm">
-            {renderRadioButtons('redSquare', hexUpdate)}
-            {showWheel ? renderColorPalletes(color1, colorChange1, color2, colorChange2): ''}
-          </div>
-        </div>
-        <div className="collapse bg-base-200">
-          <input type="radio" name="my-accordion-1" />
-          <div className="collapse-title bg-base-200 text-primary-content peer-checked:bg-secondary peer-checked:text-secondary-content text-sm">
-            Black Sq Colors
-          </div>
-          <div className="collapse-content bg-base-200 text-primary-content peer-checked:bg-secondary peer-checked:text-secondary-content text-sm">
-            {renderRadioButtons('blueSquare', hexUpdate)}
-            {showWheel ? renderColorPalletes(color1, colorChange1, color2, colorChange2): ''}
-          </div>
-        </div>
-      </div> : ''}
+      <button className="btn-primary w-32 " onClick={()=>document.getElementById('my_modal_3').showModal()}>Color Wheel</button>
+      <dialog id="my_modal_3" className="modal border-amber-300 border-2">
 
-      <button class='btn-primary w-32 min-w-32 max-w-32 h-16 min-h-16 max-h-16 border-amber-300 border-2' onClick={() => setToggleImportPgn(!toggleImportPgn)} type="button">Import Pgn</button>
-        {toggleImportPgn ?
-          <div class='grid grid-rows-4'>
-            <button class='btn-primary w-32 min-w-32 max-w-32 h-16 min-h-16 max-h-16 border-amber-300 border-2' onClick={() => setCurrentBoard(getNextBoard())}>Next Move</button>
-            <button class='btn-primary w-32 min-w-32 max-w-32 h-16 min-h-16 max-h-16 border-amber-300 border-2' onClick={() => setCurrentBoard(getPreviousBoard())} >Previous Move</button>
-            <textarea class='w-[512px] text-black w-32 min-w-32 max-w-32 h-32 min-h-16 max-h-16 border-amber-300 border-2 text-sm' onChange={(e) => pgnInput(e)} id="w3review" name="w3review" rows="4" cols="50">
+        <div class='modal-box flex flex-col bg-base-200 w-full border-amber-300 border-2 self-start'>
+
+          <div className="collapse bg-base-200">
+            <input type="radio" name="my-accordion-1" />
+            <div className="collapse-title bg-base-200 text-primary-content peer-checked:bg-primary peer-checked:text-primary-content text-sm w-64">
+              Normal Sq Colors
+            </div>
+            <div className="collapse-content bg-base-200 text-primary-content peer-checked:bg-primary peer-checked:text-primary-content 2 w-64 min-w-64 ">
+              {RadioButtons('whiteSquare', 0, hexUpdate)}
+              {RadioButtons('blackSquare', 0, hexUpdate)}
+              {showWheel ? renderColorPalletes(color1, colorChange1, color2, colorChange2): ''}
+            </div>
+          </div>
+
+          <div className="collapse bg-base-200">
+            <input type="radio" name="my-accordion-1" />
+            <div className="collapse-title bg-base-200 text-primary-content peer-checked:bg-secondary peer-checked:text-secondary-content text-sm">
+              White Sq Colors
+            </div>
+            <div className="collapse-content bg-base-200 text-primary-content peer-checked:bg-secondary peer-checked:text-secondary-content text-sm">
+              {renderRadioButtons('redSquare', hexUpdate)}
+              {showWheel ? renderColorPalletes(color1, colorChange1, color2, colorChange2): ''}
+            </div>
+          </div>
+
+          <div className="collapse bg-base-200">
+            <input type="radio" name="my-accordion-1" />
+            <div className="collapse-title bg-base-200 text-primary-content peer-checked:bg-secondary peer-checked:text-secondary-content text-sm">
+              Black Sq Colors
+            </div>
+            <div className="collapse-content bg-base-200 text-primary-content peer-checked:bg-secondary peer-checked:text-secondary-content text-sm">
+              {renderRadioButtons('blueSquare', hexUpdate)}
+              {showWheel ? renderColorPalletes(color1, colorChange1, color2, colorChange2): ''}
+            </div>
+          </div>
+
+
+        </div>
+          <form method="dialog" class='modal-backdrop'>
+            <button>Close</button>
+          </form>
+      </dialog>
+
+      {/* </div> : ''} */}
+
+      <button className="btn-primary w-32" onClick={()=>document.getElementById('my_modal_2').showModal()}>Import Game</button>
+        <dialog id="my_modal_2" className="modal">
+
+          <div class='modal-box flex flex-col bg-base-200 w-full border-amber-300 border-2'>
+            <textarea class='flex w-full text-black h-32 min-h-32 max-h-32 border-amber-300 border-2 text-sm bg-white' onChange={(e) => pgnInput(e)} id="w3review" name="w3review" rows="4" cols="50">
             </textarea>
-            <button class='btn-primary w-32 min-w-32 max-w-32 h-16 min-h-16 max-h-16 border-amber-300 border-2' onClick={() => readPgn()} type="button">Render Game</button>
-        </div> : ''}
-      </div>
+            <button class='flex btn-primary w-32 min-w-32 max-w-32 border-amber-300 border-2 place-self-end text-center' onClick={() => readPgn()} type="button">Render Game</button>
+          </div>
+
+          <form method="dialog" class="modal-backdrop">
+            <button>Close</button>
+          </form>
+        </dialog>
+
+        </div>
     </div>
   )
 };

@@ -43,7 +43,6 @@ const BigFunction = (cookies) => {
   var pgnBoardArray;
 
   const updatePgnBoardArray = (array) => {
-    console.log('UPDATEPGN', array)
     pgnBoardArray = array;
   }
 
