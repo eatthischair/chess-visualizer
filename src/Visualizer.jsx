@@ -55,7 +55,8 @@ const Visualizer = ({setPos, currentHoverPosition, getPos, globalBoard, updateGl
 
   //pgn functions
   const readPgn = () => {
-    updatePgnBoardArray(PgnReader(getInitialBoard(), currentPgn));
+    let penis = updatePgnBoardArray(PgnReader(getInitialBoard(), currentPgn));
+    console.log('penis hahah', penis)
   }
   const pgnInput = (e) => {
     setCurrentPgn(e.target.value);
@@ -86,6 +87,7 @@ const Visualizer = ({setPos, currentHoverPosition, getPos, globalBoard, updateGl
   const hexUpdate = (hexToUpdate) => {
     updateColor(hexToUpdate);
     setShowWheel(true);
+    console.log('hexobj', hexToUpdate, updateColor)
   }
 
   const [blackCtrlOn, setBlackCtrlOn] = useState(true);
@@ -93,6 +95,7 @@ const Visualizer = ({setPos, currentHoverPosition, getPos, globalBoard, updateGl
   // const [showColorWheel, setShowColorWheel] = useState(false);
   const [showWheel, setShowWheel] = useState(false);
   const [initialRen, setInitialRen] = useState(true);
+  const [pgnImportSucess, setPgnImportSuccess] = useState(false);
 
   if (initialRen) {
     setPieceObj(makePieceElements(onDrop))
@@ -107,6 +110,18 @@ const Visualizer = ({setPos, currentHoverPosition, getPos, globalBoard, updateGl
   return (
 
   <div class='grid grid-cols-3 grid-auto-rows border-2 border-red-50 h-[520px] justify-center'>
+    {pgnImportSucess ?
+    <div className="toast toast-top toast-start">
+      <div className="alert alert-success">
+        <span>Message sent successfully.</span>
+      </div>
+    </div> :
+    <div className="toast toast-top toast-start">
+      <div className="alert alert-success">
+        <span>Message sent failfully.</span>
+      </div>
+    </div>}
+
 
     <div class='flex-row w-64 h-[520px] border-2 border-red-950 overflow-x-clip overflow-y-scroll'>
       <div class='flex flex-row'>
@@ -159,18 +174,18 @@ const Visualizer = ({setPos, currentHoverPosition, getPos, globalBoard, updateGl
     <div class='grid grid-cols-1 grid-rows-7 w-[512px] border-amber-300 border-2'>
 
       <button className="btn-primary w-32 " onClick={()=>document.getElementById('my_modal_3').showModal()}>Color Wheel</button>
-      <dialog id="my_modal_3" className="modal border-amber-300 border-2">
+      <dialog id="my_modal_3" className="modal border-amber-300 border-2 grid grid-cols-3">
 
-        <div class='modal-box flex flex-col bg-base-200 w-full border-amber-300 border-2 self-start'>
+        <div class='modal-box flex flex-col bg-base-200 border-amber-300 border-2 self-start text-xs m-0'>
 
           <div className="collapse bg-base-200">
             <input type="radio" name="my-accordion-1" />
-            <div className="collapse-title bg-base-200 text-primary-content peer-checked:bg-primary peer-checked:text-primary-content text-sm w-64">
-              Normal Sq Colors
+            <div className="collapse-title bg-base-200 text-primary-content peer-checked:bg-primary peer-checked:text-primary-content text-sm w-64 h-12">
+              Light and Dark Square Colors
             </div>
-            <div className="collapse-content bg-base-200 text-primary-content peer-checked:bg-primary peer-checked:text-primary-content 2 w-64 min-w-64 ">
-              {RadioButtons('whiteSquare', 0, hexUpdate)}
-              {RadioButtons('blackSquare', 0, hexUpdate)}
+            <div className="collapse-content bg-base-200 text-primary-content peer-checked:bg-primary peer-checked:text-primary-content w-64 min-w-64 ">
+              {RadioButtons('lightSquare', 0, hexUpdate)}
+              {RadioButtons('darkSquare', 0, hexUpdate)}
               {showWheel ? renderColorPalletes(color1, colorChange1, color2, colorChange2): ''}
             </div>
           </div>
@@ -178,10 +193,10 @@ const Visualizer = ({setPos, currentHoverPosition, getPos, globalBoard, updateGl
           <div className="collapse bg-base-200">
             <input type="radio" name="my-accordion-1" />
             <div className="collapse-title bg-base-200 text-primary-content peer-checked:bg-secondary peer-checked:text-secondary-content text-sm">
-              White Sq Colors
+              White's Square Colors
             </div>
             <div className="collapse-content bg-base-200 text-primary-content peer-checked:bg-secondary peer-checked:text-secondary-content text-sm">
-              {renderRadioButtons('redSquare', hexUpdate)}
+              {renderRadioButtons('whiteSquare', hexUpdate)}
               {showWheel ? renderColorPalletes(color1, colorChange1, color2, colorChange2): ''}
             </div>
           </div>
@@ -189,22 +204,18 @@ const Visualizer = ({setPos, currentHoverPosition, getPos, globalBoard, updateGl
           <div className="collapse bg-base-200">
             <input type="radio" name="my-accordion-1" />
             <div className="collapse-title bg-base-200 text-primary-content peer-checked:bg-secondary peer-checked:text-secondary-content text-sm">
-              Black Sq Colors
+              Black's Square Colors
             </div>
             <div className="collapse-content bg-base-200 text-primary-content peer-checked:bg-secondary peer-checked:text-secondary-content text-sm">
-              {renderRadioButtons('blueSquare', hexUpdate)}
+              {renderRadioButtons('blackSquare', hexUpdate)}
               {showWheel ? renderColorPalletes(color1, colorChange1, color2, colorChange2): ''}
             </div>
           </div>
-
-
         </div>
-          <form method="dialog" class='modal-backdrop'>
+          <form method="dialog" class='modal-backdrop w-screen'>
             <button>Close</button>
           </form>
       </dialog>
-
-      {/* </div> : ''} */}
 
       <button className="btn-primary w-32" onClick={()=>document.getElementById('my_modal_2').showModal()}>Import Game</button>
         <dialog id="my_modal_2" className="modal">

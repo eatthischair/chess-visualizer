@@ -1,10 +1,11 @@
 import { ColorPicker, useColor } from "react-color-palette";
 
 const renderColorPalletes = (color1, colorChange1, color2, colorChange2) => {
+  console.log("rendcolorpalletes", color1, colorChange1, color2, colorChange2);
   return (
-    <div class="grid grid-cols-2 w-[490px] h-[110px] ">
+    <div class="grid grid-cols-2 w-[400px] h-[110px] ">
       <ColorPicker
-        width={200}
+        width={170}
         height={90}
         color={color1}
         hideHSV
@@ -17,7 +18,7 @@ const renderColorPalletes = (color1, colorChange1, color2, colorChange2) => {
       />
 
       <ColorPicker
-        width={200}
+        width={170}
         height={90}
         color={color2}
         hideHSV
