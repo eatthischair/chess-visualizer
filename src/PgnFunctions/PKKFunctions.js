@@ -68,14 +68,6 @@ const determinePawnVals = (
   slice,
   pawnId
 ) => {
-  console.log(
-    "DETERMINE PAWN VALS",
-    isPawnCapture,
-    calcForWhite,
-    currentIndex,
-    slice,
-    pawnId
-  );
   let pawnColumn = pawnId.charCodeAt(0) - 97;
   var pawnVals;
   var whitePawnCaptureVals = [

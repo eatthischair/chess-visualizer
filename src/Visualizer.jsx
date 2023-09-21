@@ -13,6 +13,8 @@ import RadioButtons from './RadioButtons';
 import renderRadioButtons from './renderRadioButtons.js';
 import renderColorPalletes from './renderColorPalletes.js';
 import GrabTitle from './PgnFunctions/GrabTitle';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Visualizer = ({setPos, currentHoverPosition, getPos, globalBoard, updateGlobalBoard, getGlobalBoard, updateInitialBoard, getInitialBoard, updatePgnBoardArray, getNextBoard, getPreviousBoard, cookies, colorToUpdate, updateColor, getColor, resetMoveNum}) => {
 
@@ -55,9 +57,16 @@ const Visualizer = ({setPos, currentHoverPosition, getPos, globalBoard, updateGl
 
   //pgn functions
   const readPgn = () => {
-    let penis = updatePgnBoardArray(PgnReader(getInitialBoard(), currentPgn));
-    console.log('penis hahah', penis)
+    let {boardArray, pgnIsValid} = PgnReader(getInitialBoard(), currentPgn);
+    updatePgnBoardArray(boardArray);
+    console.log('pgnIsValid', pgnIsValid, boardArray);
+    setPgnImported(pgnIsValid)
+    setPgnValid(pgnIsValid);
   }
+
+
+  const [pgnValid, setPgnValid] = useState(false);
+
   const pgnInput = (e) => {
     setCurrentPgn(e.target.value);
   }
@@ -95,7 +104,7 @@ const Visualizer = ({setPos, currentHoverPosition, getPos, globalBoard, updateGl
   // const [showColorWheel, setShowColorWheel] = useState(false);
   const [showWheel, setShowWheel] = useState(false);
   const [initialRen, setInitialRen] = useState(true);
-  const [pgnImportSucess, setPgnImportSuccess] = useState(false);
+  const [pgnImported, setPgnImported] = useState(false);
 
   if (initialRen) {
     setPieceObj(makePieceElements(onDrop))
@@ -107,21 +116,46 @@ const Visualizer = ({setPos, currentHoverPosition, getPos, globalBoard, updateGl
     setUserGames(require('./loremIpsum.js'))
   }
 
+  const notify = () => {
+    let notifStr = '';
+    pgnValid ? notifStr = 'Game Import Successful!' : notifStr = 'Invalid PGN';
+
+  toast(notifStr, {
+    position: "top-right",
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "light",
+    });
+  }
+
+
   return (
 
-  <div class='grid grid-cols-3 grid-auto-rows border-2 border-red-50 h-[520px] justify-center'>
-    {pgnImportSucess ?
-    <div className="toast toast-top toast-start">
-      <div className="alert alert-success">
-        <span>Message sent successfully.</span>
-      </div>
-    </div> :
-    <div className="toast toast-top toast-start">
-      <div className="alert alert-success">
-        <span>Message sent failfully.</span>
-      </div>
-    </div>}
+  <div>
+    {pgnImported ? notify() : ''}
+    {pgnImported ?
+    <div>
+      <ToastContainer
+      position="top-center"
+      autoClose={3000}
+      hideProgressBar={true}
+      newestOnTop={false}
+      closeOnClick
+      rtl={false}
+      pauseOnFocusLoss
+      draggable
+      pauseOnHover
+      theme="light"/>
+    </div>
+    : ''}
 
+
+
+    <div class='grid grid-cols-3 grid-auto-rows border-2 border-red-50 h-[520px] justify-center'>
 
     <div class='flex-row w-64 h-[520px] border-2 border-red-950 overflow-x-clip overflow-y-scroll'>
       <div class='flex flex-row'>
@@ -171,7 +205,7 @@ const Visualizer = ({setPos, currentHoverPosition, getPos, globalBoard, updateGl
     <div>{playerNames.length > 0 ? `${playerNames[0]} vs ${playerNames[1]}` : ''}</div>
 
 
-    <div class='grid grid-cols-1 grid-rows-7 w-[512px] border-amber-300 border-2'>
+    <div class='grid grid-cols-2 grid-rows-7 w-[512px] border-amber-300 border-2'>
 
       <button className="btn-primary w-32 " onClick={()=>document.getElementById('my_modal_3').showModal()}>Color Wheel</button>
       <dialog id="my_modal_3" className="modal border-amber-300 border-2 grid grid-cols-3">
@@ -225,14 +259,14 @@ const Visualizer = ({setPos, currentHoverPosition, getPos, globalBoard, updateGl
             </textarea>
             <button class='flex btn-primary w-32 min-w-32 max-w-32 border-amber-300 border-2 place-self-end text-center' onClick={() => readPgn()} type="button">Render Game</button>
           </div>
-
           <form method="dialog" class="modal-backdrop">
-            <button>Close</button>
+            <button onClick={() => setPgnImported(false)}>Close</button>
           </form>
         </dialog>
 
         </div>
     </div>
+  </div>
   )
 };
 

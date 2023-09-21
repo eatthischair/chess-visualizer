@@ -1,8 +1,9 @@
 const RadioButtons = (square, num, hexUpdate) => {
-  //this is a bunch of voodoo to turn the hexobj key names into readable radio button labels
   num = num || "";
-  let hexObjCallArg = square;
+  let hexObjCallArg = square + num;
   num ? (square += " " + num) : (square += "s");
+
+  //this is a bunch of voodoo to turn the hexobj key names into readable radio button labels
   let squareString = square
     .split("S")
     .join(" s")

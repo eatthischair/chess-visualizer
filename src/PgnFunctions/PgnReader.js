@@ -141,7 +141,24 @@ const PgnReader = (initialBoard, pgn) => {
     boardArray.push(nextBoard);
   });
 
-  return boardArray;
+  let pgnIsValid = true;
+  boardArray.forEach((board, index) => {
+    if (index > 0) {
+      if (
+        JSON.stringify(boardArray[index]) ===
+          JSON.stringify(boardArray[index - 1]) ||
+        boardArray[index] === undefined
+      ) {
+        pgnIsValid = false;
+      }
+    }
+  });
+  // console.log("PGNISVALID", pgnIsValid);
+  if (!boardArray) {
+    pgnIsValid = false;
+  }
+  console.log("boards", boardArray);
+  return { boardArray, pgnIsValid };
 };
 
 export default PgnReader;

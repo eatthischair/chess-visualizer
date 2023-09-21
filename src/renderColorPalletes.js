@@ -1,7 +1,7 @@
 import { ColorPicker, useColor } from "react-color-palette";
 
 const renderColorPalletes = (color1, colorChange1, color2, colorChange2) => {
-  console.log("rendcolorpalletes", color1, colorChange1, color2, colorChange2);
+  // console.log("rendcolorpalletes", color1, colorChange1, color2, colorChange2);
   return (
     <div class="grid grid-cols-2 w-[400px] h-[110px] ">
       <ColorPicker
