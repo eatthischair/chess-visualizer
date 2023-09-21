@@ -218,6 +218,7 @@ module.exports = [
 [Annotator "https://lichess.org/@/Durarbayli"]
 
 1. e4 c5 2. Nf3 e6 3. d4 cxd4 4. Nxd4 Nc6 5. Nb5 d6 6. c4 Nf6 7. N1c3 a6 8. Na3 d5 9. cxd5 exd5 10. exd5 Nb4 11. Be2 Bc5 12. O-O O-O 13. Bf3 Bf5 14. Bg5 Re8 15. Qd2 b5 16. Rad1 Nd3 17. Nab1 h6 18. Bh4 b4 19. Na4 Bd6 20. Bg3 Rc8 21. b3 g5 22. Bxd6 Qxd6 23. g3 Nd7 24. Bg2 Qf6 25. a3 a5 26. axb4 axb4 27. Qa2 Bg6 28. d6 g4 29. Qd2 Kg7 30. f3 Qxd6 31. fxg4 Qd4+ 32. Kh1 Nf6 33. Rf4 Ne4 34. Qxd3 Nf2+ 35. Rxf2 Bxd3 36. Rfd2 Qe3 37. Rxd3 Rc1 38. Nb2 Qf2 39. Nd2 Rxd1+ 40. Nxd1 Re1+ { 0-1 White resigns. } 0-1`,
+
   `[Event "Latvian championship"]
 [Site "Riga URS"]
 [Date "1953.??.??"]
@@ -239,6 +240,7 @@ Qxd5 24.fxg6 Rxf3 25.g7 Kg8 26.Bxh7+ Kxh7 27.Rxf3 Ne4 28.h5
 Ndf6 29.Qg6+ Kg8 30.h6 Ra7 31.Kh2 Re7 32.Rh3 Nh7 33.Rd3 Qa8
 34.Qxe4 Qxe4 35.Rd8+ Kf7 36.g8=Q+ Kf6 37.Rd6+ Kf5 38.Qg6+ Kf4
 39.g3+ Ke3 40.Rd3+ Qxd3 1-0`,
+
   `1. e4 e5 2. Nf3 Nc6 3. Bb5 a6 4. Ba4 Nf6 5. O-O Be7 6. Re1 b5 7. Bb3 O-O 8. c3 d6 9. h3 Na5 10. Bc2 c5 11. d4 Qc7 12. Nbd2 Bd7 13. Nf1 cd4 14. cd4 Rac8 15. Ne3 Nc6 16. d5 Nb4 17. Bb1 a5 18. a3 Na6 19. b4 g6 20. Bd2 ab4 21. ab4 Qb7 22. Bd3 Nc7 23. Nc2 Nh5 24. Be3 Ra8 25. Qd2 Ra1 26. Na1 f5 27. Bh6 Ng7 28. Nb3 f4 29. Na5 Qb6 30. Rc1 Ra8 31. Qc2 Nce8 32. Qb3 Bf6 33. Nc6 Nh5 34. Qb2 Bg7 35. Bg7 Kg7 36. Rc5 Qa6 37. Rb5 Nc7 38. Rb8 Qd3 39. Nce5 Qd1 40. Kh2 Ra1 41. Ng4 Kf7 42. Nh6 Ke7 43. Ng8 44. Kf7 Ng5`,
   `[Event "Sousse Interzonal"]
   [Site "Sousse TUN"]
