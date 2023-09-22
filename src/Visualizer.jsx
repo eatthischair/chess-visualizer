@@ -22,10 +22,10 @@ import ColorOptions from "./ColorOptions";
 import ImportGame from "./ImportGame";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { icon } from '@fortawesome/fontawesome-svg-core/import.macro'
-
-// import { faBackwardFast } from '@fortawesome/free-solid-svg-icons'
-
+import { faBackwardFast } from '@fortawesome/free-solid-svg-icons'
+import { faBackwardStep } from '@fortawesome/free-solid-svg-icons'
+import { faForwardStep } from '@fortawesome/free-solid-svg-icons'
+import { faForwardFast } from '@fortawesome/free-solid-svg-icons'
 
 
 const Visualizer = ({
@@ -264,9 +264,13 @@ const Visualizer = ({
         />
       </div>
 
-      <div class="flex flex-initial border-amber-300 border-2 justify-center gap-x-32">
+      <div class="flex flex-initial border-amber-300 border-2 justify-center gap-x-32 text-black">
 
-      <FontAwesomeIcon icon="fa-solid fa-backward-fast" />
+      <FontAwesomeIcon icon={faBackwardFast} />
+      <FontAwesomeIcon icon={faBackwardStep} />
+      <FontAwesomeIcon icon={faForwardStep} />
+      <FontAwesomeIcon icon={faForwardFast} />
+
       </div>
 
     </div>
