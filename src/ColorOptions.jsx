@@ -2,7 +2,7 @@ const ColorOptions = ({RadioButtons, hexUpdate, showWheel, renderColorPalletes, 
 
   return (
 
-    <div class="flex flex-initial border-amber-300 border-2 justify-center gap-x-32">
+    <div class="flex flex-initial justify-center gap-x-32">
     <button
       className="flex flex-initial btn-primary w-32 "
       onClick={() => document.getElementById("my_modal_3").showModal()}

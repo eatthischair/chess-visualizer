@@ -13,11 +13,20 @@ import RadioButtons from "./RadioButtons";
 import renderRadioButtons from "./renderRadioButtons.js";
 import renderColorPalletes from "./renderColorPalletes.js";
 import GrabTitle from "./PgnFunctions/GrabTitle";
+
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+
 import Sidebar from "./Sidebar";
 import ColorOptions from "./ColorOptions";
 import ImportGame from "./ImportGame";
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { icon } from '@fortawesome/fontawesome-svg-core/import.macro'
+
+// import { faBackwardFast } from '@fortawesome/free-solid-svg-icons'
+
+
 
 const Visualizer = ({
   setPos,
@@ -40,7 +49,6 @@ const Visualizer = ({
   const [currentBoard, setCurrentBoard] = useState([]);
   const [currentPgn, setCurrentPgn] = useState("");
   const [boardIsFlipped, setBoardIsFlipped] = useState(false);
-  // const [toggleImportPgn, setToggleImportPgn] = useState(false);
   const [showPieceElements, setShowPieceElements] = useState(false);
   const [userGames, setUserGames] = useState([]);
   const [pieceObj, setPieceObj] = useState({});
@@ -84,7 +92,6 @@ const Visualizer = ({
   const readPgn = () => {
     let { boardArray, pgnIsValid } = PgnReader(getInitialBoard(), currentPgn);
     updatePgnBoardArray(boardArray);
-    // console.log("pgnIsValid", pgnIsValid, boardArray);
     setPgnImported(pgnIsValid);
     setPgnValid(pgnIsValid);
   };
@@ -121,12 +128,10 @@ const Visualizer = ({
   const hexUpdate = (hexToUpdate) => {
     updateColor(hexToUpdate);
     setShowWheel(true);
-    // console.log("hexobj", hexToUpdate, updateColor);
   };
 
   const [blackCtrlOn, setBlackCtrlOn] = useState(true);
   const [whiteCtrlOn, setWhiteCtrlOn] = useState(true);
-  // const [showColorWheel, setShowColorWheel] = useState(false);
   const [showWheel, setShowWheel] = useState(false);
   const [initialRen, setInitialRen] = useState(true);
   const [pgnImported, setPgnImported] = useState(false);
@@ -159,9 +164,12 @@ const Visualizer = ({
     });
   };
 
+  // icon({name: 'faBackwardFast', family: 'classic', style: 'regular'})
+
   return (
     <div>
-      {/* {pgnImported ? notify() : ""}
+
+       {/* {pgnImported ? notify() : ""}
       {pgnImported ? (
         <div>
           <ToastContainer
@@ -255,6 +263,12 @@ const Visualizer = ({
           setPgnImported={setPgnImported}
         />
       </div>
+
+      <div class="flex flex-initial border-amber-300 border-2 justify-center gap-x-32">
+
+      <FontAwesomeIcon icon="fa-solid fa-backward-fast" />
+      </div>
+
     </div>
   );
 };
