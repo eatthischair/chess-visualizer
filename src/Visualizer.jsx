@@ -1,32 +1,35 @@
 import React, { useState } from "react";
 import "./App.css";
-import RenderPieces from "./RenderPieces.js";
+import RenderPieces from "./Initialization/RenderPieces.js";
 import CalcSqs from "./ColorCalcFunctions/CalcSqs";
 import makeEmptyMatrix from "./HelperFunctions/makeEmptyMatrix";
 import PgnReader from "./PgnFunctions/PgnReader";
-import makePieceElements from "./makePieceElements.js";
-import setInitialBoardPosition from "./setInitialBoard.js";
+import makePieceElements from "./Initialization/makePieceElements.js";
+import setInitialBoardPosition from "./Initialization/setInitialBoard.js";
 import movePiece from "./movePiece.js";
 import { useColor } from "react-color-palette";
 import "react-color-palette/lib/css/styles.css";
-import RadioButtons from "./RadioButtons";
-import renderRadioButtons from "./renderRadioButtons.js";
-import renderColorPalletes from "./renderColorPalletes.js";
+
+
+import RadioButtons from "./ColorOptions/RadioButtons";
+import renderRadioButtons from "./ColorOptions/renderRadioButtons.js";
+import renderColorPalletes from "./ColorOptions/renderColorPalletes.js";
 import GrabTitle from "./PgnFunctions/GrabTitle";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import Sidebar from "./Sidebar";
-import ColorOptions from "./ColorOptions";
+import ColorOptions from "./ColorOptions/ColorOptions";
 import ImportGame from "./ImportGame";
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBackwardFast } from '@fortawesome/free-solid-svg-icons'
-import { faBackwardStep } from '@fortawesome/free-solid-svg-icons'
-import { faForwardStep } from '@fortawesome/free-solid-svg-icons'
-import { faForwardFast } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBackwardFast } from "@fortawesome/free-solid-svg-icons";
+import { faBackwardStep } from "@fortawesome/free-solid-svg-icons";
+import { faForwardStep } from "@fortawesome/free-solid-svg-icons";
+import { faForwardFast } from "@fortawesome/free-solid-svg-icons";
 
+import { ColorPicker } from "react-color-palette";
 
 const Visualizer = ({
   setPos,
@@ -116,7 +119,7 @@ const Visualizer = ({
   //color change functions
   const [color1, setColor1] = useColor("hex", "#121212");
   const [color2, setColor2] = useColor("hex", "#121212");
-  const [hexObj, setHexObj] = useState(require("./hexObj.js"));
+  const [hexObj, setHexObj] = useState(require("./Initialization/hexObj.js"));
   const colorChange1 = (event) => {
     setColor1(event);
     setHexObj({ ...hexObj, [getColor() + "1"]: event.hex });
@@ -143,7 +146,7 @@ const Visualizer = ({
     setCurrentBoard(newBoard);
     updateInitialBoard(newBoard);
     setInitialRen(false);
-    setUserGames(require("./loremIpsum.js"));
+    setUserGames(require("./Initialization/loremIpsum.js"));
   }
 
   const notify = () => {
@@ -163,13 +166,11 @@ const Visualizer = ({
       theme: "light",
     });
   };
-
   // icon({name: 'faBackwardFast', family: 'classic', style: 'regular'})
 
   return (
     <div>
-
-       {/* {pgnImported ? notify() : ""}
+      {/* {pgnImported ? notify() : ""}
       {pgnImported ? (
         <div>
           <ToastContainer
@@ -188,6 +189,20 @@ const Visualizer = ({
       ) : (
         ""
       )} */}
+      {/* <div>
+      <ColorPicker
+        width={170}
+        height={90}
+        color={color1}
+        hideHSV
+        dark
+        hideAlpha
+        hideInput
+        onChange={(e) => {
+          colorChange1(e);
+        }}
+      />
+      </div> */}
       <div class="flex justify-center">
         {playerNames.length > 0 ? `${playerNames[0]} vs ${playerNames[1]}` : ""}
       </div>
@@ -255,6 +270,8 @@ const Visualizer = ({
           color2={color2}
           colorChange2={colorChange2}
           renderRadioButtons={renderRadioButtons}
+          hexObj={hexObj}
+          color1={color1}
         />
 
         <ImportGame
@@ -265,14 +282,11 @@ const Visualizer = ({
       </div>
 
       <div class="flex flex-initial border-amber-300 border-2 justify-center gap-x-32 text-black">
-
-      <FontAwesomeIcon icon={faBackwardFast} />
-      <FontAwesomeIcon icon={faBackwardStep} />
-      <FontAwesomeIcon icon={faForwardStep} />
-      <FontAwesomeIcon icon={faForwardFast} />
-
+        <FontAwesomeIcon icon={faBackwardFast} />
+        <FontAwesomeIcon icon={faBackwardStep} />
+        <FontAwesomeIcon icon={faForwardStep} />
+        <FontAwesomeIcon icon={faForwardFast} />
       </div>
-
     </div>
   );
 };
