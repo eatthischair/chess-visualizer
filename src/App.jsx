@@ -4,10 +4,11 @@ import BigFunction from './BigFunction.jsx';
 
 function App() {
   return (
-  <div className="bg-slate-700 w-screen">
-    <Routes>
-      <Route path="/" element={ <BigFunction/>} />
-    </Routes>
+  <div className="bg-gradient-to-b from-black to-gray-800 w-screen h-screen">
+    {/* <Routes> */}
+      {/* <Route path="/" element={ <BigFunction/>} /> */}
+    {/* </Routes> */}
+    <BigFunction/>
   </div>
   );
 }

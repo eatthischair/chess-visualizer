@@ -1,4 +1,4 @@
-import colorGrid from './colorGrid';
+import colorGrid from "./colorGrid";
 
 const ColorOptions = ({
   RadioButtons,
@@ -9,25 +9,23 @@ const ColorOptions = ({
   colorChange1,
   color2,
   colorChange2,
-  renderRadioButtons, hexObj
+  renderRadioButtons,
+  hexObj,
 }) => {
-
-  // console.log('hexobj', hexObj)
   let hexObjArr = Object.entries(hexObj);
   let concatted = [];
-  for (let i = 0; i < hexObjArr.length; i+= 2) {
-    concatted.push(hexObjArr[i].concat(hexObjArr[i + 1]))
+  for (let i = 0; i < hexObjArr.length; i += 2) {
+    concatted.push(hexObjArr[i].concat(hexObjArr[i + 1]));
   }
 
-  let blocks = concatted.map(row => {
-    return colorGrid(row[1], row[3])
-  })
+  let blocks = concatted.map((row) => {
+    return colorGrid(row[1], row[3]);
+  });
 
   let block1 = blocks.slice(0, 2);
   let block2 = blocks.slice(2, 9);
   let block3 = blocks.slice(9, blocks.length);
 
-  console.log('CONCATTED', concatted)
   return (
     <div class="flex flex-initial justify-center gap-x-32">
       <button
@@ -47,9 +45,9 @@ const ColorOptions = ({
               Light and Dark Square Colors
             </div>
             <div className="collapse-content bg-base-200 text-primary-content peer-checked:bg-primary peer-checked:text-primary-content w-64 min-w-64 ">
+              {block1}
               {RadioButtons("lightSquare", 0, hexUpdate)}
               {RadioButtons("darkSquare", 0, hexUpdate)}
-              {block1}
               {showWheel
                 ? renderColorPalletes(
                     color1,
@@ -58,7 +56,6 @@ const ColorOptions = ({
                     colorChange2
                   )
                 : ""}
-
             </div>
           </div>
 
@@ -68,7 +65,7 @@ const ColorOptions = ({
               White's Square Colors
             </div>
             <div className="collapse-content bg-base-200 text-primary-content peer-checked:bg-secondary peer-checked:text-secondary-content text-sm">
-            {block2}
+              {block2}
               {renderRadioButtons("whiteSquare", hexUpdate)}
               {showWheel
                 ? renderColorPalletes(

@@ -10,7 +10,6 @@ import movePiece from "./movePiece.js";
 import { useColor } from "react-color-palette";
 import "react-color-palette/lib/css/styles.css";
 
-
 import RadioButtons from "./ColorOptions/RadioButtons";
 import renderRadioButtons from "./ColorOptions/renderRadioButtons.js";
 import renderColorPalletes from "./ColorOptions/renderColorPalletes.js";
@@ -105,7 +104,7 @@ const Visualizer = ({
     setCurrentPgn(e.target.value);
   };
 
-  const [playerNames, setPlayerNames] = useState([]);
+  const [playerNames, setPlayerNames] = useState("");
   const handlePgn = (index) => {
     setCurrentPgn(userGames[index]);
     let { boardArray } = PgnReader(getInitialBoard(), userGames[index]);
@@ -189,23 +188,8 @@ const Visualizer = ({
       ) : (
         ""
       )} */}
-      {/* <div>
-      <ColorPicker
-        width={170}
-        height={90}
-        color={color1}
-        hideHSV
-        dark
-        hideAlpha
-        hideInput
-        onChange={(e) => {
-          colorChange1(e);
-        }}
-      />
-      </div> */}
-      <div class="flex justify-center">
-        {playerNames.length > 0 ? `${playerNames[0]} vs ${playerNames[1]}` : ""}
-      </div>
+
+      <div class="flex justify-center">{playerNames}</div>
 
       <div class="flex justify-center border-2 border-red-50 h-[520px] m-0">
         <div class="w-64 h-[520px] border-2 border-red-950 overflow-x-clip overflow-y-scroll">
@@ -220,9 +204,9 @@ const Visualizer = ({
                   onClick={() => {
                     handlePgn(index);
                   }}
-                  class="border-2 border-red-50 h-[100px] overflow-clip text-[8px]"
+                  class="border-2 border-red-50 h-[100px] overflow-clip text-[12px]"
                 >
-                  {game}
+                  {GrabTitle(game)}
                 </div>
               ))
             : ""}

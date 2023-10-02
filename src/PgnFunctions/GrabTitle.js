@@ -19,7 +19,7 @@ const GrabTitle = (pgn) => {
       blackIndex + 7 + endIndex - 1
     );
   }
-  return [whitePlayerName, blackPlayerName];
+  return `${whitePlayerName} vs ${blackPlayerName}`;
 };
 
 export default GrabTitle;

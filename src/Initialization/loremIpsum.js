@@ -241,7 +241,10 @@ Ndf6 29.Qg6+ Kg8 30.h6 Ra7 31.Kh2 Re7 32.Rh3 Nh7 33.Rd3 Qa8
 34.Qxe4 Qxe4 35.Rd8+ Kf7 36.g8=Q+ Kf6 37.Rd6+ Kf5 38.Qg6+ Kf4
 39.g3+ Ke3 40.Rd3+ Qxd3 1-0`,
 
-  `1. e4 e5 2. Nf3 Nc6 3. Bb5 a6 4. Ba4 Nf6 5. O-O Be7 6. Re1 b5 7. Bb3 O-O 8. c3 d6 9. h3 Na5 10. Bc2 c5 11. d4 Qc7 12. Nbd2 Bd7 13. Nf1 cd4 14. cd4 Rac8 15. Ne3 Nc6 16. d5 Nb4 17. Bb1 a5 18. a3 Na6 19. b4 g6 20. Bd2 ab4 21. ab4 Qb7 22. Bd3 Nc7 23. Nc2 Nh5 24. Be3 Ra8 25. Qd2 Ra1 26. Na1 f5 27. Bh6 Ng7 28. Nb3 f4 29. Na5 Qb6 30. Rc1 Ra8 31. Qc2 Nce8 32. Qb3 Bf6 33. Nc6 Nh5 34. Qb2 Bg7 35. Bg7 Kg7 36. Rc5 Qa6 37. Rb5 Nc7 38. Rb8 Qd3 39. Nce5 Qd1 40. Kh2 Ra1 41. Ng4 Kf7 42. Nh6 Ke7 43. Ng8 44. Kf7 Ng5`,
+  `
+[White "Mikhail Tal"]
+[Black "Johann Hjartarson"]
+  1. e4 e5 2. Nf3 Nc6 3. Bb5 a6 4. Ba4 Nf6 5. O-O Be7 6. Re1 b5 7. Bb3 O-O 8. c3 d6 9. h3 Na5 10. Bc2 c5 11. d4 Qc7 12. Nbd2 Bd7 13. Nf1 cd4 14. cd4 Rac8 15. Ne3 Nc6 16. d5 Nb4 17. Bb1 a5 18. a3 Na6 19. b4 g6 20. Bd2 ab4 21. ab4 Qb7 22. Bd3 Nc7 23. Nc2 Nh5 24. Be3 Ra8 25. Qd2 Ra1 26. Na1 f5 27. Bh6 Ng7 28. Nb3 f4 29. Na5 Qb6 30. Rc1 Ra8 31. Qc2 Nce8 32. Qb3 Bf6 33. Nc6 Nh5 34. Qb2 Bg7 35. Bg7 Kg7 36. Rc5 Qa6 37. Rb5 Nc7 38. Rb8 Qd3 39. Nce5 Qd1 40. Kh2 Ra1 41. Ng4 Kf7 42. Nh6 Ke7 43. Ng8 44. Kf7 Ng5`,
   `[Event "Sousse Interzonal"]
   [Site "Sousse TUN"]
   [Date "1967.10.15"]
