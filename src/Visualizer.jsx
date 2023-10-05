@@ -90,21 +90,12 @@ const Visualizer = ({
     if (lastBoard) setCurrentBoard(getLastBoard());
   };
 
-  //function attached to piece elements, runs when the piece is dropped on a new square
+  //function attached to piece elements, runs when the piece is dropped on a new square, or in trashcan
   const onDrop = (e, pieceId) => {
     let pos = getPos();
-
-    console.log('im in ondrop boss', e, pieceId, pos)
-
     e.preventDefault();
     e.stopPropagation();
-    movePiece(
-      pos,
-      pieceId,
-      getGlobalBoard,
-      updateGlobalBoard,
-      setCurrentBoard
-    );
+    movePiece(pos, pieceId, getGlobalBoard, updateGlobalBoard, setCurrentBoard);
   };
 
   let emptyMatrix = makeEmptyMatrix();
@@ -119,30 +110,26 @@ const Visualizer = ({
   };
 
   //pgn functions
-  const readPgn = () => {
-    let { boardArray, pgnIsValid } = PgnReader(getInitialBoard(), currentPgn);
+  const readPgn = (index) => {
+    //index is only passed via the games in the sidebar. userGames is the array of games to the left of the board
+    let pgnToRead = index || index === 0 ? userGames[index] : currentPgn;
+    let { boardArray, pgnIsValid } = PgnReader(getInitialBoard(), pgnToRead);
+    setCurrentPgn(pgnToRead);
     updatePgnBoardArray(boardArray);
     setPgnImported(pgnIsValid);
     setPgnValid(pgnIsValid);
-    setPlayerNames(GrabTitle(currentPgn));
+    setPlayerNames(GrabTitle(pgnToRead));
+    setCurrentBoard(getInitialBoard());
+    resetMoveNum();
   };
 
-  const [pgnValid, setPgnValid] = useState(false);
+  const [pgnValid, setPgnValid] = useState(true);
 
   const pgnInput = (e) => {
     setCurrentPgn(e.target.value);
   };
 
   const [playerNames, setPlayerNames] = useState("");
-  const handlePgn = (index) => {
-    setCurrentPgn(userGames[index]);
-    let { boardArray } = PgnReader(getInitialBoard(), userGames[index]);
-    updatePgnBoardArray(boardArray);
-    setCurrentBoard(getInitialBoard());
-    resetMoveNum();
-    let names = GrabTitle(userGames[index]);
-    setPlayerNames(names);
-  };
 
   //color change functions
   const [color1, setColor1] = useColor("hex", "#121212");
@@ -216,7 +203,7 @@ const Visualizer = ({
             ? userGames.map((game, index) => (
                 <div
                   onClick={() => {
-                    handlePgn(index);
+                    readPgn(index);
                   }}
                   class="btn-tertiary"
                 >
@@ -278,6 +265,7 @@ const Visualizer = ({
           pgnInput={pgnInput}
           readPgn={readPgn}
           setPgnImported={setPgnImported}
+          pgnValid={pgnValid}
         />
       </div>
       <div>

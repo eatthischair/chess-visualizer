@@ -9,6 +9,8 @@ const GrabTitle = (pgn) => {
       whiteIndex + 7,
       whiteIndex + 7 + endIndex - 1
     );
+  } else {
+    whitePlayerName = "NN";
   }
 
   if (blackIndex !== -1) {
@@ -18,6 +20,8 @@ const GrabTitle = (pgn) => {
       blackIndex + 7,
       blackIndex + 7 + endIndex - 1
     );
+  } else {
+    blackPlayerName = "NN";
   }
   return `${whitePlayerName} vs ${blackPlayerName}`;
 };

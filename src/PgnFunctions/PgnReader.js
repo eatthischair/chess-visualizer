@@ -163,6 +163,7 @@ const PgnReader = (initialBoard, pgn) => {
   if (!boardArray) {
     pgnIsValid = false;
   }
+  // console.log("PGNISVALID", pgnIsValid);
   return { boardArray, pgnIsValid };
 };
 

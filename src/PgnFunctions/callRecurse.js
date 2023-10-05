@@ -52,7 +52,6 @@ const callRecurse = (
   if (pgnItem.length >= 4 && !pgnItem.includes("-")) {
     coords = toMatrixCoords(coords);
     let middleChar = pgnItem[1];
-    console.log("im in boss", pgnItem);
 
     //this means a pawn was promoted
     if (pgnItem.includes("=")) {
