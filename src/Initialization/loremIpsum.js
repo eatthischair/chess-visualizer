@@ -117,24 +117,6 @@ module.exports = [
  Bb6 9. Qb3 d5 10. exd5 Na5 11. Re1+ Be6 12. dxe6 Nxb3 13. exf7+ Kd7 14. Be6+ Kc6
  15. Ne5+ Kb5 16. Bc4+ Ka5 17. Bb4+ Ka4 18. axb3# 1-0`,
 
-  `[Event "Paris"]
-  [Site "Paris FRA"]
-  [Date "1859.03.31"]
-  [EventDate "?"]
-  [Round "?"]
-  [Result "1-0"]
-  [White "Paul Morphy"]
-  [Black "Schrufer"]
-  [ECO "C56"]
-  [WhiteElo "?"]
-  [BlackElo "?"]
-  [PlyCount "47"]
-
-  1.e4 e5 2.Nf3 Nc6 3.Bc4 Nf6 4.d4 exd4 5.O-O Nxe4 6.Re1 d5
-  7.Bxd5 Qxd5 8.Nc3 Qh5 9.Nxe4 Be6 10.Neg5 Bb4 11.Rxe6+ fxe6
-  12.Nxe6 Qf7 13.Nfg5 Qe7 14.Qe2 Bd6 15.Nxg7+ Kd7 16.Qg4+ Kd8
-  17.Nf7+ Qxf7 18.Bg5+ Be7 19.Ne6+ Kc8 20.Nc5+ Kb8 21.Nd7+ Kc8
-  22.Nb6+ Kb8 23.Qc8+ Rxc8 24.Nd7# 1-0`,
   `[Event "Wch U14"]
   [Site "Chalkidiki GRE"]
   [Date "2003.10.23"]
@@ -152,54 +134,6 @@ module.exports = [
   7. c3 e5 8. h3 Nh5 9. dxe5 Nf4 10. Bb5 Nxe5 11. Nxe5 Qg5
   12. Ng4 Qxb5 13. Nb3 Ne2+ 14. Kh1 Bxg4 15. hxg4 Rae8 16. Be3
   Rxe4 17. Re1 Qh5+ 0-1`,
-  `[Event "Grand Slam Chess Final"]
-  [Site "Sao Paulo BRA"]
-  [Date "2012.09.25"]
-  [EventDate "2012.09.24"]
-  [Round "2"]
-  [Result "0-1"]
-  [White "Francisco Vallejo Pons"]
-  [Black "Magnus Carlsen"]
-  [ECO "B07"]
-  [WhiteElo "2697"]
-  [BlackElo "2843"]
-  [PlyCount "82"]
-
-  1. e4 d6 2. d4 Nf6 3. Nc3 e5 4. dxe5 dxe5 5. Qxd8+ Kxd8 6. Nf3
-  Bd6 7. Bg5 Be6 8. O-O-O Nbd7 9. Nb5 Ke7 10. Nxd6 cxd6 11. Bb5
-  Rhd8 12. Nd2 h6 13. Bh4 g5 14. Bg3 a6 15. Bxd7 Rxd7 16. f3 Rc8
-  17. Kb1 Nh5 18. Nf1 f5 19. exf5 Bxf5 20. Ne3 Bg6 21. Rd2 Ke6
-  22. b3 b5 23. Kb2 d5 24. Re1 Nxg3 25. hxg3 h5 26. c3 d4
-  27. cxd4 Rxd4 28. Rxd4 exd4 29. Nc2+ Kd5 30. Nb4+ Kd6 31. Rc1
-  Rxc1 32. Kxc1 h4 33. gxh4 gxh4 34. Nxa6 Bd3 35. Nb4 Bf1
-  36. Kd2 Bxg2 37. Ke2 Bh3 38. a4 Bf5 39. axb5 d3+ 40. Ke3 h3
-  41. Nxd3 Bxd3 0-1`,
-
-  `[Event "Corus Group A"]
-  [Site "Wijk aan Zee NED"]
-  [Date "2008.01.26"]
-  [EventDate "2008.01.12"]
-  [Round "12"]
-  [Result "0-1"]
-  [White "Vladimir Kramnik"]
-  [Black "Magnus Carlsen"]
-  [ECO "A30"]
-  [WhiteElo "2799"]
-  [BlackElo "2733"]
-  [PlyCount "114"]
-
-  1. Nf3 Nf6 2. c4 e6 3. Nc3 c5 4. g3 b6 5. Bg2 Bb7 6. O-O Be7
-  7. d4 cxd4 8. Qxd4 d6 9. Rd1 a6 10. Ng5 Bxg2 11. Kxg2 Nc6
-  12. Qf4 O-O 13. Nce4 Ne8 14. b3 Ra7 15. Bb2 Rd7 16. Rac1 Nc7
-  17. Nf3 f5 18. Nc3 g5 19. Qd2 g4 20. Ne1 Bg5 21. e3 Rff7
-  22. Kg1 Ne8 23. Ne2 Nf6 24. Nf4 Qe8 25. Qc3 Rg7 26. b4 Ne4
-  27. Qb3 Rge7 28. Qa4 Ne5 29. Qxa6 Ra7 30. Qb5 Qxb5 31. cxb5
-  Rxa2 32. Rc8+ Kf7 33. Nfd3 Bf6 34. Nxe5+ dxe5 35. Rc2 Rea7
-  36. Kg2 Ng5 37. Rd6 e4 38. Bxf6 Kxf6 39. Kf1 Ra1 40. Ke2 Rb1
-  41. Rd1 Rxb4 42. Ng2 Rxb5 43. Nf4 Rc5 44. Rb2 b5 45. Kf1 Rac7
-  46. Rbb1 Rb7 47. Rb4 Rc4 48. Rb2 b4 49. Rdb1 Nf3 50. Kg2 Rd7
-  51. h3 e5 52. Ne2 Rd2 53. hxg4 fxg4 54. Rxd2 Nxd2 55. Rb2 Nf3
-  56. Kf1 b3 57. Kg2 Rc2 0-1`,
 
   `[Event "World-ch31-KK2 Kasparov-Karpov +5-3=16"]
 [Site "Moscow"]
@@ -264,23 +198,4 @@ Ndf6 29.Qg6+ Kg8 30.h6 Ra7 31.Kh2 Re7 32.Rh3 Nh7 33.Rd3 Qa8
   18. Ng5 Nd5 19. Bd2 Bxg5 20. Bxg5 Qd7 21. Qh5 Rfc8 22. Nd2 Nc3
   23. Bf6 Qe8 24. Ne4 g6 25. Qg5 Nxe4 26. Rxe4 c4 27. h5 cxd3
   28. Rh4 Ra7 29. Bg2 dxc2 30. Qh6 Qf8 31. Qxh7+ Kxh7 32. hxg6 Kxg6 33. Be4 1-0`,
-  `[Event "Moscow"]
-  [Site "Moscow RUE"]
-  [Date "1915.??.??"]
-  [EventDate "?"]
-  [Round "?"]
-  [Result "1-0"]
-  [White "Alexander Alekhine"]
-  [Black "NN"]
-  [ECO "C12"]
-  [WhiteElo "?"]
-  [BlackElo "?"]
-  [PlyCount "57"]
-
-  1.e4 e6 2.d4 d5 3.Nc3 Nf6 4.Bg5 Bb4 5.e5 h6 6.exf6 hxg5 7.fxg7
-  Rg8 8.h4 gxh4 9.Qg4 Be7 10.g3 c5 11.gxh4 cxd4 12.h5 dxc3 13.h6
-  cxb2 14.Rb1 Qa5+ 15.Ke2 Qxa2 16.h7 Qxb1 17.hxg8=Q+ Kd7 18.Qxf7
-  Qxc2+ 19.Kf3 Nc6 20.Qgxe6+ Kc7 21.Qf4+ Kb6 22.Qee3+ Bc5
-  23.g8=Q b1=Q 24.Rh6 Qxf1 25.Qb4+ Qb5 26.Qd8+ Ka6 27. Qea3+
-  Qca4 28.Qaxa4 Qxa4 29.Qxa4# 1-0`,
 ];

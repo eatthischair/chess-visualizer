@@ -47,7 +47,7 @@ const PgnReader = (initialBoard, pgn) => {
         }
       }
     }
-    //this is for the data at the beginning of some PGNs. sometimes a "1." might be included and mess up the start of the pgn, so it is necessary to know where it ends and begins, and delete all text inside
+    //this is for the data at the beginning of some PGNs. sometimes a "1." might be included in the date and mess up the start of the pgn, so it is necessary to know where it ends and begins, and delete all text inside
     if (pgnArray[i] === "[") {
       dataIndexes.push(i);
       insidePgnData = true;
@@ -81,7 +81,7 @@ const PgnReader = (initialBoard, pgn) => {
   }
   let newResultStr = resultStr.split(" ");
 
-  //at this point all superflous PGN data/comments have been parsed. Now to delete all superflous items of the game moves
+  //at this point all superflous PGN data/comments have been parsed. Now we delete all superflous items of the game moves
   let parsedArray = [];
   //this parses out move numbers, turning "2.Nf3" into "Nf3"
   newResultStr.forEach((item) => {
@@ -132,12 +132,19 @@ const PgnReader = (initialBoard, pgn) => {
     }
   });
 
-  //at this point the PGN is clean and time for rendering
+  //at this point the PGN is clean and it's time to transform it to an array of boards
   var boardArray = [];
   finalPgn.forEach((item, index) => {
     let calcForWhite = false;
+    let prevItem = finalPgn[index - 1];
     if (index % 2 === 0) calcForWhite = true;
-    let nextBoard = callRecurse(item, calcForWhite, boardArray, initialBoard);
+    let nextBoard = callRecurse(
+      item,
+      calcForWhite,
+      boardArray,
+      initialBoard,
+      prevItem
+    );
     boardArray.push(nextBoard);
   });
 
@@ -153,11 +160,9 @@ const PgnReader = (initialBoard, pgn) => {
       }
     }
   });
-  // console.log("PGNISVALID", pgnIsValid);
   if (!boardArray) {
     pgnIsValid = false;
   }
-  console.log("boards", boardArray);
   return { boardArray, pgnIsValid };
 };
 

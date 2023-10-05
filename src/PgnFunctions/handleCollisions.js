@@ -10,7 +10,6 @@ const handleCollisions = (board, calcForWhite, middleChar, piece, coords) => {
     for (var i = 0; i < 8; i++) {
       if (board[i][searchIndex][0] === piece) {
         pieceId = board[i][searchIndex];
-        // board[coords[0]][coords[1]] =  board[i][searchIndex];
         board[i][searchIndex] = 0;
       }
     }

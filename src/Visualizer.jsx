@@ -28,8 +28,6 @@ import { faBackwardStep } from "@fortawesome/free-solid-svg-icons";
 import { faForwardStep } from "@fortawesome/free-solid-svg-icons";
 import { faForwardFast } from "@fortawesome/free-solid-svg-icons";
 
-import { ColorPicker } from "react-color-palette";
-
 const Visualizer = ({
   setPos,
   currentHoverPosition,
@@ -47,6 +45,9 @@ const Visualizer = ({
   updateColor,
   getColor,
   resetMoveNum,
+  getFirstBoard,
+  getLastBoard,
+  moveNum,
 }) => {
   const [currentBoard, setCurrentBoard] = useState([]);
   const [currentPgn, setCurrentPgn] = useState("");
@@ -63,15 +64,42 @@ const Visualizer = ({
       if (event.key === "ArrowLeft") {
         setCurrentBoard(getPreviousBoard());
       }
+      if (event.key === "ArrowUp") {
+        let lastBoard = getLastBoard();
+        if (lastBoard) setCurrentBoard(getLastBoard());
+      }
+      if (event.key === "ArrowDown") {
+        let firstBoard = getFirstBoard();
+        if (firstBoard) setCurrentBoard(firstBoard);
+      }
     });
   }, []);
 
+  const next = () => {
+    setCurrentBoard(getNextBoard());
+  };
+  const prev = () => {
+    setCurrentBoard(getPreviousBoard());
+  };
+  const first = () => {
+    let firstBoard = getFirstBoard();
+    if (firstBoard) setCurrentBoard(firstBoard);
+  };
+  const last = () => {
+    let lastBoard = getLastBoard();
+    if (lastBoard) setCurrentBoard(getLastBoard());
+  };
+
   //function attached to piece elements, runs when the piece is dropped on a new square
   const onDrop = (e, pieceId) => {
+    let pos = getPos();
+
+    console.log('im in ondrop boss', e, pieceId, pos)
+
     e.preventDefault();
     e.stopPropagation();
     movePiece(
-      getPos(),
+      pos,
       pieceId,
       getGlobalBoard,
       updateGlobalBoard,
@@ -87,7 +115,7 @@ const Visualizer = ({
   const setInitialBoard = () => {
     let board = getInitialBoard();
     updateGlobalBoard(board);
-    setCurrentBoard(board);
+    first();
   };
 
   //pgn functions
@@ -96,6 +124,7 @@ const Visualizer = ({
     updatePgnBoardArray(boardArray);
     setPgnImported(pgnIsValid);
     setPgnValid(pgnIsValid);
+    setPlayerNames(GrabTitle(currentPgn));
   };
 
   const [pgnValid, setPgnValid] = useState(false);
@@ -165,38 +194,23 @@ const Visualizer = ({
       theme: "light",
     });
   };
-  // icon({name: 'faBackwardFast', family: 'classic', style: 'regular'})
 
   return (
     <div>
-      {/* {pgnImported ? notify() : ""}
-      {pgnImported ? (
-        <div>
-          <ToastContainer
-            position="top-center"
-            autoClose={3000}
-            hideProgressBar={true}
-            newestOnTop={false}
-            closeOnClick
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-            theme="light"
-          />
-        </div>
-      ) : (
-        ""
-      )} */}
+      <div class="flex justify-center body-font font-GreatVibes text-6xl">
+        Chess Visualizer
+      </div>
 
-      <div class="flex justify-center">{playerNames}</div>
+      <div class="flex justify-center">
+        {playerNames ? playerNames : <br></br>}
+      </div>
 
-      <div class="flex justify-center border-2 border-red-50 h-[520px] m-0">
-        <div class="w-64 h-[520px] border-2 border-red-950 overflow-x-clip overflow-y-scroll">
+      <div class="flex justify-center h-[520px] m-0">
+        <div class="w-64 h-[520px] overflow-x-clip overflow-y-scroll">
           <div class="flex flex-row">
-            <button class="btn join-item btn-primary basis-2 grow text-[12px] leading-3 indent-0">
+            <div class="flex justify-center place-self-center basis-2 grow text-sm leading-3 indent-0 h-8 mt-4 font-semibold text-slate-100">
               Selected Games
-            </button>
+            </div>
           </div>
           {userGames
             ? userGames.map((game, index) => (
@@ -204,7 +218,7 @@ const Visualizer = ({
                   onClick={() => {
                     handlePgn(index);
                   }}
-                  class="border-2 border-red-50 h-[100px] overflow-clip text-[12px]"
+                  class="btn-tertiary"
                 >
                   {GrabTitle(game)}
                 </div>
@@ -240,11 +254,13 @@ const Visualizer = ({
             blackCtrlOn={blackCtrlOn}
             setBoardIsFlipped={setBoardIsFlipped}
             boardIsFlipped={boardIsFlipped}
+            onDrop={onDrop}
+            setPos={setPos}
           />
         </div>
       </div>
 
-      <div class="flex flex-initial border-amber-300 border-2 justify-center gap-x-32">
+      <div class="flex flex-initial justify-center gap-x-32">
         <ColorOptions
           RadioButtons={RadioButtons}
           hexUpdate={hexUpdate}
@@ -264,12 +280,25 @@ const Visualizer = ({
           setPgnImported={setPgnImported}
         />
       </div>
-
-      <div class="flex flex-initial border-amber-300 border-2 justify-center gap-x-32 text-black">
-        <FontAwesomeIcon icon={faBackwardFast} />
-        <FontAwesomeIcon icon={faBackwardStep} />
-        <FontAwesomeIcon icon={faForwardStep} />
-        <FontAwesomeIcon icon={faForwardFast} />
+      <div>
+        {currentPgn ? (
+          <div class="flex flex-initial justify-center gap-x-32 text-gray-700">
+            <div onClick={() => first()}>
+              <FontAwesomeIcon icon={faBackwardFast} />
+            </div>
+            <div onClick={() => prev()}>
+              <FontAwesomeIcon icon={faBackwardStep} />
+            </div>
+            <div onClick={() => next()}>
+              <FontAwesomeIcon icon={faForwardStep} />
+            </div>
+            <div onClick={() => last()}>
+              <FontAwesomeIcon icon={faForwardFast} />
+            </div>
+          </div>
+        ) : (
+          ""
+        )}
       </div>
     </div>
   );

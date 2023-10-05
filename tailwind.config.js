@@ -2,7 +2,11 @@
 module.exports = {
   content: ["./src/**/*.{html,js,jsx}"],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        GreatVibes: ["Great Vibes", "cursive"],
+      },
+    },
   },
   plugins: [require("daisyui")],
 };

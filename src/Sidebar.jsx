@@ -1,6 +1,8 @@
-import { react, useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
+// import setPos from "./Visualizer.jsx";
 
-const Sidebar = ( {
+const Sidebar = ({
   showPieceElements,
   pieceObj,
   RenderPieces,
@@ -12,29 +14,13 @@ const Sidebar = ( {
   setBlackCtrlOn,
   blackCtrlOn,
   setBoardIsFlipped,
-  boardIsFlipped
-}
-) => {
+  boardIsFlipped,
+  onDrop,
+  setPos
+}) => {
   return (
-    <div class="flex w-64 h-[400px] border-2 border-red-50">
-      {showPieceElements ? (
-        <div
-          className="pieceDiv"
-          class="flex flex-wrap h-[200px] w-66 overflow-scroll overflow-y-scroll"
-        >
-          {Object.keys(pieceObj).map((pieceId, index) => {
-            return (
-              <RenderPieces
-                pieceId={pieceId}
-                pieceElement={Object.entries(pieceObj)[index][1]}
-              />
-            );
-          })}
-        </div>
-      ) : (
-        ""
-      )}
-      <ul className="menu menu-vertical lg:menu-horizontal bg-base-200 rounded-box">
+    <div class="flex w-64 h-[400px]">
+      <ul className="menu menu-vertical lg:menu-horizontal bg-inherit rounded-box">
         <li>
           <button
             class="btn-secondary"
@@ -58,11 +44,34 @@ const Sidebar = ( {
           >
             Add Pieces
           </button>
+          {showPieceElements ? (
+            <div>
+              <div class="flex flex-wrap w-[210px] h-[220px] h-16 overflow-y-scroll">
+                {Object.keys(pieceObj).map((pieceId, index) => {
+                  return (
+                    <RenderPieces
+                      pieceId={pieceId}
+                      pieceElement={Object.entries(pieceObj)[index][1]}
+                    />
+                  );
+                })}
+              </div>
+              <div class="w-16 h-12 text-[40px] text-gray-400 ml-2" onDragOver={() => setPos(false)}
+              >
+                <FontAwesomeIcon icon={faTrashCan} />
+              </div>
+            </div>
+          ) : (
+            ""
+          )}
         </li>
         <li>
-          <div className="form-control w-52">
+          <div className="form-control w-52 h-16">
             <label className="cursor-pointer label">
-              <span className="label-text"> Disable White Square Ctrl</span>
+              <span className="label-text text-sm">
+                {" "}
+                Disable White Square Ctrl
+              </span>
               <input
                 type="checkbox"
                 value=""
@@ -73,12 +82,14 @@ const Sidebar = ( {
           </div>
         </li>
         <li>
-          <div className="form-control w-52">
+          <div className="form-control w-52 h-16">
             <label className="cursor-pointer label ">
-              <span className="label-text">Disable Black Square Ctrl</span>
+              <span className="label-text text-sm">
+                Disable Black Square Ctrl
+              </span>
               <input
                 type="checkbox"
-                className="toggle toggle-primary"
+                className="toggle"
                 onClick={() => {
                   setBlackCtrlOn(!blackCtrlOn);
                 }}
@@ -88,7 +99,7 @@ const Sidebar = ( {
         </li>
         <li>
           <button
-            class="btn-primary"
+            class="btn-secondary"
             onClick={() => setBoardIsFlipped(!boardIsFlipped)}
             type="button"
           >

@@ -1,16 +1,26 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
 
 @layer components {
   .btn-primary {
-    @apply flex basis-1/4 py-2 px-4 bg-inherit text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75 text-sm;
+    @apply flex basis-1/4 py-2 px-4 bg-inherit text-slate-100 font-semibold rounded-lg shadow-md hover:bg-gray-700/75 focus:outline-none hover:text-white focus:ring-2 focus:ring-blue-400 text-sm;
   }
   .btn-secondary {
-    @apply flex grid justify-start gap-1 content-start py-2 px-4 bg-inherit text-white font-semibold rounded-lg shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75 text-sm max-h-8 ;
+    @apply flex grid text-slate-300 justify-start gap-0 content-start py-2 px-4 bg-inherit font-semibold rounded-lg shadow-sm hover:bg-gray-700/50 focus:outline-none hover:text-slate-200 focus:ring-2 focus:ring-gray-400 focus:ring-opacity-75 text-sm ml-1 max-h-8 w-52 ;
+  }
+  .btn-tertiary {
+    @apply flex grid text-slate-300 justify-start gap-0 content-center py-2 px-4 bg-inherit font-semibold rounded-lg shadow-sm hover:bg-gray-700/50 focus:outline-none hover:text-slate-200 focus:ring-2 focus:ring-gray-400 focus:ring-opacity-75 text-sm ml-1 h-16 w-52  ;
   }
   .radio-1 {
     @apply w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600
+  }
+  .label-text {
+    @apply text-slate-300 font-semibold hover:text-slate-200 text-sm
+  }
+  .toggle-primary {
+    @apply focus:outline-none
   }
 }
 
@@ -178,8 +188,6 @@ body {
   width: var(--sqWidth);
   height: var(--sqWidth);
   float:left;
-  /* background: linear-gradient(rgba(198, 90, 255, 0.841), rgba(104, 39, 217, 0.851)),
-  linear-gradient(white, white); */
   background: linear-gradient(rgb(255, 204, 0), rgba(218, 235, 109, 0.941)),
   linear-gradient(white, white);
 }

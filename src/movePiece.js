@@ -30,7 +30,8 @@ const movePiece = (
       pieceTypeCounter + 1
     }`;
   } else {
-    boardMatrix[squareId[0]][squareId[1]] = pieceId;
+    //the trashcan icon in the addpieces section is different from a square on the board by sending a falsy value instead of the square coordinates. the piece's previous square has already been reset to 0, so the piece is only added back to the board if squareId is a truthy value
+    if (squareId) boardMatrix[squareId[0]][squareId[1]] = pieceId;
   }
   updateGlobalBoard(boardMatrix);
   setCurrentBoard(boardMatrix);

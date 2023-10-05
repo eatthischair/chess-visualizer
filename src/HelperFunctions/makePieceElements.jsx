@@ -15,7 +15,6 @@ var makePieceElements = () => {
     }
   })
   return pieceElementsObj;
-  // setPieceObj(pieceElementsObj);
 }
 
 export default makePieceElements;

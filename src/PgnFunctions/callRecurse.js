@@ -9,7 +9,13 @@ import {
   queeningPawn,
 } from "./PKKFunctions";
 
-const callRecurse = (pgnItem, calcForWhite, boardArray, initialBoard) => {
+const callRecurse = (
+  pgnItem,
+  calcForWhite,
+  boardArray,
+  initialBoard,
+  prevItem
+) => {
   let coords = pgnItem.slice(pgnItem.length - 2, pgnItem.length);
   let isPawnCapture;
   let kingSqVals = [
@@ -42,7 +48,7 @@ const callRecurse = (pgnItem, calcForWhite, boardArray, initialBoard) => {
   let whitePieceCount = 3;
   let blackPieceCount = 3;
 
-  //the second argument is to prevent "0-0-0" from being handled by the collision and pawn queening functions
+  //the second conditional is only to prevent "0-0-0" from being handled by the collision and pawn queening functions
   if (pgnItem.length >= 4 && !pgnItem.includes("-")) {
     coords = toMatrixCoords(coords);
     let middleChar = pgnItem[1];
@@ -51,7 +57,7 @@ const callRecurse = (pgnItem, calcForWhite, boardArray, initialBoard) => {
     //this means a pawn was promoted
     if (pgnItem.includes("=")) {
       let pawnColumn = pgnItem[0];
-      //if the length is 5, the pawn captured while promoting, so the coordinates of the pawn to queen are different than if the pawn simply promoted. Thus, the actual destination coordinates are different because of the extra symbol (i.e. ba8=Q vs a8=Q. The coords we need are a8 regardless)
+      //if the length is 5, the pawn captured a piece while promoting, so the coordinates of the pawn to queen are different than if the pawn simply promoted. Thus, the actual destination coordinates are different because of the extra symbol (i.e. ba8=Q vs a8=Q. The coords we need are a8 regardless)
       if (pgnItem.length === 5) {
         coords = `${pgnItem[1]}${pgnItem[2]}`;
       } else {
@@ -80,11 +86,16 @@ const callRecurse = (pgnItem, calcForWhite, boardArray, initialBoard) => {
     }
   } else {
     //if the length is 3, it is either a 'normal' move like 'Nd7' or a pawn capture like 'ef4'
-    // let isPawnCapture;
     pgnItem.length === 3 ? (isPawnCapture = true) : (isPawnCapture = false);
 
     let matrixCoords = toMatrixCoords(coords);
     let type = piece.toUpperCase();
+
+    let isEnPassant =
+      pgnItem?.[1] === prevItem?.[0] &&
+      prevItem.length === 2 &&
+      Math.abs(prevItem?.[1] - pgnItem?.[2]) === 1 &&
+      type === pieceType(prevItem, calcForWhite).toUpperCase();
 
     if (type === "P") {
       let pawnId = pgnItem[0];
@@ -93,7 +104,8 @@ const callRecurse = (pgnItem, calcForWhite, boardArray, initialBoard) => {
         calcForWhite,
         matrixCoords,
         slice,
-        pawnId
+        pawnId,
+        isEnPassant
       );
     }
     if (type === "N") {
