@@ -1,6 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
-// import setPos from "./Visualizer.jsx";
 
 const Sidebar = ({
   showPieceElements,
@@ -16,7 +15,7 @@ const Sidebar = ({
   setBoardIsFlipped,
   boardIsFlipped,
   onDrop,
-  setPos
+  setPos,
 }) => {
   return (
     <div class="flex w-64 h-[400px]">
@@ -33,7 +32,6 @@ const Sidebar = ({
         </li>
         <li>
           <button class="btn-secondary" onClick={() => clearBoard()}>
-            {" "}
             Clear Board
           </button>
         </li>
@@ -56,7 +54,9 @@ const Sidebar = ({
                   );
                 })}
               </div>
-              <div class="w-16 h-12 text-[40px] text-gray-400 ml-2" onDragOver={() => setPos(false)}
+              <div
+                class="w-16 h-12 text-[40px] text-gray-400 ml-2"
+                onDragOver={() => setPos(false)}
               >
                 <FontAwesomeIcon icon={faTrashCan} />
               </div>
@@ -69,7 +69,6 @@ const Sidebar = ({
           <div className="form-control w-52 h-16">
             <label className="cursor-pointer label">
               <span className="label-text text-sm">
-                {" "}
                 Disable White Square Ctrl
               </span>
               <input

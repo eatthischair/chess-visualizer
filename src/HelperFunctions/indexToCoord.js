@@ -1,6 +1,6 @@
 const indexToCoord = (index) => {
-  var remainder = index % 8;
-  var multiple = (index - remainder) / 8;
+  let remainder = index % 8;
+  let multiple = (index - remainder) / 8;
   return [multiple, remainder];
 };
 

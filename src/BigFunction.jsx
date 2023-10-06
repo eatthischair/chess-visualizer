@@ -72,7 +72,6 @@ const BigFunction = (cookies) => {
         updateGlobalBoard(alwaysInitialBoard);
         return alwaysInitialBoard;
       }
-
       if (moveNum > 0) {
         moveNum--;
         updateGlobalBoard(pgnBoardArray[moveNum]);
@@ -86,7 +85,7 @@ const BigFunction = (cookies) => {
     if (pgnBoardArray) {
       moveNum = -1;
     }
-    return alwaysInitialBoard
+    return alwaysInitialBoard;
   };
   const getLastBoard = () => {
     if (pgnBoardArray) {

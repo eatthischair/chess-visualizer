@@ -9,19 +9,14 @@ import setInitialBoardPosition from "./Initialization/setInitialBoard.js";
 import movePiece from "./movePiece.js";
 import { useColor } from "react-color-palette";
 import "react-color-palette/lib/css/styles.css";
-
 import RadioButtons from "./ColorOptions/RadioButtons";
 import renderRadioButtons from "./ColorOptions/renderRadioButtons.js";
 import renderColorPalletes from "./ColorOptions/renderColorPalletes.js";
 import GrabTitle from "./PgnFunctions/GrabTitle";
-
-import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
 import Sidebar from "./Sidebar";
 import ColorOptions from "./ColorOptions/ColorOptions";
 import ImportGame from "./ImportGame";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBackwardFast } from "@fortawesome/free-solid-svg-icons";
 import { faBackwardStep } from "@fortawesome/free-solid-svg-icons";
@@ -50,7 +45,6 @@ const Visualizer = ({
   moveNum,
 }) => {
   const [currentBoard, setCurrentBoard] = useState([]);
-  const [currentPgn, setCurrentPgn] = useState("");
   const [boardIsFlipped, setBoardIsFlipped] = useState(false);
   const [showPieceElements, setShowPieceElements] = useState(false);
   const [userGames, setUserGames] = useState([]);
@@ -58,20 +52,10 @@ const Visualizer = ({
 
   React.useEffect(() => {
     window.addEventListener("keydown", (event) => {
-      if (event.key === "ArrowRight") {
-        setCurrentBoard(getNextBoard());
-      }
-      if (event.key === "ArrowLeft") {
-        setCurrentBoard(getPreviousBoard());
-      }
-      if (event.key === "ArrowUp") {
-        let lastBoard = getLastBoard();
-        if (lastBoard) setCurrentBoard(getLastBoard());
-      }
-      if (event.key === "ArrowDown") {
-        let firstBoard = getFirstBoard();
-        if (firstBoard) setCurrentBoard(firstBoard);
-      }
+      if (event.key === "ArrowRight") next();
+      if (event.key === "ArrowLeft") prev();
+      if (event.key === "ArrowUp") last();
+      if (event.key === "ArrowDown") first();
     });
   }, []);
 
@@ -92,16 +76,18 @@ const Visualizer = ({
 
   //function attached to piece elements, runs when the piece is dropped on a new square, or in trashcan
   const onDrop = (e, pieceId) => {
-    let pos = getPos();
     e.preventDefault();
     e.stopPropagation();
-    movePiece(pos, pieceId, getGlobalBoard, updateGlobalBoard, setCurrentBoard);
+    movePiece(getPos(), pieceId, getGlobalBoard, updateGlobalBoard, setCurrentBoard);
   };
 
   let emptyMatrix = makeEmptyMatrix();
   const clearBoard = () => {
     updateGlobalBoard(emptyMatrix);
     setCurrentBoard(emptyMatrix);
+    resetMoveNum()
+    setCurrentPgn('')
+    setPlayerNames('')
   };
   const setInitialBoard = () => {
     let board = getInitialBoard();
@@ -110,13 +96,17 @@ const Visualizer = ({
   };
 
   //pgn functions
+  const [currentPgn, setCurrentPgn] = useState("");
+  const pgnInput = (e) => {
+    setCurrentPgn(e.target.value);
+  };
+
   const readPgn = (index) => {
     //index is only passed via the games in the sidebar. userGames is the array of games to the left of the board
     let pgnToRead = index || index === 0 ? userGames[index] : currentPgn;
     let { boardArray, pgnIsValid } = PgnReader(getInitialBoard(), pgnToRead);
     setCurrentPgn(pgnToRead);
     updatePgnBoardArray(boardArray);
-    setPgnImported(pgnIsValid);
     setPgnValid(pgnIsValid);
     setPlayerNames(GrabTitle(pgnToRead));
     setCurrentBoard(getInitialBoard());
@@ -124,10 +114,6 @@ const Visualizer = ({
   };
 
   const [pgnValid, setPgnValid] = useState(true);
-
-  const pgnInput = (e) => {
-    setCurrentPgn(e.target.value);
-  };
 
   const [playerNames, setPlayerNames] = useState("");
 
@@ -145,14 +131,11 @@ const Visualizer = ({
   };
   const hexUpdate = (hexToUpdate) => {
     updateColor(hexToUpdate);
-    setShowWheel(true);
   };
 
   const [blackCtrlOn, setBlackCtrlOn] = useState(true);
   const [whiteCtrlOn, setWhiteCtrlOn] = useState(true);
-  const [showWheel, setShowWheel] = useState(false);
   const [initialRen, setInitialRen] = useState(true);
-  const [pgnImported, setPgnImported] = useState(false);
 
   if (initialRen) {
     setPieceObj(makePieceElements(onDrop));
@@ -163,24 +146,6 @@ const Visualizer = ({
     setInitialRen(false);
     setUserGames(require("./Initialization/loremIpsum.js"));
   }
-
-  const notify = () => {
-    let notifStr = "";
-    pgnValid
-      ? (notifStr = "Game Import Successful!")
-      : (notifStr = "Invalid PGN");
-
-    toast(notifStr, {
-      position: "top-right",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-    });
-  };
 
   return (
     <div>
@@ -251,7 +216,6 @@ const Visualizer = ({
         <ColorOptions
           RadioButtons={RadioButtons}
           hexUpdate={hexUpdate}
-          showWheel={showWheel}
           renderColorPalletes={renderColorPalletes}
           colorChange1={colorChange1}
           color2={color2}
@@ -261,12 +225,7 @@ const Visualizer = ({
           color1={color1}
         />
 
-        <ImportGame
-          pgnInput={pgnInput}
-          readPgn={readPgn}
-          setPgnImported={setPgnImported}
-          pgnValid={pgnValid}
-        />
+        <ImportGame pgnInput={pgnInput} readPgn={readPgn} pgnValid={pgnValid} />
       </div>
       <div>
         {currentPgn ? (

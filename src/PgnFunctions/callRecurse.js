@@ -1,13 +1,13 @@
 import pieceType from "../HelperFunctions/pieceType";
 import toMatrixCoords from "../HelperFunctions/toMatrixCoords";
 import moveBRandQ from "./moveBRandQ";
-import handleCastles from "./handlesCastles";
+import handleCastles from "./handleCastles";
 import handleCollisions from "./handleCollisions";
 import {
   movePawnKnightandKing,
   determinePawnVals,
   queeningPawn,
-} from "./PKKFunctions";
+} from "./movePNandK.js";
 
 const callRecurse = (
   pgnItem,

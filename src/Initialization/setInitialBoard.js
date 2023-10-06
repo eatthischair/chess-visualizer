@@ -1,11 +1,11 @@
 const setInitialBoardPosition = (emptyMatrix) => {
-  var newBoard = JSON.parse(JSON.stringify(emptyMatrix));
-  var blackPieces = ["r1", "n1", "b1", "q1", "k1", "b2", "n2", "r2"];
-  var blackPawns = ["p1", "p2", "p3", "p4", "p5", "p6", "p7", "p8"];
-  var whitePawns = blackPawns.map((pawn) => {
+  let newBoard = JSON.parse(JSON.stringify(emptyMatrix));
+  let blackPieces = ["r1", "n1", "b1", "q1", "k1", "b2", "n2", "r2"];
+  let blackPawns = ["p1", "p2", "p3", "p4", "p5", "p6", "p7", "p8"];
+  let whitePawns = blackPawns.map((pawn) => {
     return pawn.toUpperCase();
   });
-  var whitePieces = blackPieces.map((piece) => {
+  let whitePieces = blackPieces.map((piece) => {
     return piece.toUpperCase();
   });
 

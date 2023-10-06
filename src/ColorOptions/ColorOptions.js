@@ -3,7 +3,6 @@ import colorGrid from "./colorGrid";
 const ColorOptions = ({
   RadioButtons,
   hexUpdate,
-  showWheel,
   renderColorPalletes,
   color1,
   colorChange1,
@@ -45,14 +44,7 @@ const ColorOptions = ({
               {block1}
               {RadioButtons("lightSquare", 0, hexUpdate)}
               {RadioButtons("darkSquare", 0, hexUpdate)}
-              {showWheel
-                ? renderColorPalletes(
-                    color1,
-                    colorChange1,
-                    color2,
-                    colorChange2
-                  )
-                : ""}
+              {renderColorPalletes(color1, colorChange1, color2, colorChange2)}
             </div>
           </div>
 
@@ -64,14 +56,7 @@ const ColorOptions = ({
             <div className="collapse-content bg-base-200 text-primary-content peer-checked:bg-secondary peer-checked:text-secondary-content text-sm">
               {block2}
               {renderRadioButtons("whiteSquare", hexUpdate)}
-              {showWheel
-                ? renderColorPalletes(
-                    color1,
-                    colorChange1,
-                    color2,
-                    colorChange2
-                  )
-                : ""}
+              {renderColorPalletes(color1, colorChange1, color2, colorChange2)}
             </div>
           </div>
 
@@ -83,14 +68,7 @@ const ColorOptions = ({
             <div className="collapse-content bg-base-200 text-primary-content peer-checked:bg-secondary peer-checked:text-secondary-content text-sm">
               {block3}
               {renderRadioButtons("blackSquare", hexUpdate)}
-              {showWheel
-                ? renderColorPalletes(
-                    color1,
-                    colorChange1,
-                    color2,
-                    colorChange2
-                  )
-                : ""}
+              {renderColorPalletes(color1, colorChange1, color2, colorChange2)}
             </div>
           </div>
         </div>

@@ -9,6 +9,7 @@ const PgnReader = (initialBoard, pgn) => {
   let insidePgnData = false;
   let commentNestCounter = 0;
   //filter pgndata (contained within []) and comments
+  //really wish i learned regex before writing this lmao
   let pgnArray = pgn.split("");
 
   for (let i = 0; i < pgnArray.length; i++) {
@@ -57,7 +58,7 @@ const PgnReader = (initialBoard, pgn) => {
       insidePgnData = false;
     }
   }
-
+  //slice all pgn data
   for (let i = 0; i < dataIndexes.length; i += 2) {
     pgnArray
       .slice(dataIndexes[i] + 1, dataIndexes[i + 1])
@@ -100,7 +101,21 @@ const PgnReader = (initialBoard, pgn) => {
   });
 
   let cleanPgn = [];
-  var comments = ["??", "!?", "!!", "?!", "?", "!"];
+  let comments = [
+    "??",
+    "!?",
+    "!!",
+    "?!",
+    "?",
+    "!",
+    "x",
+    "+",
+    "#",
+    "1-0",
+    "1/2-1/2",
+    "0-1",
+    "*",
+  ];
 
   //parse all superflous symbols
   parsedArray.forEach((item) => {
@@ -109,34 +124,17 @@ const PgnReader = (initialBoard, pgn) => {
         item = item.split(`${comment}`).join("");
       }
     });
-    if (item.includes("x")) {
-      item = item.split("x").join("");
-    }
-    if (item.includes("+")) {
-      item = item.split("+").join("");
-    }
-    if (item.includes("#")) {
-      item = item.split("#").join("");
-    }
+
     if (item.length !== 0) {
       cleanPgn.push(item);
     }
   });
 
-  let gamesResults = ["1-0", "1/2-1/2", "0-1", "*"];
-  let finalPgn = cleanPgn.slice(0, cleanPgn.length);
-
-  gamesResults.forEach((result) => {
-    if (cleanPgn[cleanPgn.length - 1] === result) {
-      finalPgn = cleanPgn.slice(0, cleanPgn.length - 1);
-    }
-  });
-
   //at this point the PGN is clean and it's time to transform it to an array of boards
   var boardArray = [];
-  finalPgn.forEach((item, index) => {
+  cleanPgn.forEach((item, index) => {
     let calcForWhite = false;
-    let prevItem = finalPgn[index - 1];
+    let prevItem = cleanPgn[index - 1];
     if (index % 2 === 0) calcForWhite = true;
     let nextBoard = callRecurse(
       item,
@@ -163,7 +161,6 @@ const PgnReader = (initialBoard, pgn) => {
   if (!boardArray) {
     pgnIsValid = false;
   }
-  // console.log("PGNISVALID", pgnIsValid);
   return { boardArray, pgnIsValid };
 };
 

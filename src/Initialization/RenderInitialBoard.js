@@ -2,13 +2,13 @@ import isWhiteSquare from "./HelperFunctions/isWhiteSquare.jsx";
 import setPos from "./Visualizer.jsx";
 
 const RenderInitialBoard = () => {
-  var blankBoard = [];
-  var positionArray = [];
-  for (var i = 0; i < 8; i++) {
-    var pieceArray = [];
-    for (var j = 0; j < 8; j++) {
+  let blankBoard = [];
+  let positionArray = [];
+  for (let i = 0; i < 8; i++) {
+    let pieceArray = [];
+    for (let j = 0; j < 8; j++) {
       let id = [i, j];
-      var color = isWhiteSquare(id);
+      let color = isWhiteSquare(id);
       blankBoard.push(
         <div
           id={id}

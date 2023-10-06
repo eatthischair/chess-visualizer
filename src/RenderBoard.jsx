@@ -4,16 +4,12 @@ import './App.css';
 
 const RenderBoard = ({currentBoard, pieceObj, colorMatrix, setPos, boardIsFlipped, color1, color2, hexObj, currentColor}) => {
 
-  //the board is rendered as 64 divs, so this initializes the array of divs that will be rendered
+  //the board is rendered as 64 divs not a matrix, so this initializes the array of divs that will be rendered
   let chessBoard = Array.from('0'.repeat(64))
-
-  // var renderedBoard = [];
-  // for (let i = 0; i < 64; i++) {
-  //   let matrixIndex = indexToCoord(i);
 
   var renderedBoard = chessBoard.map((square, currentIndex) => {
 
-    var matrixIndex = indexToCoord(currentIndex);
+    let matrixIndex = indexToCoord(currentIndex);
     let row = matrixIndex[0];
     let column = matrixIndex[1];
     var positionBoardPiece = currentBoard[row][column];
@@ -48,7 +44,6 @@ const RenderBoard = ({currentBoard, pieceObj, colorMatrix, setPos, boardIsFlippe
       >{piece}</div>
       );
     });
-    // }
     if (boardIsFlipped) renderedBoard = renderedBoard.reverse();
 
   return (

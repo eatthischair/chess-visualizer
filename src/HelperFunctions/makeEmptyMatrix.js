@@ -1,13 +1,13 @@
 const makeEmptyMatrix = () => {
-  var positionArray = [];
+  let emptyMatrix = [];
   for (var i = 0; i < 8; i++) {
-    var pieceArray = [];
+    let zeros = [];
     for (var j = 0; j < 8; j++) {
-      pieceArray.push(0);
+      zeros.push(0);
     }
-    positionArray.push(pieceArray);
+    emptyMatrix.push(zeros);
   }
-  return positionArray;
+  return emptyMatrix;
 };
 
 export default makeEmptyMatrix;

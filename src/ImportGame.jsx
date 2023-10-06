@@ -1,4 +1,4 @@
-const ImportGame = ({ pgnInput, readPgn, setPgnImported, pgnValid }) => {
+const ImportGame = ({ pgnInput, readPgn, pgnValid }) => {
   return (
     <div>
       <button
@@ -27,7 +27,8 @@ const ImportGame = ({ pgnInput, readPgn, setPgnImported, pgnValid }) => {
           </button>
         </div>
         <form method="dialog" class="modal-backdrop">
-          <button onClick={() => setPgnImported(false)}>Close</button>
+          <button>Close</button>
+
         </form>
       </dialog>
     </div>
