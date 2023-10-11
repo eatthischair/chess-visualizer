@@ -1,5 +1,5 @@
 /* eslint-disable no-loop-func */
-import isInBounds from "../HelperFunctions/isInBounds";
+import isInBounds from "../HelperFunctions/IsInBounds";
 
 //this function iterates from the kings location in all cardinal directions to check if there is a piece standing between it and an attacker. If so, the 'sandwiched' piece is 'pinned' (cannot move) except in the direction it is pinned, and its movement will not be calculated in calcSqsPerSide
 const checkForAbsolutePin = (currentBoard, calcForWhite, recurseCallObj) => {

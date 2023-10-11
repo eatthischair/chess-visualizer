@@ -1,4 +1,4 @@
-import isInBounds from "../HelperFunctions/isInBounds";
+import isInBounds from "../HelperFunctions/IsInBounds";
 
 const moveBRandQ = (index, calcForWhite, piece, type, slice) => {
   slice = JSON.parse(JSON.stringify(slice));

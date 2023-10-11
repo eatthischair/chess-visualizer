@@ -1,4 +1,4 @@
-import colorGrid from "./colorGrid";
+import colorGrid from "./ColorGrid";
 
 const ColorOptions = ({
   RadioButtons,

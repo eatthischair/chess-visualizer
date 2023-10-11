@@ -1,4 +1,4 @@
-const movePiece = (
+const MovePiece = (
   squareId,
   pieceId,
   getGlobalBoard,
@@ -37,4 +37,4 @@ const movePiece = (
   setCurrentBoard(boardMatrix);
 };
 
-export default movePiece;
+export default MovePiece;

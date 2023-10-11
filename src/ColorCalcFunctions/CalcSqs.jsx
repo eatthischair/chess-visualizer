@@ -1,5 +1,5 @@
 import React from 'react';
-import calcSqsPerSide from './calcSqsPerSide';
+import calcSqsPerSide from './CalcSqsPerSide';
 import RenderBoard from '../RenderBoard';
 
 //this function calculates the colors on the board depending on if the switches for each color are turned on

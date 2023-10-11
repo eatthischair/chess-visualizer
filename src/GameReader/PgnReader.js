@@ -1,4 +1,4 @@
-import callRecurse from "./callRecurse";
+import callRecurse from "./CallRecurse";
 
 const PgnReader = (initialBoard, pgn) => {
   let pgnStart;
@@ -147,6 +147,8 @@ const PgnReader = (initialBoard, pgn) => {
   });
 
   let pgnIsValid = true;
+  //if a move did not get read properly
+
   boardArray.forEach((board, index) => {
     if (index > 0) {
       if (

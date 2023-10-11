@@ -2,17 +2,17 @@ import React, { useState } from "react";
 import "./App.css";
 import RenderPieces from "./Initialization/RenderPieces.js";
 import CalcSqs from "./ColorCalcFunctions/CalcSqs";
-import makeEmptyMatrix from "./HelperFunctions/makeEmptyMatrix";
-import PgnReader from "./PgnFunctions/PgnReader";
-import makePieceElements from "./Initialization/makePieceElements.js";
-import setInitialBoardPosition from "./Initialization/setInitialBoard.js";
-import movePiece from "./movePiece.js";
+import makeEmptyMatrix from "./HelperFunctions/MakeEmptyMatrix";
+import PgnReader from "./GameReader/PgnReader";
+import makePieceElements from "./Initialization/MakePieceElements.js";
+import setInitialBoardPosition from "./Initialization/SetInitialBoard.js";
+import MovePiece from "./MovePiece";
 import { useColor } from "react-color-palette";
 import "react-color-palette/lib/css/styles.css";
 import RadioButtons from "./ColorOptions/RadioButtons";
-import renderRadioButtons from "./ColorOptions/renderRadioButtons.js";
-import renderColorPalletes from "./ColorOptions/renderColorPalletes.js";
-import GrabTitle from "./PgnFunctions/GrabTitle";
+import renderRadioButtons from "./ColorOptions/RenderRadioButtons.js";
+import renderColorPalletes from "./ColorOptions/RenderColorPalletes.js";
+import GrabTitle from "./GameReader/GrabTitle";
 import "react-toastify/dist/ReactToastify.css";
 import Sidebar from "./Sidebar";
 import ColorOptions from "./ColorOptions/ColorOptions";
@@ -23,7 +23,7 @@ import { faBackwardStep } from "@fortawesome/free-solid-svg-icons";
 import { faForwardStep } from "@fortawesome/free-solid-svg-icons";
 import { faForwardFast } from "@fortawesome/free-solid-svg-icons";
 
-import selectedGames from './Initialization/selectedGames';
+import SelectedGames from "./Initialization/SelectedGames";
 const Visualizer = ({
   setPos,
   currentHoverPosition,
@@ -78,7 +78,7 @@ const Visualizer = ({
   const onDrop = (e, pieceId) => {
     e.preventDefault();
     e.stopPropagation();
-    movePiece(
+    MovePiece(
       getPos(),
       pieceId,
       getGlobalBoard,
@@ -109,7 +109,7 @@ const Visualizer = ({
 
   const readPgn = (index) => {
     //index is only passed via the games in the sidebar. userGames is the array of games to the left of the board
-    let pgnToRead = index || index === 0 ? selectedGames[index] : currentPgn;
+    let pgnToRead = index || index === 0 ? SelectedGames[index] : currentPgn;
     let { boardArray, pgnIsValid } = PgnReader(getInitialBoard(), pgnToRead);
     setCurrentPgn(pgnToRead);
     updatePgnBoardArray(boardArray);
@@ -126,7 +126,7 @@ const Visualizer = ({
   //color change functions
   const [color1, setColor1] = useColor("hex", "#121212");
   const [color2, setColor2] = useColor("hex", "#121212");
-  const [hexObj, setHexObj] = useState(require("./Initialization/hexObj.js"));
+  const [hexObj, setHexObj] = useState(require("./Initialization/HexObj.js"));
   const colorChange1 = (event) => {
     setColor1(event);
     setHexObj({ ...hexObj, [getColor() + "1"]: event.hex });
@@ -169,12 +169,12 @@ const Visualizer = ({
               Selected Games
             </div>
           </div>
-          {selectedGames.map((game, index) => (
+          {SelectedGames.map((game, index) => (
             <div
               onClick={() => {
                 readPgn(index);
               }}
-              class="btn-tertiary"
+              class="btn-tertiary shadow-md"
             >
               {GrabTitle(game)}
             </div>

@@ -1,4 +1,4 @@
-import isInBounds from "../HelperFunctions/isInBounds";
+import isInBounds from "../HelperFunctions/IsInBounds";
 
 const movePawnKnightandKing = (
   index,

@@ -1,6 +1,6 @@
 /* eslint-disable no-loop-func */
-import isInBounds from "../HelperFunctions/isInBounds";
-import checkForAbsolutePin from "./checkForAbsolutePin";
+import isInBounds from "../HelperFunctions/IsInBounds";
+import checkForAbsolutePin from "./CheckForAbsolutePin";
 
 const calcSqsPerSide = (positionBoard, alwaysEmptyMatrix, calcForWhite) => {
   //each Vals array corresponds to the X and Y increment values a piece can move to from the square it is currently placed. Kings, Knights, and Pawns have static values while Queens, Rooks and Bishops can be blocked
