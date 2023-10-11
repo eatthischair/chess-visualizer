@@ -23,6 +23,7 @@ import { faBackwardStep } from "@fortawesome/free-solid-svg-icons";
 import { faForwardStep } from "@fortawesome/free-solid-svg-icons";
 import { faForwardFast } from "@fortawesome/free-solid-svg-icons";
 
+import selectedGames from './Initialization/selectedGames';
 const Visualizer = ({
   setPos,
   currentHoverPosition,
@@ -47,7 +48,6 @@ const Visualizer = ({
   const [currentBoard, setCurrentBoard] = useState([]);
   const [boardIsFlipped, setBoardIsFlipped] = useState(false);
   const [showPieceElements, setShowPieceElements] = useState(false);
-  const [userGames, setUserGames] = useState([]);
   const [pieceObj, setPieceObj] = useState({});
 
   React.useEffect(() => {
@@ -78,16 +78,22 @@ const Visualizer = ({
   const onDrop = (e, pieceId) => {
     e.preventDefault();
     e.stopPropagation();
-    movePiece(getPos(), pieceId, getGlobalBoard, updateGlobalBoard, setCurrentBoard);
+    movePiece(
+      getPos(),
+      pieceId,
+      getGlobalBoard,
+      updateGlobalBoard,
+      setCurrentBoard
+    );
   };
 
   let emptyMatrix = makeEmptyMatrix();
   const clearBoard = () => {
     updateGlobalBoard(emptyMatrix);
     setCurrentBoard(emptyMatrix);
-    resetMoveNum()
-    setCurrentPgn('')
-    setPlayerNames('')
+    resetMoveNum();
+    setCurrentPgn("");
+    setPlayerNames("");
   };
   const setInitialBoard = () => {
     let board = getInitialBoard();
@@ -103,7 +109,7 @@ const Visualizer = ({
 
   const readPgn = (index) => {
     //index is only passed via the games in the sidebar. userGames is the array of games to the left of the board
-    let pgnToRead = index || index === 0 ? userGames[index] : currentPgn;
+    let pgnToRead = index || index === 0 ? selectedGames[index] : currentPgn;
     let { boardArray, pgnIsValid } = PgnReader(getInitialBoard(), pgnToRead);
     setCurrentPgn(pgnToRead);
     updatePgnBoardArray(boardArray);
@@ -144,7 +150,6 @@ const Visualizer = ({
     setCurrentBoard(newBoard);
     updateInitialBoard(newBoard);
     setInitialRen(false);
-    setUserGames(require("./Initialization/loremIpsum.js"));
   }
 
   return (
@@ -164,18 +169,16 @@ const Visualizer = ({
               Selected Games
             </div>
           </div>
-          {userGames
-            ? userGames.map((game, index) => (
-                <div
-                  onClick={() => {
-                    readPgn(index);
-                  }}
-                  class="btn-tertiary"
-                >
-                  {GrabTitle(game)}
-                </div>
-              ))
-            : ""}
+          {selectedGames.map((game, index) => (
+            <div
+              onClick={() => {
+                readPgn(index);
+              }}
+              class="btn-tertiary"
+            >
+              {GrabTitle(game)}
+            </div>
+          ))}
         </div>
 
         <div>

@@ -5,6 +5,7 @@ const BigFunction = (cookies) => {
   var currentHoverPosition;
   var colorToUpdate = "";
 
+
   const updateColor = (color) => {
     colorToUpdate = color;
   };
@@ -12,6 +13,7 @@ const BigFunction = (cookies) => {
     return colorToUpdate;
   };
 
+  //mouse position
   const setPos = (id) => {
     currentHoverPosition = id;
     return currentHoverPosition;
@@ -38,6 +40,8 @@ const BigFunction = (cookies) => {
   const getInitialBoard = () => {
     return alwaysInitialBoard;
   };
+
+  //for displaying and storing games
 
   var pgnBoardArray;
 
