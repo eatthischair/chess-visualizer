@@ -1,5 +1,5 @@
-import ChessIcons from "../ChessIcons.jsx";
-import onDrop from "../Visualizer.jsx";
+import ChessIcons from "../ChessIcons";
+import onDrop from "../Visualizer";
 
 var makePieceElements = () => {
   var pieceElementsObj = {};
