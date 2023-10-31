@@ -6,7 +6,7 @@ import makeEmptyMatrix from "./HelperFunctions/MakeEmptyMatrix";
 import PgnReader from "./GameReader/PgnReader";
 import makePieceElements from "./Initialization/MakePieceElements.js";
 import setInitialBoardPosition from "./Initialization/SetInitialBoard.js";
-import MovePiece from "./MovePiece";
+import MovePiece from "./Rendering/MovePiece";
 import { useColor } from "react-color-palette";
 import "react-color-palette/lib/css/styles.css";
 import RadioButtons from "./ColorOptions/RadioButtons";

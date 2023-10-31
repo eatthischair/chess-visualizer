@@ -1,6 +1,6 @@
-import isWhiteSquare from './HelperFunctions/IsWhiteSquare';
-import indexToCoord from './HelperFunctions/IndexToCoord';
-import './App.css';
+import isWhiteSquare from '../HelperFunctions/IsWhiteSquare';
+import indexToCoord from '../HelperFunctions/IndexToCoord';
+import '../App.css';
 
 const RenderBoard = ({currentBoard, pieceObj, colorMatrix, setPos, boardIsFlipped, color1, color2, hexObj, currentColor}) => {
 

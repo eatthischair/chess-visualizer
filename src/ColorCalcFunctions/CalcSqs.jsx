@@ -1,6 +1,6 @@
 import React from 'react';
 import calcSqsPerSide from './CalcSqsPerSide';
-import RenderBoard from '../RenderBoard';
+import RenderBoard from '../Rendering/RenderBoard';
 
 //this function calculates the colors on the board depending on if the switches for each color are turned on
 const CalcSqs = ({blackCtrlOn, whiteCtrlOn, currentBoard, pieceObj, alwaysEmptyMatrix, setPos, boardIsFlipped, sumMode, color1, color2, hexObj}) => {
