@@ -8,6 +8,8 @@ import {
   determinePawnVals,
   queeningPawn,
 } from "./MovePNandK.js";
+import CheckForAbsolutePin from "../ColorCalcFunctions/CheckForAbsolutePin";
+import RecurseCallObj from "../StaticVariables/RecurseCallObj";
 
 const callRecurse = (
   pgnItem,
@@ -38,11 +40,15 @@ const callRecurse = (
     [-1, -2],
     [1, -2],
   ];
+
   //either start with the initial position, or the last board rendered
   let board = boardArray[boardArray.length - 1] || initialBoard;
   let slice = JSON.parse(JSON.stringify(board));
   let piece = pieceType(pgnItem[0], calcForWhite);
   let nextBoard;
+
+  let pinnedPieces = CheckForAbsolutePin(board, calcForWhite, RecurseCallObj);
+  console.log("pinnedpieces", pinnedPieces, calcForWhite);
 
   //these are arbitrary numbers. for user freedom, there are 64 copies of each piece to place on the board. For reading games however, all that matters is the newly created pieces via pawn promotion do not have the same ID number as a piece on the board (i.e. higher than 2)
   let whitePieceCount = 3;
@@ -115,7 +121,10 @@ const callRecurse = (
         knightSqVals,
         slice,
         matrixCoords[0],
-        matrixCoords[1]
+        matrixCoords[1],
+        null,
+        null,
+        pinnedPieces
       );
     }
     if (type === "K") {
@@ -130,7 +139,14 @@ const callRecurse = (
       );
     }
     if (type === "Q" || type === "R" || type === "B") {
-      nextBoard = moveBRandQ(matrixCoords, calcForWhite, piece, type, slice);
+      nextBoard = moveBRandQ(
+        matrixCoords,
+        calcForWhite,
+        piece,
+        type,
+        slice,
+        pinnedPieces
+      );
     }
     if (pgnItem === "O-O" || pgnItem === "O-O-O") {
       nextBoard = handleCastles(calcForWhite, board, pgnItem);

@@ -11,8 +11,7 @@ const makePieceElements = (onDrop) => {
           draggable="true"
           alt=""
           src={pieceUrl}
-          width="64"
-          height="64"
+          className="piece"
           onDragEnd={(e) => {
             onDrop(e, pieceString);
           }}

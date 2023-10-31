@@ -11,7 +11,7 @@
     @apply flex grid text-slate-300 justify-start gap-0 content-start py-2 px-4 bg-inherit font-semibold rounded-lg shadow-sm hover:bg-gray-700/50 focus:outline-none hover:text-slate-200 focus:ring-2 focus:ring-gray-400 focus:ring-opacity-75 text-sm ml-1 max-h-8 w-52 ;
   }
   .btn-tertiary {
-    @apply flex grid text-slate-300 justify-start gap-0 content-center py-2 px-4 bg-inherit font-semibold rounded-lg shadow-sm hover:bg-gray-700/50 focus:outline-none hover:text-slate-200 focus:ring-2 focus:ring-gray-400 focus:ring-opacity-75 text-sm ml-1 h-16 w-52  ;
+    @apply flex grid text-slate-300 justify-start gap-0 content-center py-2 px-4 bg-inherit font-semibold rounded-lg shadow-sm hover:bg-gray-700/50 focus:outline-none hover:text-slate-200 focus:ring-2 focus:ring-gray-400 focus:ring-opacity-75 text-sm ml-1 h-16 w-52;
   }
   .radio-1 {
     @apply w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600
@@ -25,11 +25,11 @@
 }
 
 :root {
-  --bg-color: #405580;
-  --sqWidth:64px;
+  --boardWidth:600px;
+  --sqWidth:calc(var(--boardWidth) / 8);
 }
 
-.App-header {
+/* .App-header {
   background-color: #2b364b;
   min-height: 100vh;
   display: flex;
@@ -38,10 +38,10 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
-}
+} */
 
 body {
-  background-color: #2b364b;
+  background-color: rgb(55 65 81);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -56,19 +56,19 @@ body {
 }
 
 .chessboard {
-  color: rgb(255, 255, 255);
-  border: rgb(255, 255, 255);
-  width: 512px;
-  height: 512px;
-  border-width: 0px;
-  border-style:solid
+  width: var(--boardWidth);
+  height: var(--boardWidth);
+}
+
+.piece {
+  width: var(--sqWidth);
+  height: var(--sqWidth);
 }
 
 .lightSquare {
   border-style: solid;
   width:  var(--sqWidth);
   height: var(--sqWidth);
-  /* vertical-align: auto; */
   float:left;
   background-color: rgb(244, 226, 206)
 }
@@ -77,7 +77,6 @@ body {
   border-style: solid;
   width: var(--sqWidth);
   height: var(--sqWidth);
-  /* vertical-align: auto; */
   float:left;
   background-color: rgb(239, 235, 224);
 }
@@ -107,8 +106,6 @@ body {
   width: var(--sqWidth);
   height: var(--sqWidth);
   float:left;
-  /* background: linear-gradient(rgb(255, 148, 209), rgba(233, 109, 109, 0.5)),
-  linear-gradient(white, white); */
   background: linear-gradient(rgb(242, 204, 255), rgb(255, 199, 251)),
   linear-gradient(white, white);
 
@@ -118,8 +115,6 @@ body {
   width: var(--sqWidth);
   height: var(--sqWidth);
   float:left;
-  /* background: linear-gradient(rgb(255, 132, 209), rgba(205, 75, 32, 0.762)),
-  linear-gradient(white, white); */
   background: linear-gradient(rgb(236, 181, 255), rgb(255, 170, 249)),
   linear-gradient(white, white);
 }
@@ -128,8 +123,6 @@ body {
   width: var(--sqWidth);
   height: var(--sqWidth);
   float:left;
-  /* background: linear-gradient(rgb(255, 116, 209), rgba(135, 14, 14, 0.762)),
-  linear-gradient(white, rgb(255, 255, 255)); */
   background: linear-gradient(rgb(220, 116, 255), rgba(255, 116, 246, 0.897)),
   linear-gradient(white, rgb(255, 255, 255));
 }

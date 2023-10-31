@@ -9,8 +9,11 @@ const movePawnKnightandKing = (
   currentRow,
   currentColumn,
   pawnColumn,
-  isEnPassant
+  isEnPassant,
+  pinnedPieces
 ) => {
+  console.log("MOVEPKK PINNED", pinnedPieces);
+
   slice = JSON.parse(JSON.stringify(slice));
   let pawnFound = false;
   let i = 0;

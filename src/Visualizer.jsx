@@ -154,10 +154,10 @@ const Visualizer = ({
 
   return (
     <div>
-      <div class="flex justify-center body-font font-GreatVibes text-6xl">
+      <div class='mt-2'></div>
+      <div class="flex justify-center body-font font-GreatVibes text-6xl mt-4">
         Chess Visualizer
       </div>
-
       <div class="flex justify-center">
         {playerNames ? playerNames : <br></br>}
       </div>
@@ -181,7 +181,7 @@ const Visualizer = ({
           ))}
         </div>
 
-        <div>
+        <div class="flex">
           <CalcSqs
             blackCtrlOn={blackCtrlOn}
             whiteCtrlOn={whiteCtrlOn}
@@ -195,7 +195,7 @@ const Visualizer = ({
             hexObj={hexObj}
           />
         </div>
-        <div>
+        <div class="flex">
           <Sidebar
             showPieceElements={showPieceElements}
             pieceObj={pieceObj}
@@ -215,7 +215,7 @@ const Visualizer = ({
         </div>
       </div>
 
-      <div class="flex flex-initial justify-center gap-x-32">
+      <div class="flex flex-initial justify-center gap-x-32 mt-24">
         <ColorOptions
           RadioButtons={RadioButtons}
           hexUpdate={hexUpdate}

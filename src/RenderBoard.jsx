@@ -47,9 +47,8 @@ const RenderBoard = ({currentBoard, pieceObj, colorMatrix, setPos, boardIsFlippe
     if (boardIsFlipped) renderedBoard = renderedBoard.reverse();
 
   return (
-    <div class='border-2 border-red-50'>
+
       <div className="chessboard">{renderedBoard}</div>
-    </div>
     )
   }
 export default RenderBoard;

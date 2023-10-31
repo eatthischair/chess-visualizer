@@ -18,7 +18,7 @@ const Sidebar = ({
   setPos,
 }) => {
   return (
-    <div class="flex w-64 h-[400px]">
+    <div class="flex w-64 h-[400px] shadow-md">
       <ul className="menu menu-vertical lg:menu-horizontal bg-inherit rounded-box">
         <li>
           <button
