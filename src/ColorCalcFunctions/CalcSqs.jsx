@@ -66,7 +66,7 @@ const CalcSqs = ({blackCtrlOn, whiteCtrlOn, currentBoard, pieceObj, alwaysEmptyM
       }
     }
 
-    return (<div class='flex place-content-center'>
+    return (<div className='flex place-content-center'>
       <RenderBoard currentBoard={currentBoard} pieceObj={pieceObj} colorMatrix={colorMatrix} setPos={setPos} boardIsFlipped={boardIsFlipped} color1={color1} color2={color2} hexObj={hexObj}/>
     </div>
     )

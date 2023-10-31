@@ -59,7 +59,7 @@ const Visualizer = ({
       if (event.key === "ArrowUp") last();
       if (event.key === "ArrowDown") first();
     });
-  }, []);
+  });
 
   const next = () => {
     setCurrentBoard(getNextBoard());
@@ -156,34 +156,34 @@ const Visualizer = ({
 
   return (
     <div>
-      <div class='mt-2'></div>
-      <div class="flex justify-center body-font font-GreatVibes text-6xl mt-4">
+      <div className='mt-2'></div>
+      <div className="flex justify-center body-font font-GreatVibes text-6xl mt-4">
         Chess Visualizer
       </div>
-      <div class="flex justify-center">
+      <div className="flex justify-center">
         {playerNames ? playerNames : <br></br>}
       </div>
 
-      <div class="flex justify-center h-[520px] m-0">
-        <div class="w-64 h-[520px] overflow-x-clip overflow-y-scroll">
-          <div class="flex flex-row">
-            <div class="flex justify-center place-self-center basis-2 grow text-sm leading-3 indent-0 h-8 mt-4 font-semibold text-slate-100">
+      <div className="flex justify-center h-[520px] m-0">
+        <div className="w-64 h-[520px] overflow-x-clip overflow-y-scroll">
+          <div className="flex flex-row">
+            <div className="flex justify-center place-self-center basis-2 grow text-sm leading-3 indent-0 h-8 mt-4 font-semibold text-slate-100">
               Selected Games
             </div>
           </div>
           {SelectedGames.map((game, index) => (
-            <div
+            <div key={game}
               onClick={() => {
                 readPgn(index);
               }}
-              class="btn-tertiary shadow-md"
+              className="btn-tertiary shadow-md"
             >
               {GrabTitle(game)}
             </div>
           ))}
         </div>
 
-        <div class="flex">
+        <div className="flex">
           <CalcSqs
             blackCtrlOn={blackCtrlOn}
             whiteCtrlOn={whiteCtrlOn}
@@ -197,7 +197,7 @@ const Visualizer = ({
             hexObj={hexObj}
           />
         </div>
-        <div class="flex">
+        <div className="flex">
           <Sidebar
             showPieceElements={showPieceElements}
             pieceObj={pieceObj}
@@ -217,7 +217,7 @@ const Visualizer = ({
         </div>
       </div>
 
-      <div class="flex flex-initial justify-center gap-x-32 mt-24">
+      <div className="flex flex-initial justify-center gap-x-32 mt-24">
         <ColorOptions
           RadioButtons={RadioButtons}
           hexUpdate={hexUpdate}
@@ -234,7 +234,7 @@ const Visualizer = ({
       </div>
       <div>
         {currentPgn ? (
-          <div class="flex flex-initial justify-center gap-x-32 text-gray-700">
+          <div className="flex flex-initial justify-center gap-x-32 text-gray-700">
             <div onClick={() => first()}>
               <FontAwesomeIcon icon={faBackwardFast} />
             </div>

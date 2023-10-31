@@ -18,11 +18,11 @@ const Sidebar = ({
   setPos,
 }) => {
   return (
-    <div class="flex w-64 h-[400px] shadow-md">
+    <div className="flex w-64 h-[400px] shadow-md">
       <ul className="menu menu-vertical lg:menu-horizontal bg-inherit rounded-box">
         <li>
           <button
-            class="btn-secondary"
+            className="btn-secondary"
             onClick={() => {
               setInitialBoard();
             }}
@@ -31,20 +31,20 @@ const Sidebar = ({
           </button>
         </li>
         <li>
-          <button class="btn-secondary" onClick={() => clearBoard()}>
+          <button className="btn-secondary" onClick={() => clearBoard()}>
             Clear Board
           </button>
         </li>
         <li>
           <button
-            class="btn-secondary"
+            className="btn-secondary"
             onClick={() => setShowPieceElements(!showPieceElements)}
           >
             Add Pieces
           </button>
           {showPieceElements ? (
             <div>
-              <div class="flex flex-wrap w-[210px] h-[220px] h-16 overflow-y-scroll">
+              <div className="flex flex-wrap w-[210px] h-[220px] h-16 overflow-y-scroll">
                 {Object.keys(pieceObj).map((pieceId, index) => {
                   return (
                     <RenderPieces
@@ -55,7 +55,7 @@ const Sidebar = ({
                 })}
               </div>
               <div
-                class="w-16 h-12 text-[40px] text-gray-400 ml-2"
+                className="w-16 h-12 text-[40px] text-gray-400 ml-2"
                 onDragOver={() => setPos(false)}
               >
                 <FontAwesomeIcon icon={faTrashCan} />
@@ -98,7 +98,7 @@ const Sidebar = ({
         </li>
         <li>
           <button
-            class="btn-secondary"
+            className="btn-secondary"
             onClick={() => setBoardIsFlipped(!boardIsFlipped)}
             type="button"
           >
