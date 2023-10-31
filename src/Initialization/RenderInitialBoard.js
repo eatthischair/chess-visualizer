@@ -1,5 +1,5 @@
-import isWhiteSquare from "./HelperFunctions/isWhiteSquare.jsx";
-import setPos from "./Visualizer.jsx";
+import isWhiteSquare from "./HelperFunctions/isWhiteSquare";
+import setPos from "./Visualizer";
 
 const RenderInitialBoard = () => {
   let blankBoard = [];
