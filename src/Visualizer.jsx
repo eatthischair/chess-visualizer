@@ -4,7 +4,9 @@ import RenderPieces from "./Initialization/RenderPieces";
 import CalcSqs from "./ColorCalcFunctions/CalcSqs";
 import makeEmptyMatrix from "./HelperFunctions/MakeEmptyMatrix";
 import PgnReader from "./GameReader/PgnReader";
-import makePieceElements from "./Initialization/MakePieceElements";
+// import MakePieceElements from "..src/Initialization/MakePieceElements";
+import MakePieceElements from "./Initialization/MakePieceElements";
+
 import setInitialBoardPosition from "./Initialization/SetInitialBoard";
 import MovePiece from "./Rendering/MovePiece";
 import { useColor } from "react-color-palette";
@@ -144,7 +146,7 @@ const Visualizer = ({
   const [initialRen, setInitialRen] = useState(true);
 
   if (initialRen) {
-    setPieceObj(makePieceElements(onDrop));
+    setPieceObj(MakePieceElements(onDrop));
     let newBoard = setInitialBoardPosition(emptyMatrix);
     updateGlobalBoard(newBoard);
     setCurrentBoard(newBoard);

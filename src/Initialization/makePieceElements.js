@@ -1,4 +1,4 @@
-const makePieceElements = (onDrop) => {
+const MakePieceElements = (onDrop) => {
   var pieceElementsObj = {};
   let pieceArray = ["K", "N", "B", "R", "Q", "P", "k", "n", "b", "r", "q", "p"];
   let pieces = require("./ChessIcons");
@@ -22,4 +22,4 @@ const makePieceElements = (onDrop) => {
   return pieceElementsObj;
 };
 
-export default makePieceElements;
+export default MakePieceElements;
