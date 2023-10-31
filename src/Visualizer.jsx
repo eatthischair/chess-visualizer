@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import "./App.css";
-import RenderPieces from "./initialization/RenderPieces";
+import RenderPieces from "./MakeElements/RenderPieces";
 import CalcSqs from "./ColorCalcFunctions/CalcSqs";
 import makeEmptyMatrix from "./HelperFunctions/MakeEmptyMatrix";
 import PgnReader from "./GameReader/PgnReader";
-import MakePieceElements from "./initialization/MakePieceElements.js";
-import setInitialBoardPosition from "./initialization/SetInitialBoard";
+import MakePieceElements from "./MakeElements/MakePieceElements.js";
+import setInitialBoardPosition from "./MakeElements/SetInitialBoard";
 import MovePiece from "./Rendering/MovePiece";
 import { useColor } from "react-color-palette";
 import "react-color-palette/lib/css/styles.css";
@@ -23,7 +23,7 @@ import { faBackwardStep } from "@fortawesome/free-solid-svg-icons";
 import { faForwardStep } from "@fortawesome/free-solid-svg-icons";
 import { faForwardFast } from "@fortawesome/free-solid-svg-icons";
 
-import SelectedGames from "./initialization/SelectedGames";
+import SelectedGames from "./MakeElements/SelectedGames";
 const Visualizer = ({
   setPos,
   currentHoverPosition,
@@ -126,7 +126,7 @@ const Visualizer = ({
   //color change functions
   const [color1, setColor1] = useColor("hex", "#121212");
   const [color2, setColor2] = useColor("hex", "#121212");
-  const [hexObj, setHexObj] = useState(require("./initialization/HexObj.js"));
+  const [hexObj, setHexObj] = useState(require("./MakeElements/HexObj.js"));
   const colorChange1 = (event) => {
     setColor1(event);
     setHexObj({ ...hexObj, [getColor() + "1"]: event.hex });
