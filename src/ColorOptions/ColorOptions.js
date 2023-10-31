@@ -8,7 +8,7 @@ const ColorOptions = ({
   colorChange1,
   color2,
   colorChange2,
-  renderRadioButtons,
+  RenderRadioButtons,
   hexObj,
 }) => {
   let hexObjArr = Object.entries(hexObj);
@@ -55,7 +55,7 @@ const ColorOptions = ({
             </div>
             <div className="collapse-content bg-base-200 text-primary-content peer-checked:bg-secondary peer-checked:text-secondary-content text-sm">
               {block2}
-              {renderRadioButtons("whiteSquare", hexUpdate)}
+              {RenderRadioButtons("whiteSquare", hexUpdate)}
               {renderColorPalletes(color1, colorChange1, color2, colorChange2)}
             </div>
           </div>
@@ -67,7 +67,7 @@ const ColorOptions = ({
             </div>
             <div className="collapse-content bg-base-200 text-primary-content peer-checked:bg-secondary peer-checked:text-secondary-content text-sm">
               {block3}
-              {renderRadioButtons("blackSquare", hexUpdate)}
+              {RenderRadioButtons("blackSquare", hexUpdate)}
               {renderColorPalletes(color1, colorChange1, color2, colorChange2)}
             </div>
           </div>

@@ -10,8 +10,8 @@ import MovePiece from "./Rendering/MovePiece";
 import { useColor } from "react-color-palette";
 import "react-color-palette/lib/css/styles.css";
 import RadioButtons from "./ColorOptions/RadioButtons";
-import renderRadioButtons from "./ColorOptions/RenderRadioButtons";
-import renderColorPalletes from "./ColorOptions/RenderColorPalletes";
+import RenderRadioButtons from "./ColorOptions/RenderRadioButtons";
+import RenderColorPalletes from "./ColorOptions/RenderColorPalletes";
 import GrabTitle from "./GameReader/GrabTitle";
 import "react-toastify/dist/ReactToastify.css";
 import Sidebar from "./Sidebar";
@@ -219,11 +219,11 @@ const Visualizer = ({
         <ColorOptions
           RadioButtons={RadioButtons}
           hexUpdate={hexUpdate}
-          renderColorPalletes={renderColorPalletes}
+          RenderColorPalletes={RenderColorPalletes}
           colorChange1={colorChange1}
           color2={color2}
           colorChange2={colorChange2}
-          renderRadioButtons={renderRadioButtons}
+          RenderRadioButtons={RenderRadioButtons}
           hexObj={hexObj}
           color1={color1}
         />

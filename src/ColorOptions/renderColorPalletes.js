@@ -1,6 +1,6 @@
 import { ColorPicker } from "react-color-palette";
 
-const renderColorPalletes = (color1, colorChange1, color2, colorChange2) => {
+const RenderColorPalletes = (color1, colorChange1, color2, colorChange2) => {
   return (
     <div class="grid grid-cols-2 w-[400px] h-[110px] ">
       <ColorPicker
@@ -32,4 +32,4 @@ const renderColorPalletes = (color1, colorChange1, color2, colorChange2) => {
   );
 };
 
-export default renderColorPalletes;
+export default RenderColorPalletes;

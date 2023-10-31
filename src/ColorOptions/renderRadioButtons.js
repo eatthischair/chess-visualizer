@@ -1,6 +1,6 @@
 import RadioButtons from "./RadioButtons";
 
-const renderRadioButtons = (color, hexUpdate) => {
+const RenderRadioButtons = (color, hexUpdate) => {
   let buttons = [];
   for (var i = 1; i < 8; i++) {
     buttons.push(RadioButtons(color, i, hexUpdate));
@@ -8,4 +8,4 @@ const renderRadioButtons = (color, hexUpdate) => {
   return buttons;
 };
 
-export default renderRadioButtons;
+export default RenderRadioButtons;
