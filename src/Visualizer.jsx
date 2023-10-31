@@ -57,7 +57,7 @@ const Visualizer = ({
       if (event.key === "ArrowUp") last();
       if (event.key === "ArrowDown") first();
     });
-  });
+  }, []);
 
   const next = () => {
     setCurrentBoard(getNextBoard());
