@@ -10,10 +10,8 @@ const movePawnKnightandKing = (
   currentColumn,
   pawnColumn,
   isEnPassant,
-  pinnedPieces
+  pinnedPiecesIndices
 ) => {
-  console.log("MOVEPKK PINNED", pinnedPieces);
-
   slice = JSON.parse(JSON.stringify(slice));
   let pawnFound = false;
   let i = 0;
@@ -24,9 +22,18 @@ const movePawnKnightandKing = (
     let column = currentColumn + increment[1];
 
     if (isInBounds(row, column)) {
+      let isPinned;
+      if (pinnedPiecesIndices) {
+        pinnedPiecesIndices.forEach((coords) => {
+          let [pinnedRow, pinnedCol] = coords;
+          if (pinnedRow === row && pinnedCol === column) {
+            isPinned = true;
+          }
+        });
+      }
       let pieceId = slice[row][column];
       let currentSqPiece = slice[row][column][0];
-      if (currentSqPiece === piece) {
+      if (currentSqPiece === piece && !isPinned) {
         if (pawnColumn) {
           if (column === pawnColumn) {
             slice[row][column] = 0;

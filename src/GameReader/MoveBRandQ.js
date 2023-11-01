@@ -1,12 +1,30 @@
 import isInBounds from "../HelperFunctions/IsInBounds";
 
-const moveBRandQ = (index, calcForWhite, piece, type, slice) => {
+const moveBRandQ = (
+  index,
+  calcForWhite,
+  piece,
+  type,
+  slice,
+  pinnedPiecesIndices
+) => {
   slice = JSON.parse(JSON.stringify(slice));
 
+  console.log("BRAQ", index, pinnedPiecesIndices);
   const recurse = (currentIndex, incrementY, incrementX) => {
     let newY = currentIndex[0] + incrementY;
     let newX = currentIndex[1] + incrementX;
     let inBounds = isInBounds(newY, newX);
+
+    let isPinned;
+    if (pinnedPiecesIndices) {
+      pinnedPiecesIndices.forEach((coords) => {
+        let [pinnedRow, pinnedCol] = coords;
+        if (pinnedRow === newY && pinnedCol === newX) {
+          isPinned = true;
+        }
+      });
+    }
 
     if (!inBounds) return;
 
@@ -14,7 +32,7 @@ const moveBRandQ = (index, calcForWhite, piece, type, slice) => {
     let pieceId = slice[newY][newX];
     let currentSqType = slice[newY][newX][0];
     if (sqHasPiece) {
-      if (currentSqType === piece) {
+      if (currentSqType === piece && !isPinned) {
         slice[index[0]][index[1]] = pieceId;
         slice[newY][newX] = 0;
         return;

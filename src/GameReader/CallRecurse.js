@@ -48,7 +48,9 @@ const callRecurse = (
   let nextBoard;
 
   let pinnedPieces = CheckForAbsolutePin(board, calcForWhite, RecurseCallObj);
-  console.log("pinnedpieces", pinnedPieces, calcForWhite);
+  let pinnedPiecesIndices = pinnedPieces.map((piece) => piece.pinnedPieceIndex);
+
+  console.log("pinnedpieces", pinnedPieces, calcForWhite, pinnedPiecesIndices);
 
   //these are arbitrary numbers. for user freedom, there are 64 copies of each piece to place on the board. For reading games however, all that matters is the newly created pieces via pawn promotion do not have the same ID number as a piece on the board (i.e. higher than 2)
   let whitePieceCount = 3;
@@ -124,7 +126,7 @@ const callRecurse = (
         matrixCoords[1],
         null,
         null,
-        pinnedPieces
+        pinnedPiecesIndices
       );
     }
     if (type === "K") {
@@ -145,7 +147,7 @@ const callRecurse = (
         piece,
         type,
         slice,
-        pinnedPieces
+        pinnedPiecesIndices
       );
     }
     if (pgnItem === "O-O" || pgnItem === "O-O-O") {
