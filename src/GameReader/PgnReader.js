@@ -129,7 +129,7 @@ const PgnReader = (initialBoard, pgn) => {
       cleanPgn.push(item);
     }
   });
-
+  console.log("cleanpgn", cleanPgn);
   //at this point the PGN is clean and it's time to transform it to an array of boards
   var boardArray = [];
   cleanPgn.forEach((item, index) => {

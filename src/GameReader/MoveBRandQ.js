@@ -6,33 +6,68 @@ const moveBRandQ = (
   piece,
   type,
   slice,
-  pinnedPiecesIndices
+  pinnedPiecesIndices,
+  pinnedPieces
 ) => {
   slice = JSON.parse(JSON.stringify(slice));
 
-  console.log("BRAQ", index, pinnedPiecesIndices);
+  // console.log("BRAQ", index, pinnedPieces);
   const recurse = (currentIndex, incrementY, incrementX) => {
     let newY = currentIndex[0] + incrementY;
     let newX = currentIndex[1] + incrementX;
     let inBounds = isInBounds(newY, newX);
 
     let isPinned;
-    if (pinnedPiecesIndices) {
-      pinnedPiecesIndices.forEach((coords) => {
+    let pinnedIndex;
+    if (pinnedPiecesIndices.length !== 0) {
+      pinnedPiecesIndices.forEach((coords, index) => {
         let [pinnedRow, pinnedCol] = coords;
         if (pinnedRow === newY && pinnedCol === newX) {
           isPinned = true;
+          pinnedIndex = index;
         }
       });
     }
+    //need to find if move from current sq to pgn sq is legal.
+    //use recursecallobj of the said piece
 
     if (!inBounds) return;
 
     let sqHasPiece = slice[newY][newX] !== 0;
     let pieceId = slice[newY][newX];
     let currentSqType = slice[newY][newX][0];
+
+    if (isPinned) {
+      let callObj =
+        pinnedPieces[pinnedIndex].pinnedPieceCallObj[
+          currentSqType.toUpperCase()
+        ];
+      //index is sq to go to
+      //newY newX is the potential og source of the piece
+      //if index can be added subtracted by callobj increments, to equal newY, newX then that piece is the one to move
+
+      for (let cardinalDir in callObj) {
+        // console.log("AAAAA", callObj[cardinalDir]);
+        for (let indx in callObj[cardinalDir]) {
+          let incrementsArr = callObj[cardinalDir][indx];
+          // console.log("incsArr", incrementsArr);
+          let [incY, incX] = incrementsArr;
+          let recurseY = newY * 1;
+          let recurseX = newX * 1;
+          while (isInBounds(recurseY, recurseX)) {
+            recurseY += incY;
+            recurseX += incX;
+            if (recurseY === index[0] && recurseX === index[1]) {
+              isPinned = false;
+            }
+          }
+        }
+      }
+    }
+
     if (sqHasPiece) {
       if (currentSqType === piece && !isPinned) {
+        // if (currentSqType === piece) {
         slice[index[0]][index[1]] = pieceId;
         slice[newY][newX] = 0;
         return;
