@@ -34,7 +34,7 @@ const movePawnKnightandKing = (
       let pieceId = slice[row][column];
       let currentSqPiece = slice[row][column][0];
       if (currentSqPiece === piece && !isPinned) {
-        if (pawnColumn) {
+        if (pawnColumn || pawnColumn === 0) {
           if (column === pawnColumn) {
             slice[row][column] = 0;
             slice[currentRow][currentColumn] = pieceId;

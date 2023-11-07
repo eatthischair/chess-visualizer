@@ -18,6 +18,7 @@ const callRecurse = (
   initialBoard,
   prevItem
 ) => {
+  //the grid coordinates (i.e. b6 in Bb6 or g5 in fxg5) are always the last two characters recorded in a move
   let coords = pgnItem.slice(pgnItem.length - 2, pgnItem.length);
   let isPawnCapture;
   let kingSqVals = [
@@ -50,13 +51,14 @@ const callRecurse = (
   let pinnedPieces = CheckForAbsolutePin(board, calcForWhite, RecurseCallObj);
   let pinnedPiecesIndices = pinnedPieces.map((piece) => piece.pinnedPieceIndex);
 
-  // console.log(
-  //   "pinnedpieces",
-  //   pinnedPieces,
-  //   calcForWhite,
-  //   pinnedPiecesIndices,
-  //   pinnedPieces
-  // );
+  console.log(
+    "pinnedpieces",
+    pinnedPieces,
+    calcForWhite,
+    pinnedPiecesIndices,
+    "indices",
+    pinnedPieces
+  );
 
   //these are arbitrary numbers. for user freedom, there are 64 copies of each piece to place on the board. For reading games however, all that matters is the newly created pieces via pawn promotion do not have the same ID number as a piece on the board (i.e. higher than 2)
   let whitePieceCount = 3;
