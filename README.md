@@ -5,19 +5,23 @@ The board is comprised of 64 cells which correspond to an 8x8 matrix of strings,
 
 *image of matrix*
 
-The Visualization component consists of 3 parts. For both white and black, a matrix storing the sums of how many times all the pieces of that side can move/capture on that square. The more pink the square, the more the white pieces control that square. The more blue, the more the black pieces control it. If a square's value is 0, then its color is the board's original color. The final matrix subtracts the sums for black from the sums for white. The values of the final matrix correspond to css classes which gives the cell its pink/blue/neutral color. If a cell contains a piece, the divs inner contents are the url corresponding to that piece.
+The Visualization component consists of 3 parts. 
+For both white and black, a matrix storing the sums of how many times all the pieces of that side can move/capture on that square. The more pink the square, the more the white pieces control that square. The more blue, the more the black pieces control it.
+If a square's value is 0, then the square has the board's original color. The final matrix subtracts the sums for black from the sums for white. These values decide the CSS class for that square.
 
 
 
-
+White
 <br>
 <img width="300" alt="image" src="https://github.com/eatthischair/chess-visualizer/assets/116133810/5556e24f-cf67-4204-9419-1e669781bf34">
 <img width="300" alt="image" src="https://github.com/eatthischair/chess-visualizer/assets/116133810/8e505f09-1516-42cb-b88d-ee46b5f06a54">
 <br>
-
+Black
+<br>
 <img width="300" alt="image" src="https://github.com/eatthischair/chess-visualizer/assets/116133810/4ddf7445-ac01-4985-b31a-ec345f94ca13">
-
 <img width="300" alt="image" src="https://github.com/eatthischair/chess-visualizer/assets/116133810/510f163f-feba-4117-ac47-3b7c0e90a971">
+<br>
+Together
 <br>
 <img width="300" alt="image" src="https://github.com/eatthischair/chess-visualizer/assets/116133810/9b78f644-0f8e-4348-a470-630af71b1510">
 <img width="300" alt="image" src="https://github.com/eatthischair/chess-visualizer/assets/116133810/a04356f4-075f-4ed1-b506-2844b3f32b1c">
