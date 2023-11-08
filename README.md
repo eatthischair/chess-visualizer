@@ -32,6 +32,7 @@ Together
 
 *special features*
 Batteries (fischer game)
+![](https://github.com/eatthischair/chess-visualizer/blob/master/ezgif.com-video-to-gif.gif)
 
 *in check functions*
 
