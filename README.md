@@ -9,21 +9,21 @@ The Visualization component consists of 3 parts. For both white and black, a mat
 
 
 
-this
-![image](https://github.com/eatthischair/chess-visualizer/assets/116133810/2ce69065-5dab-43e5-a2ed-7453da5c88b4)
-corresponds to
-White
-<img width="603" alt="image" src="https://github.com/eatthischair/chess-visualizer/assets/116133810/8e505f09-1516-42cb-b88d-ee46b5f06a54">
 
-and this
-![image](https://github.com/eatthischair/chess-visualizer/assets/116133810/02e54ee9-13c1-49e4-b805-3f48e9201ba7)
-corresponds to
-<img width="603" alt="image" src="https://github.com/eatthischair/chess-visualizer/assets/116133810/510f163f-feba-4117-ac47-3b7c0e90a971">
+<br>
+<img width="300" alt="image" src="https://github.com/eatthischair/chess-visualizer/assets/116133810/5556e24f-cf67-4204-9419-1e669781bf34">
+<img width="300" alt="image" src="https://github.com/eatthischair/chess-visualizer/assets/116133810/8e505f09-1516-42cb-b88d-ee46b5f06a54">
+<br>
 
-Together they become
-![image](https://github.com/eatthischair/chess-visualizer/assets/116133810/dabb9f19-2b98-43b3-bd81-93b326d36a2a)
-this
-![image](https://github.com/eatthischair/chess-visualizer/assets/116133810/04f55276-7cd8-494d-83c3-acdd9aaffa72)
+<img width="300" alt="image" src="https://github.com/eatthischair/chess-visualizer/assets/116133810/4ddf7445-ac01-4985-b31a-ec345f94ca13">
+
+<img width="300" alt="image" src="https://github.com/eatthischair/chess-visualizer/assets/116133810/510f163f-feba-4117-ac47-3b7c0e90a971">
+<br>
+<img width="300" alt="image" src="https://github.com/eatthischair/chess-visualizer/assets/116133810/9b78f644-0f8e-4348-a470-630af71b1510">
+<img width="300" alt="image" src="https://github.com/eatthischair/chess-visualizer/assets/116133810/a04356f4-075f-4ed1-b506-2844b3f32b1c">
+
+
+
 
 
 *special features*
