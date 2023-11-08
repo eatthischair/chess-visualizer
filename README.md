@@ -37,7 +37,7 @@ Batteries (fischer game)
 
 *tempo moves*
 (other fischer game)
-
+![](https://github.com/eatthischair/chess-visualizer/blob/master/ezgif.com-crop%20(2).gif)
 
 Pgn Reader
 
