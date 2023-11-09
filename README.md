@@ -56,6 +56,7 @@ Pgn Reader
 
 The Chess visualizer can read ANY chess game (try it!), whether your own game or an old classic via the Pgn Reader I created from scratch. 
 PGN is the computer-readable notation for chess games. 
+<img width="300" alt="image" src="https://github.com/eatthischair/chess-visualizer/blob/master/ezgif.com-crop%20(5).gif">
 
 
 *Why?* First and foremost I make this as a learning experience, and to share the beauty and complexity of the game with those who haven't played. I also made it because my brother (former math teacher and board game fanatic) says he doesn't like chess, so I thought I'd attempt to show him its greatness. 
