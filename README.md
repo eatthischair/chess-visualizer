@@ -6,7 +6,7 @@ This project was created with React, Tailwind, FontAwesome, FlowBite, and React-
 
 How it Works
 <br>
-The board is comprised of 64 cells which correspond to an 8x8 matrix of strings, and the strings are also keys in an object holding all the chess piece images. 
+The board is comprised of 64 squares which correspond to an 8x8 matrix of strings. The strings are also keys in an object containing chess piece image elements. 
 
 <img width="350" alt="image" src="https://github.com/eatthischair/chess-visualizer/blob/master/Screen%20Shot%202023-11-09%20at%2012.44.12%20PM.png"> =
 <img width="300" alt="image" src="https://github.com/eatthischair/chess-visualizer/blob/master/Screen%20Shot%202023-11-09%20at%2012.23.28%20PM.png">
