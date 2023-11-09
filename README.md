@@ -41,6 +41,9 @@ Batteries (fischer game)
 (other fischer game)
 ![](https://github.com/eatthischair/chess-visualizer/blob/master/ezgif.com-crop%20(2).gif)
 
+Absolute Pins
+![](https://github.com/eatthischair/chess-visualizer/blob/master/ezgif.com-gif-maker%20(1).gif)
+
 Pgn Reader
 
 The Chess visualizer can read any chess game, whether your own game or an old classic via the Pgn Reader I created from scratch. 
