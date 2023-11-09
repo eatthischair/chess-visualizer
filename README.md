@@ -60,10 +60,16 @@ PGN is the computer-readable notation for chess games.
 <img width="600" alt="image" src="https://github.com/eatthischair/chess-visualizer/blob/master/ezgif.com-crop%20(7).gif">
 
 
+Caveats
+There is one situation I have yet to solve. When a Queen and another piece make a battery,  attack a minor piece defended by another minor piece 
+*Kasparov game example*
+In this situation practically, the Queen and Rook do not control this square even tho it is attacked more times than it is defended. 
 
-*Why?* First and foremost I make this as a learning experience, and to share the beauty and complexity of the game with those who haven't played. I also made it because my brother (former math teacher and board game fanatic) says he doesn't like chess, so I thought I'd attempt to show him its greatness. 
 
-*gif of copy paste from a database, and the game showing the same moves on both*
+Future Enhancements
+<br>
+Mobile version
+FEN Input
 
 
 
