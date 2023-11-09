@@ -34,25 +34,29 @@ Together
 <br>
 Absolute Pins
 <br>
+An Absolute Pin is where a piece cannot move because it's movement would allow the King to be captured. The piece that cannot move is said to be absolutely pinned. If an absolutely pinned pieced and the pinning piece can move in the same direction, the absolutely pinned piece travel towards/away from the pinning piece as long as the King cannot be captured. In the example below, if this is the case the black piece's square will be pink.
+<br>
 <img width="400" alt="image" src="https://github.com/eatthischair/chess-visualizer/blob/master/ezgif.com-gif-maker%20(1).gif">
 <br>
 Batteries
 <br>
+Generally used to refer to 2 or more pieces that can move in the same direction
+<br>
 <img width="300" alt="image" src="https://github.com/eatthischair/chess-visualizer/blob/master/ezgif.com-crop%20(3).gif">
 <img width="300" alt="image" src="https://github.com/eatthischair/chess-visualizer/blob/master/ezgif.com-gif-maker.gif">
-<img width="300" alt="image" src="https://github.com/eatthischair/chess-visualizer/blob/master/ezgif.com-crop.gif">
 
-*tempo moves*
+Tempos
+If a piece of lower value attacks a piece of higher value, the attacked square will gain the color of the attacking side
 <br>
 
-(other fischer game)
 <img width="300" alt="image" src="https://github.com/eatthischair/chess-visualizer/blob/master/ezgif.com-crop%20(4).gif">
 <img width="300" alt="image" src="https://github.com/eatthischair/chess-visualizer/blob/master/ezgif.com-crop%20(2).gif">
 
 Pgn Reader
 
-The Chess visualizer can read any chess game, whether your own game or an old classic via the Pgn Reader I created from scratch. 
+The Chess visualizer can read ANY chess game (try it!), whether your own game or an old classic via the Pgn Reader I created from scratch. 
 PGN is the computer-readable notation for chess games. 
+
 
 *Why?* First and foremost I make this as a learning experience, and to share the beauty and complexity of the game with those who haven't played. I also made it because my brother (former math teacher and board game fanatic) says he doesn't like chess, so I thought I'd attempt to show him its greatness. 
 
