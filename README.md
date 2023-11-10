@@ -55,6 +55,11 @@ The concept of Tempo in chess is very complicated, but it is implemented visuall
 <img width="300" alt="image" src="https://github.com/eatthischair/chess-visualizer/blob/master/ReadmeGifs/ezgif.com-crop%20(4).gif">
 <img width="300" alt="image" src="https://github.com/eatthischair/chess-visualizer/blob/master/ReadmeGifs/ezgif.com-resize.gif">
 
+### Color Customization
+If you don't like chess you can also use the app to create insane color combinations
+<img width="300" alt="image" src="https://github.com/eatthischair/chess-visualizer/blob/master/ezgif.com-video-to-gif%20(3).gif">
+<img width="300" alt="image" src="https://github.com/eatthischair/chess-visualizer/blob/master/ezgif.com-video-to-gif%20(2).gif">
+
 ### Pgn Reader
 
 The Chess visualizer can read ANY chess game (try it!), whether your own game or an old classic via the Pgn Reader I created from scratch. 
