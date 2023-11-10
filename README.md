@@ -8,8 +8,8 @@ How it Works
 <br>
 The board is comprised of 64 squares which correspond to an 8x8 matrix of strings. The strings are also keys in an object containing chess piece image elements. 
 
-<img width="350" alt="image" src="https://github.com/eatthischair/chess-visualizer/blob/master/Screen%20Shot%202023-11-09%20at%2012.44.12%20PM.png"> =
-<img width="300" alt="image" src="https://github.com/eatthischair/chess-visualizer/blob/master/Screen%20Shot%202023-11-09%20at%2012.23.28%20PM.png">
+<img width="350" alt="image" src="https://github.com/eatthischair/chess-visualizer/blob/master/ReadmeGifs/Screen%20Shot%202023-11-09%20at%2012.44.12%20PM.png"> =
+<img width="300" alt="image" src="https://github.com/eatthischair/chess-visualizer/blob/master/ReadmeGifs/Screen%20Shot%202023-11-09%20at%2012.23.28%20PM.png">
 
 The Visualization component consists of 3 parts. 
 For both white and black, a matrix storing the sums of how many times all the pieces of that side can move/capture on that square. The more pink the square, the more the white pieces control that square. The more blue, the more the black pieces control it.
