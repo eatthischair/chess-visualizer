@@ -147,7 +147,7 @@ const PgnReader = (initialBoard, pgn) => {
   });
 
   let pgnIsValid = true;
-  //if a move did not get read properly
+  //if a move did not get read properly, this will throw an error
 
   boardArray.forEach((board, index) => {
     if (index > 0) {

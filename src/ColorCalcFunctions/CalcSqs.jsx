@@ -9,7 +9,6 @@ const CalcSqs = ({blackCtrlOn, whiteCtrlOn, currentBoard, pieceObj, alwaysEmptyM
   let [redSqBoard, redSqBoardPriority, redSqBoardPiecePriority] = calcSqsPerSide(currentBoard, alwaysEmptyMatrix, true);
   let [blueSqBoard, blueSqBoardPriority, blueSqBoardPiecePriority] = calcSqsPerSide(currentBoard, alwaysEmptyMatrix, false);
 
-
   if (whiteCtrlOn && blackCtrlOn) {
     let totalBoard = JSON.parse(JSON.stringify(alwaysEmptyMatrix));
     let whiteKingCoord;

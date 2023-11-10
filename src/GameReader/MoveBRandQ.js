@@ -47,13 +47,12 @@ const moveBRandQ = (
         callObj = pinnedPieces[pinnedIndex].pinnedPieceCallObj;
         isQueen = true;
       }
-
+      //this is awful code i will fix this later
       if (isQueen) {
         for (let pieceType in callObj) {
           for (let cardinalDir in callObj[pieceType]) {
             for (let indx in callObj[pieceType][cardinalDir]) {
               let incrementsArr = callObj[pieceType][cardinalDir][indx];
-              console.log("incsArr", incrementsArr);
               let [incY, incX] = incrementsArr;
               let recurseY = newY * 1;
               let recurseX = newX * 1;
@@ -69,10 +68,8 @@ const moveBRandQ = (
         }
       } else {
         for (let cardinalDir in callObj) {
-          console.log("AAAAA", callObj[cardinalDir]);
           for (let indx in callObj[cardinalDir]) {
             let incrementsArr = callObj[cardinalDir][indx];
-            console.log("incsArr", incrementsArr);
             let [incY, incX] = incrementsArr;
             let recurseY = newY * 1;
             let recurseX = newX * 1;
@@ -86,7 +83,6 @@ const moveBRandQ = (
           }
         }
       }
-      console.log("callobj", callObj, pinnedPieces);
       //index is sq to go to
       //newY newX is the potential og source of the piece
       //if index can be added subtracted by callobj increments, to equal newY, newX then that piece is the one to move
