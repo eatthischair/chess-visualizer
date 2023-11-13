@@ -9,6 +9,13 @@ This project was created with React, Tailwind, FontAwesome, FlowBite, and React-
 <br>
 The chess board, Drag and Drop feature, PGN(computer-readable chess game notation) reader, and color-changing components were all created by hand. 
 
+### Pgn Reader
+
+The Chess visualizer can read ANY chess game (try it!), whether your own game or an old classic via the Pgn Reader I created from scratch. By far the most difficult feature I've ever coded
+PGN is the computer-readable notation for chess games. 
+<img width="600" alt="image" src="https://github.com/eatthischair/chess-visualizer/blob/master/ReadmeGifs/ezgif.com-crop%20(6).gif">
+<img width="600" alt="image" src="https://github.com/eatthischair/chess-visualizer/blob/master/ReadmeGifs/ezgif.com-crop%20(7).gif">
+
 
 ### How it Works
 The board is comprised of 64 squares which correspond to an 8x8 matrix of strings. The strings are also keys in an object containing chess piece image elements. 
@@ -59,13 +66,6 @@ The concept of Tempo in chess is very complicated, but it is implemented visuall
 If you don't like chess you can also use the app to create insane color combinations
 <img width="300" alt="image" src="https://github.com/eatthischair/chess-visualizer/blob/master/ezgif.com-video-to-gif%20(3).gif">
 <img width="300" alt="image" src="https://github.com/eatthischair/chess-visualizer/blob/master/ezgif.com-video-to-gif%20(2).gif">
-
-### Pgn Reader
-
-The Chess visualizer can read ANY chess game (try it!), whether your own game or an old classic via the Pgn Reader I created from scratch. 
-PGN is the computer-readable notation for chess games. 
-<img width="600" alt="image" src="https://github.com/eatthischair/chess-visualizer/blob/master/ReadmeGifs/ezgif.com-crop%20(6).gif">
-<img width="600" alt="image" src="https://github.com/eatthischair/chess-visualizer/blob/master/ReadmeGifs/ezgif.com-crop%20(7).gif">
 
 
 ### Caveats
