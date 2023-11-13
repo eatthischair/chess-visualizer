@@ -11,8 +11,9 @@ The chess board, Drag and Drop feature, PGN(computer-readable chess game notatio
 
 ### Pgn Reader
 
-The Chess visualizer can read ANY chess game (try it!), whether your own game or an old classic via the Pgn Reader I created from scratch. By far the most difficult feature I've ever coded
-PGN is the computer-readable notation for chess games. 
+The Chess visualizer can read ANY chess game (try it!), whether your own game or an old classic via the Pgn Reader I created from scratch.
+PGN is the computer-readable notation for chess games.
+By far the most difficult feature I've ever coded
 <img width="600" alt="image" src="https://github.com/eatthischair/chess-visualizer/blob/master/ReadmeGifs/ezgif.com-crop%20(6).gif">
 <img width="600" alt="image" src="https://github.com/eatthischair/chess-visualizer/blob/master/ReadmeGifs/ezgif.com-crop%20(7).gif">
 
