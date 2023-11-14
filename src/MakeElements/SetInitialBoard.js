@@ -13,7 +13,6 @@ const setInitialBoardPosition = (emptyMatrix) => {
   newBoard[1] = blackPawns;
   newBoard[6] = whitePawns;
   newBoard[7] = whitePieces;
-  console.log("initial board", newBoard);
   return newBoard;
 };
 

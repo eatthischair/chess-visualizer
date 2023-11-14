@@ -1,16 +1,18 @@
 const MakePieceElements = (onDrop) => {
   var pieceElementsObj = {};
   let pieceArray = ["K", "N", "B", "R", "Q", "P", "k", "n", "b", "r", "q", "p"];
-  let pieces = require("./ChessIcons");
+
+  let imgColor;
+
   pieceArray.forEach((piece) => {
-    let pieceUrl = pieces[piece];
+    piece === piece.toUpperCase() ? (imgColor = "l") : (imgColor = "d");
     for (var i = 1; i <= 64; i++) {
       let pieceString = `${piece}${i}`;
       pieceElementsObj[pieceString] = (
         <img
           draggable="true"
           alt=""
-          src={pieceUrl}
+          src={`../assets/${piece}${imgColor}.png`}
           className="piece"
           onDragEnd={(e) => {
             onDrop(e, pieceString);
