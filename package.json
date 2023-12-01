@@ -21,7 +21,6 @@
     "fortawesome": "^0.0.1-security",
     "fs": "^0.0.1-security",
     "jsdom": "^21.1.1",
-    "node": "^21.1.0",
     "nodemon": "^2.0.21",
     "postcss": "^8.4.29",
     "postcss-loader": "^7.3.3",

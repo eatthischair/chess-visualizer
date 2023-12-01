@@ -39,7 +39,7 @@ const RenderBoard = ({currentBoard, pieceObj, colorMatrix, setPos, boardIsFlippe
       colorSum = 1;
     }
 
-    return (<div style={{ background: `linear-gradient(${hexObj[color + '1']}, ${hexObj[color + '2']})`}} id={matrixIndex} className={color}
+    return (<div key={matrixIndex} style={{ background: `linear-gradient(${hexObj[color + '1']}, ${hexObj[color + '2']})`}} id={matrixIndex} className={color}
       onDragOver={()=> {setPos(matrixIndex)}}
       >{piece}</div>
       );
