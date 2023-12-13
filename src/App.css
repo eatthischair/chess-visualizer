@@ -29,16 +29,14 @@
   --sqWidth:calc(var(--boardWidth) / 8);
 }
 
-/* .App-header {
-  background-color: #2b364b;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-} */
+
+.cell {
+  transition: background-color .8s ease,  opacity 400ms;
+  border-style: solid;
+  width:  var(--sqWidth);
+  height: var(--sqWidth);
+  float:left;
+}
 
 body {
   background-color: rgb(55 65 81);
@@ -65,151 +63,84 @@ body {
   height: var(--sqWidth);
 }
 
-.lightSquare {
-  border-style: solid;
-  width:  var(--sqWidth);
-  height: var(--sqWidth);
-  float:left;
-  background-color: rgb(244, 226, 206)
-}
-
-.darkSquare {
-  border-style: solid;
-  width: var(--sqWidth);
-  height: var(--sqWidth);
-  float:left;
-  background-color: rgb(239, 235, 224);
-}
-
-.whiteSquare1 {
-  border-style: solid;
-  width: var(--sqWidth);
-  height: var(--sqWidth);
-  float:left;
-  background: linear-gradient(rgba(255, 180, 209, 0.841), rgba(255, 141, 200, 0.851)),
-  linear-gradient(white, white);
-
-}
-
-.whiteSquare2 {
-  border-style: solid;
-  width:  var(--sqWidth);
-  height: var(--sqWidth);
-  float:left;
-  background: linear-gradient(rgba(255, 164, 209, 0.767), rgba(181, 9, 98, 0.5)),
-  linear-gradient(white, white);
-
-}
-
-.whiteSquare3 {
-  border-style: solid;
-  width: var(--sqWidth);
-  height: var(--sqWidth);
-  float:left;
-  background: linear-gradient(rgb(242, 204, 255), rgb(255, 199, 251)),
-  linear-gradient(white, white);
-
-}
-.whiteSquare4 {
-  border-style: solid;
-  width: var(--sqWidth);
-  height: var(--sqWidth);
-  float:left;
-  background: linear-gradient(rgb(236, 181, 255), rgb(255, 170, 249)),
-  linear-gradient(white, white);
-}
-.whiteSquare5{
-  border-style: solid;
-  width: var(--sqWidth);
-  height: var(--sqWidth);
-  float:left;
-  background: linear-gradient(rgb(220, 116, 255), rgba(255, 116, 246, 0.897)),
-  linear-gradient(white, rgb(255, 255, 255));
-}
-.whiteSquare6{
-  border-style: solid;
-  width: var(--sqWidth);
-  height: var(--sqWidth);
-  float:left;
-  background: linear-gradient(rgb(255, 100, 209), rgba(124, 6, 2, 0.762)),
-  linear-gradient(white, white);
-}
-
-.whiteSquare7{
-  border-style: solid;
-  width: var(--sqWidth);
-  height: var(--sqWidth);
-  float:left;
-  background: linear-gradient(rgb(255, 84, 209), rgba(56, 0, 0, 0.762)),
-  linear-gradient(white, white);
-}
-
-.blackSquare1 {
-  border-style: solid;
-  width: var(--sqWidth);
-  height: var(--sqWidth);
-  float:left;
-  background: linear-gradient(rgba(198, 176, 255, 0.841), rgba(185, 240, 255, 0.851)),
-  linear-gradient(white, white);
-}
-.blackSquare2 {
-  border-style: solid;
-  width: var(--sqWidth);
-  height: var(--sqWidth);
-  float:left;
-  background: linear-gradient(rgba(198, 159, 255, 0.841), rgba(10, 130, 163, 0.851)),
-  linear-gradient(white, white);
-}
-.blackSquare3 {
-  border-style: solid;
-  width: var(--sqWidth);
-  height: var(--sqWidth);
-  float:left;
-  background: linear-gradient(rgba(198, 141, 255, 0.841), rgba(10, 73, 168, 0.851)),
-  linear-gradient(white, white);
-}
-.blackSquare4 {
-  border-style: solid;
-  width: var(--sqWidth);
-  height: var(--sqWidth);
-  float:left;
-  background: linear-gradient(rgba(198, 126, 255, 0.841), rgba(205, 147, 255, 0.851)),
-  linear-gradient(white, white);
-}
-.blackSquare5 {
-  border-style: solid;
-  width: var(--sqWidth);
-  height: var(--sqWidth);
-  float:left;
-  background: linear-gradient(rgb(255, 204, 0), rgba(218, 235, 109, 0.941)),
-  linear-gradient(white, white);
-}
-.blackSquare6 {
-  border-style: solid;
-  width: var(--sqWidth);
-  height: var(--sqWidth);
-  float:left;
-  background: linear-gradient(rgba(198, 14, 255, 0.841), rgba(72, 33, 139, 0.851)),
-  linear-gradient(white, white);
-}
-.blackSquare7 {
-  border-style: solid;
-  width: var(--sqWidth);
-  height: var(--sqWidth);
-  float:left;
-  background: linear-gradient(rgba(198, 8, 255, 0.841), rgba(38, 18, 98, 0.851)),
-  linear-gradient(white, white);
-}
-.blackSquare8 {
-  border-style: solid;
-  width: var(--sqWidth);
-  height: var(--sqWidth);
-  float:left;
-  background: linear-gradient(rgba(198, 7, 255, 0.841), rgba(43, 4, 78, 0.851)),
-  linear-gradient(white, white);
-}
-
 .chessPiece {
   z-index: 1;
 }
 
+
+.lightSquare {
+  background-color: #feffd7
+}
+
+.darkSquare {
+  background-color: #feffd9;
+}
+
+.whiteSquare1 {
+  background-color: #ffdef5;
+}
+
+.whiteSquare2 {
+  background-color: #ffc3d9;
+}
+
+.whiteSquare3 {
+  background-color: #ffccdf;
+}
+.whiteSquare4 {
+  background-color:  #ffb4cf;
+}
+.whiteSquare5{
+  background-color: #ff99be;
+}
+.whiteSquare6{
+  background-color: #ff2191;
+}
+
+.whiteSquare7{
+  background-color: #fc1268;
+}
+
+.blackSquare1 {
+  /* background-color:  rgba(198, 176, 255, 0.841) */
+  background-color: #bad5ff;
+}
+.blackSquare2 {
+  background-color:  #a5d5ff;
+}
+.blackSquare3 {
+  background-color:    #97c1ff;
+}
+.blackSquare4 {
+  background-color:    #6096e8;
+}
+.blackSquare5 {
+  background-color:    #2d8df1;
+}
+.blackSquare6 {
+  background-color:   #fffcfe;
+}
+.blackSquare7 {
+  background-color:   #2140ff;
+}
+/* .blackSquare8 {
+  background-color:   #(198, 7, 255, 0.841)
+} */
+
+
+
+
+
+
+/* blackSquare21: "#a5d5ff",
+blackSquare22: "#9abeff",
+blackSquare31: "#97c1ff",
+blackSquare32: "#5591ff",
+blackSquare41: "#6096e8",
+blackSquare42: "#548ffc",
+blackSquare51: "#2d8df1",
+blackSquare52: "#4c54b5",
+blackSquare61: "#fffcfe",
+blackSquare62: "#753eab",
+blackSquare71: "#2140ff",
+blackSquare72: "#2f304c", */

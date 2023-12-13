@@ -98,6 +98,14 @@ const BigFunction = (cookies) => {
     }
   };
 
+  let boardElsMatrix;
+  const updateBoardEls = (newMatrix) => {
+    boardElsMatrix = newMatrix;
+  }
+  const returnBoardEls = () => {
+    return boardElsMatrix;
+  }
+
   return (
     <div>
       <div>
@@ -121,6 +129,9 @@ const BigFunction = (cookies) => {
           getFirstBoard={getFirstBoard}
           getLastBoard={getLastBoard}
           moveNum={moveNum}
+          boardElsMatrix={boardElsMatrix}
+          updateBoardEls={updateBoardEls}
+          returnBoardEls={returnBoardEls}
         />
       </div>
     </div>

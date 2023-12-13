@@ -44,6 +44,9 @@ const Visualizer = ({
   getFirstBoard,
   getLastBoard,
   moveNum,
+  boardElsMatrix,
+  updateBoardEls,
+  returnBoardEls
 }) => {
   const [currentBoard, setCurrentBoard] = useState([]);
   const [boardIsFlipped, setBoardIsFlipped] = useState(false);
@@ -193,6 +196,9 @@ const Visualizer = ({
             color1={color1.hex}
             color2={color2.hex}
             hexObj={hexObj}
+            boardElsMatrix={boardElsMatrix}
+            updateBoardEls={updateBoardEls}
+            returnBoardEls={returnBoardEls}
           />
         </div>
         <div className="flex">
@@ -230,6 +236,7 @@ const Visualizer = ({
 
         <ImportGame pgnInput={pgnInput} readPgn={readPgn} pgnValid={pgnValid} />
       </div>
+
       <div>
         {currentPgn ? (
           <div className="flex flex-initial justify-center gap-x-32 text-gray-700">
