@@ -1,41 +1,40 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap");
 
 @layer components {
   .btn-primary {
     @apply flex basis-1/4 py-2 px-4 bg-inherit text-slate-100 font-semibold rounded-lg shadow-md hover:bg-gray-700/75 focus:outline-none hover:text-white focus:ring-2 focus:ring-blue-400 text-sm;
   }
   .btn-secondary {
-    @apply flex grid text-slate-300 justify-start gap-0 content-start py-2 px-4 bg-inherit font-semibold rounded-lg shadow-sm hover:bg-gray-700/50 focus:outline-none hover:text-slate-200 focus:ring-2 focus:ring-gray-400 focus:ring-opacity-75 text-sm ml-1 max-h-8 w-52 ;
+    @apply flex grid text-slate-300 justify-start gap-0 content-start py-2 px-4 bg-inherit font-semibold rounded-lg shadow-sm hover:bg-gray-700/50 focus:outline-none hover:text-slate-200 focus:ring-2 focus:ring-gray-400 focus:ring-opacity-75 text-sm ml-1 max-h-8 w-52;
   }
   .btn-tertiary {
     @apply flex grid text-slate-300 justify-start gap-0 content-center py-2 px-4 bg-inherit font-semibold rounded-lg shadow-sm hover:bg-gray-700/50 focus:outline-none hover:text-slate-200 focus:ring-2 focus:ring-gray-400 focus:ring-opacity-75 text-sm ml-1 h-16 w-52;
   }
   .radio-1 {
-    @apply w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600
+    @apply w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600;
   }
   .label-text {
-    @apply text-slate-300 font-semibold hover:text-slate-200 text-sm
+    @apply text-slate-300 font-semibold hover:text-slate-200 text-sm;
   }
   .toggle-primary {
-    @apply focus:outline-none
+    @apply focus:outline-none;
   }
 }
 
 :root {
-  --boardWidth:600px;
-  --sqWidth:calc(var(--boardWidth) / 8);
+  --boardWidth: 600px;
+  --sqWidth: calc(var(--boardWidth) / 8);
 }
 
-
 .cell {
-  transition: background-color .8s ease,  opacity 400ms;
+  transition: background-color 0.8s ease, opacity 400ms;
   border-style: solid;
-  width:  var(--sqWidth);
+  width: var(--sqWidth);
   height: var(--sqWidth);
-  float:left;
+  float: left;
 }
 
 body {
@@ -67,9 +66,8 @@ body {
   z-index: 1;
 }
 
-
 .lightSquare {
-  background-color: #feffd7
+  background-color: #feffd7;
 }
 
 .darkSquare {
@@ -85,62 +83,38 @@ body {
 }
 
 .whiteSquare3 {
-  background-color: #ffccdf;
+  background-color: #fbbcd3;
 }
 .whiteSquare4 {
-  background-color:  #ffb4cf;
+  background-color: #ffb4cf;
 }
-.whiteSquare5{
+.whiteSquare5 {
   background-color: #ff99be;
 }
-.whiteSquare6{
+.whiteSquare6 {
   background-color: #ff2191;
 }
-
-.whiteSquare7{
+.whiteSquare7 {
   background-color: #fc1268;
 }
-
 .blackSquare1 {
-  /* background-color:  rgba(198, 176, 255, 0.841) */
   background-color: #bad5ff;
 }
 .blackSquare2 {
-  background-color:  #a5d5ff;
+  background-color: #a5d5ff;
 }
 .blackSquare3 {
-  background-color:    #97c1ff;
+  background-color: #97c1ff;
 }
 .blackSquare4 {
-  background-color:    #6096e8;
+  background-color: #6096e8;
 }
 .blackSquare5 {
-  background-color:    #2d8df1;
+  background-color: #2d8df1;
 }
 .blackSquare6 {
-  background-color:   #fffcfe;
+  background-color: #420ce2;
 }
 .blackSquare7 {
-  background-color:   #2140ff;
+  background-color: #2140ff;
 }
-/* .blackSquare8 {
-  background-color:   #(198, 7, 255, 0.841)
-} */
-
-
-
-
-
-
-/* blackSquare21: "#a5d5ff",
-blackSquare22: "#9abeff",
-blackSquare31: "#97c1ff",
-blackSquare32: "#5591ff",
-blackSquare41: "#6096e8",
-blackSquare42: "#548ffc",
-blackSquare51: "#2d8df1",
-blackSquare52: "#4c54b5",
-blackSquare61: "#fffcfe",
-blackSquare62: "#753eab",
-blackSquare71: "#2140ff",
-blackSquare72: "#2f304c", */

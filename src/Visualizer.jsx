@@ -22,6 +22,7 @@ import { faBackwardFast } from "@fortawesome/free-solid-svg-icons";
 import { faBackwardStep } from "@fortawesome/free-solid-svg-icons";
 import { faForwardStep } from "@fortawesome/free-solid-svg-icons";
 import { faForwardFast } from "@fortawesome/free-solid-svg-icons";
+import generateColorPalette from './generateColorPalette';
 
 import SelectedGames from "./MakeElements/SelectedGames";
 const Visualizer = ({
@@ -153,6 +154,8 @@ const Visualizer = ({
     setCurrentBoard(newBoard);
     updateInitialBoard(newBoard);
     setInitialRen(false);
+    console.log('genpallete', generateColorPalette('ffdef5', 'fc1268', 7))
+
   }
 
   return (

@@ -198,5 +198,23 @@ Ndf6 29.Qg6+ Kg8 30.h6 Ra7 31.Kh2 Re7 32.Rh3 Nh7 33.Rd3 Qa8
   18. Ng5 Nd5 19. Bd2 Bxg5 20. Bxg5 Qd7 21. Qh5 Rfc8 22. Nd2 Nc3
   23. Bf6 Qe8 24. Ne4 g6 25. Qg5 Nxe4 26. Rxe4 c4 27. h5 cxd3
   28. Rh4 Ra7 29. Bg2 dxc2 30. Qh6 Qf8 31. Qxh7+ Kxh7 32. hxg6 Kxg6 33. Be4 1-0`,
+  `[Event "Bundesliga 1997/98"]
+  [Site "GER"]
+  [Date "1997.??.??"]
+  [EventDate "?"]
+  [Round "2"]
+  [Result "0-1"]
+  [White "Lubomir Ftacnik"]
+  [Black "Ognjen Cvitan"]
+  [ECO "E97"]
+  [WhiteElo "?"]
+  [BlackElo "?"]
+  [PlyCount "52"]
+
+  1. d4 Nf6 2. Nf3 g6 3. c4 Bg7 4. Nc3 O-O 5. e4 d6 6. Be2 e5
+  7. O-O Nc6 8. d5 Ne7 9. Nd2 Ne8 10. b4 f5 11. c5 Nf6 12. f3 f4
+  13. Nc4 g5 14. a4 Ng6 15. Ba3 Rf7 16. b5 dxc5 17. Bxc5 h5
+  18. a5 g4 19. b6 g3 20. Kh1 Nh7 21. d6 Qh4 22. Bg1 Bh3
+  23. bxc7 Bxg2+ 24. Kxg2 Qh3+ 25. Kxh3 Ng5+ 26. Kg2 Nh4+ Kh1 g2 0-1`,
 ];
 export default SelectedGames;
