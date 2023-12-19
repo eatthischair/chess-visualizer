@@ -22,7 +22,7 @@ import { faBackwardFast } from "@fortawesome/free-solid-svg-icons";
 import { faBackwardStep } from "@fortawesome/free-solid-svg-icons";
 import { faForwardStep } from "@fortawesome/free-solid-svg-icons";
 import { faForwardFast } from "@fortawesome/free-solid-svg-icons";
-import generateColorPalette from './generateColorPalette';
+// import GenerateColorPalette from './GenerateColorPalette';
 
 import SelectedGames from "./MakeElements/SelectedGames";
 const Visualizer = ({
@@ -154,7 +154,6 @@ const Visualizer = ({
     setCurrentBoard(newBoard);
     updateInitialBoard(newBoard);
     setInitialRen(false);
-    console.log('genpallete', generateColorPalette('bad5ff', '2140ff', 7))
 
   }
 
@@ -225,7 +224,7 @@ const Visualizer = ({
       </div>
 
       <div className="flex flex-initial justify-center gap-x-32 mt-24">
-        <ColorOptions
+        {/* <ColorOptions
           RadioButtons={RadioButtons}
           hexUpdate={hexUpdate}
           RenderColorPalletes={RenderColorPalletes}
@@ -235,7 +234,7 @@ const Visualizer = ({
           RenderRadioButtons={RenderRadioButtons}
           hexObj={hexObj}
           color1={color1}
-        />
+        /> */}
 
         <ImportGame pgnInput={pgnInput} readPgn={readPgn} pgnValid={pgnValid} />
       </div>

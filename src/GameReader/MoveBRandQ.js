@@ -11,7 +11,6 @@ const moveBRandQ = (
 ) => {
   slice = JSON.parse(JSON.stringify(slice));
 
-  console.log("BRAQ", index, pinnedPieces, pinnedPiecesIndices);
   const recurse = (currentIndex, incrementY, incrementX) => {
     let newY = currentIndex[0] + incrementY;
     let newX = currentIndex[1] + incrementX;
