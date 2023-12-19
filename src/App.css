@@ -30,7 +30,7 @@
 }
 
 .cell {
-  transition: background-color 0.8s ease, opacity 400ms;
+  transition: background-color 1.4s ease, opacity 400ms;
   border-style: solid;
   width: var(--sqWidth);
   height: var(--sqWidth);
@@ -69,30 +69,26 @@ body {
 .lightSquare {
   background-color: #feffd7;
 }
-
 .darkSquare {
   background-color: #feffd9;
 }
-
 .whiteSquare1 {
   background-color: #ffdef5;
 }
-
 .whiteSquare2 {
-  background-color: #ffc3d9;
+  background-color: #ffbcde;
 }
-
 .whiteSquare3 {
-  background-color: #fbbcd3;
+  background-color: #fe9ac6;
 }
 .whiteSquare4 {
-  background-color: #ffb4cf;
+  background-color: #fe78af;
 }
 .whiteSquare5 {
-  background-color: #ff99be;
+  background-color: #fd5697;
 }
 .whiteSquare6 {
-  background-color: #ff2191;
+  background-color: #fd3480;
 }
 .whiteSquare7 {
   background-color: #fc1268;
@@ -101,19 +97,19 @@ body {
   background-color: #bad5ff;
 }
 .blackSquare2 {
-  background-color: #a5d5ff;
+  background-color: #a1bcff;
 }
 .blackSquare3 {
-  background-color: #97c1ff;
+  background-color: #87a3ff;
 }
 .blackSquare4 {
-  background-color: #6096e8;
+  background-color: #6e8bff;
 }
 .blackSquare5 {
-  background-color: #2d8df1;
+  background-color: #5472ff;
 }
 .blackSquare6 {
-  background-color: #420ce2;
+  background-color: #3b59ff;
 }
 .blackSquare7 {
   background-color: #2140ff;

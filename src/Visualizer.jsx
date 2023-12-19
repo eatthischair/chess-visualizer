@@ -154,7 +154,7 @@ const Visualizer = ({
     setCurrentBoard(newBoard);
     updateInitialBoard(newBoard);
     setInitialRen(false);
-    console.log('genpallete', generateColorPalette('ffdef5', 'fc1268', 7))
+    console.log('genpallete', generateColorPalette('bad5ff', '2140ff', 7))
 
   }
 
