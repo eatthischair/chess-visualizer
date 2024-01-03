@@ -24,6 +24,8 @@ import { faForwardStep } from "@fortawesome/free-solid-svg-icons";
 import { faForwardFast } from "@fortawesome/free-solid-svg-icons";
 // import GenerateColorPalette from './GenerateColorPalette';
 
+import { flushSync } from 'react-dom';
+
 import SelectedGames from "./MakeElements/SelectedGames";
 const Visualizer = ({
   setPos,

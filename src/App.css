@@ -30,7 +30,7 @@
 }
 
 .cell {
-  transition: background-color 1.4s ease, opacity 400ms;
+  transition: background-color 1.8s ease, opacity 1200ms;
   border-style: solid;
   width: var(--sqWidth);
   height: var(--sqWidth);
@@ -70,7 +70,7 @@ body {
   background-color: #feffd7;
 }
 .darkSquare {
-  background-color: #feffd9
+  background-color: #feffd9f5
 }
 .whiteSquare1 {
   background-color: #ffdef5;

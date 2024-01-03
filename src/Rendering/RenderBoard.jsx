@@ -13,27 +13,17 @@ const RenderBoard = ({
   currentColor,
   boardElsMatrix,
   updateBoardEls,
-  returnBoardEls
+  returnBoardEls,
 }) => {
-  //the board is rendered as 64 divs not a matrix, so this initializes the array of divs that will be rendered
-
-  // console.log('eee', boardElsMatrix,
-  // updateBoardEls,
-  // returnBoardEls)
-
   let boardToMap = returnBoardEls() || currentBoard;
-  // console.log('BOARD TO MAP', boardToMap);
 
-  let renderedBoard = boardToMap.map((currentRow, index) => {
+  let board = boardToMap.map((currentRow, index) => {
     return currentRow.map((currentCell, cellIndex) => {
-
       let matrixIndex = [index, cellIndex];
-      let [y, x] = matrixIndex;
-      let keyString = `${y}${x}`;
+      let keyString = `${index}${cellIndex}`;
 
-
-      let row = matrixIndex[0];
-      let column = matrixIndex[1];
+      let row = index;
+      let column = cellIndex;
       var positionBoardPiece = currentBoard[row][column];
       let colorSum = colorMatrix[row][column];
 
@@ -63,11 +53,6 @@ const RenderBoard = ({
       return (
         <div
           key={keyString}
-          // style={{
-          //   background: `linear-gradient(${hexObj[color + "1"]}, ${
-          //     hexObj[color + "2"]
-          //   })`,
-          // }}
           id={keyString}
           className={`cell ${color}`}
           onDragOver={() => {
@@ -79,10 +64,16 @@ const RenderBoard = ({
       );
     });
   });
-  updateBoardEls(renderedBoard);
-  // console.log('rendered board', renderedBoard, returnBoardEls())
 
-  if (boardIsFlipped) renderedBoard = renderedBoard.reverse();
-  return <div className="chessboard">{renderedBoard}</div>;
+  updateBoardEls(board);
+
+  if (boardIsFlipped) {
+    board = board.map((row) => {
+      return row.reverse();
+    });
+    board = board.reverse();
+  }
+
+  return <div className="chessboard">{board}</div>;
 };
 export default RenderBoard;
