@@ -36,6 +36,23 @@ const CalcSqs = ({blackCtrlOn, whiteCtrlOn, currentBoard, pieceObj, alwaysEmptyM
           else if (hasBlackPiece && redSqBoardPriority[i][j] > blueSqBoardPiecePriority[i][j]) {
             totalBoard[i][j] = redSum
           }
+
+          let protectedByWhitePawn = redSqBoardPriority[i][j] === 5;
+          let isWhitePawn = redSqBoardPiecePriority[i][j] === 5;
+          let isBlackPawn = blueSqBoardPiecePriority[i][j] === 5;
+
+          let protectedByBlackPawn = blueSqBoardPriority[i][j] === 5;
+          let squareHasNoPiece = currentBoard[i][j] === 0;
+
+          if (protectedByWhitePawn && squareHasNoPiece|| protectedByWhitePawn && isWhitePawn) {
+            totalBoard[i][j] = Math.max(totalBoard[i][j], 1);
+          }
+          if (protectedByBlackPawn && squareHasNoPiece || protectedByBlackPawn && isBlackPawn) {
+            totalBoard[i][j] = Math.min(totalBoard[i][j], -1);
+          }
+          if (protectedByWhitePawn && protectedByBlackPawn && squareHasNoPiece) {
+            totalBoard[i][j] = 0;
+          }
         }
       }
 

@@ -30,7 +30,7 @@
 }
 
 .cell {
-  transition: background-color 1.8s ease, opacity 1200ms;
+  transition: background-color 2.5s ease, opacity 1200ms;
   border-style: solid;
   width: var(--sqWidth);
   height: var(--sqWidth);
