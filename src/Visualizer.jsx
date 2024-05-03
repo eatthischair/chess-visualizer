@@ -24,7 +24,7 @@ import { faForwardStep } from "@fortawesome/free-solid-svg-icons";
 import { faForwardFast } from "@fortawesome/free-solid-svg-icons";
 // import GenerateColorPalette from './GenerateColorPalette';
 
-import { flushSync } from 'react-dom';
+import { flushSync } from "react-dom";
 
 import SelectedGames from "./MakeElements/SelectedGames";
 const Visualizer = ({
@@ -49,7 +49,7 @@ const Visualizer = ({
   moveNum,
   boardElsMatrix,
   updateBoardEls,
-  returnBoardEls
+  returnBoardEls,
 }) => {
   const [currentBoard, setCurrentBoard] = useState([]);
   const [boardIsFlipped, setBoardIsFlipped] = useState(false);
@@ -82,6 +82,7 @@ const Visualizer = ({
 
   //function attached to piece elements, runs when the piece is dropped on a new square, or in trashcan
   const onDrop = (e, pieceId) => {
+    console.log("onDrop", e, pieceId);
     e.preventDefault();
     e.stopPropagation();
     MovePiece(
@@ -156,12 +157,11 @@ const Visualizer = ({
     setCurrentBoard(newBoard);
     updateInitialBoard(newBoard);
     setInitialRen(false);
-
   }
 
   return (
     <div>
-      <div className='mt-2'></div>
+      <div className="mt-2"></div>
       <div className="flex justify-center body-font font-GreatVibes text-6xl mt-4">
         Chess Visualizer
       </div>
@@ -177,7 +177,8 @@ const Visualizer = ({
             </div>
           </div>
           {SelectedGames.map((game, index) => (
-            <div key={game}
+            <div
+              key={game}
               onClick={() => {
                 readPgn(index);
               }}

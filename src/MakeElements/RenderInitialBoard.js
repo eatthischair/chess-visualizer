@@ -16,6 +16,9 @@ const RenderInitialBoard = () => {
           onDragOver={() => {
             setPos(id);
           }}
+          onTouchMove={() => {
+            setPos(id);
+          }}
         ></div>
       );
       pieceArray.push(0);

@@ -60,6 +60,7 @@ body {
 .piece {
   width: var(--sqWidth);
   height: var(--sqWidth);
+  touch-action: none;
 }
 
 .chessPiece {

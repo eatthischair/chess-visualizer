@@ -5,7 +5,6 @@ const BigFunction = (cookies) => {
   var currentHoverPosition;
   var colorToUpdate = "";
 
-
   const updateColor = (color) => {
     colorToUpdate = color;
   };
@@ -15,6 +14,7 @@ const BigFunction = (cookies) => {
 
   //mouse position
   const setPos = (id) => {
+    console.log("setPos", id);
     currentHoverPosition = id;
     return currentHoverPosition;
   };
@@ -101,10 +101,10 @@ const BigFunction = (cookies) => {
   let boardElsMatrix;
   const updateBoardEls = (newMatrix) => {
     boardElsMatrix = newMatrix;
-  }
+  };
   const returnBoardEls = () => {
     return boardElsMatrix;
-  }
+  };
 
   return (
     <div>

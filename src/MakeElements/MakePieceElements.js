@@ -17,6 +17,11 @@ const MakePieceElements = (onDrop) => {
           onDragEnd={(e) => {
             onDrop(e, pieceString);
           }}
+          onTouchEnd={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            onDrop(e, pieceString);
+          }}
         ></img>
       );
     }
