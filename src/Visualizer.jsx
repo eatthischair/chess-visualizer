@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 import RenderPieces from "./MakeElements/RenderPieces";
 import CalcSqs from "./ColorCalcFunctions/CalcSqs";
@@ -9,19 +9,17 @@ import setInitialBoardPosition from "./MakeElements/SetInitialBoard";
 import MovePiece from "./Rendering/MovePiece";
 import { useColor } from "react-color-palette";
 import "react-color-palette/lib/css/styles.css";
-import RadioButtons from "./ColorOptions/RadioButtons";
-import RenderRadioButtons from "./ColorOptions/RenderRadioButtons";
-import RenderColorPalletes from "./ColorOptions/RenderColorPalletes";
 import GrabTitle from "./GameReader/GrabTitle";
 import "react-toastify/dist/ReactToastify.css";
 import Sidebar from "./Sidebar";
-import ColorOptions from "./ColorOptions/ColorOptions";
 import ImportGame from "./ImportGame";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBackwardFast } from "@fortawesome/free-solid-svg-icons";
-import { faBackwardStep } from "@fortawesome/free-solid-svg-icons";
-import { faForwardStep } from "@fortawesome/free-solid-svg-icons";
-import { faForwardFast } from "@fortawesome/free-solid-svg-icons";
+import useKeyboardNavigation from './CustomHooks/UseKeyboardNavigation';
+import { faBackwardFast, faBackwardStep, faForwardStep, faForwardFast } from "@fortawesome/free-solid-svg-icons";
+// import { faBackwardStep } from "@fortawesome/free-solid-svg-icons";
+// import { faForwardStep } from "@fortawesome/free-solid-svg-icons";
+// import { faForwardFast } from "@fortawesome/free-solid-svg-icons";
+
 // import GenerateColorPalette from './GenerateColorPalette';
 
 import { flushSync } from "react-dom";
@@ -31,7 +29,6 @@ const Visualizer = ({
   setPos,
   currentHoverPosition,
   getPos,
-  globalBoard,
   updateGlobalBoard,
   getGlobalBoard,
   updateInitialBoard,
@@ -39,14 +36,11 @@ const Visualizer = ({
   updatePgnBoardArray,
   getNextBoard,
   getPreviousBoard,
-  cookies,
-  colorToUpdate,
   updateColor,
   getColor,
   resetMoveNum,
   getFirstBoard,
   getLastBoard,
-  moveNum,
   boardElsMatrix,
   updateBoardEls,
   returnBoardEls,
@@ -56,30 +50,23 @@ const Visualizer = ({
   const [showPieceElements, setShowPieceElements] = useState(false);
   const [pieceObj, setPieceObj] = useState({});
 
-  React.useEffect(() => {
-    window.addEventListener("keydown", (event) => {
-      if (event.key === "ArrowRight") next();
-      if (event.key === "ArrowLeft") prev();
-      if (event.key === "ArrowUp") last();
-      if (event.key === "ArrowDown") first();
-    });
-  }, []);
 
-  const next = () => {
-    setCurrentBoard(getNextBoard());
-  };
-  const prev = () => {
-    setCurrentBoard(getPreviousBoard());
-  };
-  const first = () => {
-    let firstBoard = getFirstBoard();
-    if (firstBoard) setCurrentBoard(firstBoard);
-  };
-  const last = () => {
-    let lastBoard = getLastBoard();
-    if (lastBoard) setCurrentBoard(getLastBoard());
-  };
+    const next = () => {
+      setCurrentBoard(getNextBoard());
+    };
+    const prev = () => {
+      setCurrentBoard(getPreviousBoard());
+    };
+    const first = () => {
+      let firstBoard = getFirstBoard();
+      if (firstBoard) setCurrentBoard(firstBoard);
+    };
+    const last = () => {
+      let lastBoard = getLastBoard();
+      if (lastBoard) setCurrentBoard(getLastBoard());
+    };
 
+    useKeyboardNavigation(next, prev, last, first);
   //function attached to piece elements, runs when the piece is dropped on a new square, or in trashcan
   const onDrop = (e, pieceId) => {
     console.log("onDrop", e, pieceId);
@@ -130,33 +117,17 @@ const Visualizer = ({
 
   const [playerNames, setPlayerNames] = useState("");
 
-  //color change functions
-  const [color1, setColor1] = useColor("hex", "#121212");
-  const [color2, setColor2] = useColor("hex", "#121212");
-  const [hexObj, setHexObj] = useState(require("./MakeElements/HexObj.js"));
-  const colorChange1 = (event) => {
-    setColor1(event);
-    setHexObj({ ...hexObj, [getColor() + "1"]: event.hex });
-  };
-  const colorChange2 = (event) => {
-    setColor2(event);
-    setHexObj({ ...hexObj, [getColor() + "2"]: event.hex });
-  };
-  const hexUpdate = (hexToUpdate) => {
-    updateColor(hexToUpdate);
-  };
-
   const [blackCtrlOn, setBlackCtrlOn] = useState(true);
   const [whiteCtrlOn, setWhiteCtrlOn] = useState(true);
-  const [initialRen, setInitialRen] = useState(true);
+  const [initialRender, setInitialRender] = useState(true);
 
-  if (initialRen) {
+  if (initialRender) {
     setPieceObj(MakePieceElements(onDrop));
     let newBoard = setInitialBoardPosition(emptyMatrix);
     updateGlobalBoard(newBoard);
     setCurrentBoard(newBoard);
     updateInitialBoard(newBoard);
-    setInitialRen(false);
+    setInitialRender(false);
   }
 
   return (
@@ -198,9 +169,6 @@ const Visualizer = ({
             alwaysEmptyMatrix={emptyMatrix}
             setPos={setPos}
             boardIsFlipped={boardIsFlipped}
-            color1={color1.hex}
-            color2={color2.hex}
-            hexObj={hexObj}
             boardElsMatrix={boardElsMatrix}
             updateBoardEls={updateBoardEls}
             returnBoardEls={returnBoardEls}
@@ -227,18 +195,6 @@ const Visualizer = ({
       </div>
 
       <div className="flex flex-initial justify-center gap-x-32 mt-24">
-        {/* <ColorOptions
-          RadioButtons={RadioButtons}
-          hexUpdate={hexUpdate}
-          RenderColorPalletes={RenderColorPalletes}
-          colorChange1={colorChange1}
-          color2={color2}
-          colorChange2={colorChange2}
-          RenderRadioButtons={RenderRadioButtons}
-          hexObj={hexObj}
-          color1={color1}
-        /> */}
-
         <ImportGame pgnInput={pgnInput} readPgn={readPgn} pgnValid={pgnValid} />
       </div>
 

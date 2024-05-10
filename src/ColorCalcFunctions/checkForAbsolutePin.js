@@ -2,7 +2,7 @@
 import isInBounds from "../HelperFunctions/IsInBounds";
 
 //this function iterates from the kings location in all cardinal directions to check if there is a piece standing between it and an attacker. If so, the 'sandwiched' piece is 'pinned' (cannot move) except in the direction it is pinned, and its movement will not be calculated in calcSqsPerSide
-const checkForAbsolutePin = (currentBoard, calcForWhite, recurseCallObj) => {
+const CheckForAbsolutePin = (currentBoard, calcForWhite, recurseCallObj) => {
   var pinnedPieceArray = [];
   let kingIdToFind = calcForWhite ? "K1" : "k1";
   let kingIndex = null;
@@ -111,4 +111,4 @@ const checkForAbsolutePin = (currentBoard, calcForWhite, recurseCallObj) => {
   return pinnedPieceArray;
 };
 
-export default checkForAbsolutePin;
+export default CheckForAbsolutePin;

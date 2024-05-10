@@ -11,7 +11,7 @@ import {
 import CheckForAbsolutePin from "../ColorCalcFunctions/CheckForAbsolutePin";
 import RecurseCallObj from "../StaticVariables/RecurseCallObj";
 
-const callRecurse = (
+const CallRecurse = (
   pgnItem,
   calcForWhite,
   boardArray,
@@ -157,4 +157,4 @@ const callRecurse = (
   return nextBoard;
 };
 
-export default callRecurse;
+export default CallRecurse;

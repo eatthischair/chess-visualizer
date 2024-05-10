@@ -1,4 +1,4 @@
-const colorGrid = (color1, color2) => {
+const ColorGrid = (color1, color2) => {
   return (
     <div
       class="w-64"
@@ -11,4 +11,4 @@ const colorGrid = (color1, color2) => {
   );
 };
 
-export default colorGrid;
+export default ColorGrid;

@@ -7,8 +7,6 @@ const RenderBoard = ({
   colorMatrix,
   setPos,
   boardIsFlipped,
-  color1,
-  color2,
   hexObj,
   currentColor,
   boardElsMatrix,

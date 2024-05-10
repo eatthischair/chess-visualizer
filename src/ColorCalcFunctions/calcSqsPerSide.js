@@ -2,7 +2,7 @@
 import isInBounds from "../HelperFunctions/IsInBounds";
 import checkForAbsolutePin from "./CheckForAbsolutePin";
 
-const calcSqsPerSide = (positionBoard, alwaysEmptyMatrix, calcForWhite) => {
+const CalcSqsPerSide = (positionBoard, alwaysEmptyMatrix, calcForWhite) => {
   //each Vals array corresponds to the X and Y increment values a piece can move to from the square it is currently placed. Kings, Knights, and Pawns have static values while Queens, Rooks and Bishops can be blocked
   let kingSqVals = [
     [-1, -1],
@@ -306,4 +306,4 @@ const calcSqsPerSide = (positionBoard, alwaysEmptyMatrix, calcForWhite) => {
   return [sqCtrlBySum, sqCtrlByPriority, piecesByPriority];
 };
 
-export default calcSqsPerSide;
+export default CalcSqsPerSide;
