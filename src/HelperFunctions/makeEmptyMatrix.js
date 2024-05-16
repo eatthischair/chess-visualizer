@@ -7,9 +7,10 @@ const makeEmptyMatrix = () => {
     }
     matrix.push(zeros);
   }
+  console.log('MATRIX', matrix);
   return matrix;
 };
 
-const emptyMatrix = makeEmptyMatrix();
+let emptyMatrix = makeEmptyMatrix();
 
 export default emptyMatrix;
