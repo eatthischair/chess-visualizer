@@ -1,6 +1,6 @@
-import React from "react";
-import calcSqsPerSide from "./CalcSqsPerSide";
-import RenderBoard from "../Rendering/RenderBoard";
+import React from 'react';
+import calcSqsPerSide from './CalcSqsPerSide';
+import RenderBoard from '../Rendering/RenderBoard';
 
 //this function calculates the colors on the board depending on if the switches for each color are turned on
 const CalcSqs = ({
@@ -29,10 +29,10 @@ const CalcSqs = ({
 
     for (var i = 0; i < 8; i++) {
       for (var j = 0; j < 8; j++) {
-        let isWhiteKing = currentBoard[i][j] === "K1";
-        let isBlackKing = currentBoard[i][j] === "k1";
-        if (isWhiteKing) whiteKingCoord = { i, j };
-        if (isBlackKing) blackKingCoord = { i, j };
+        let isWhiteKing = currentBoard[i][j] === 'K1';
+        let isBlackKing = currentBoard[i][j] === 'k1';
+        if (isWhiteKing) whiteKingCoord = {i, j};
+        if (isBlackKing) blackKingCoord = {i, j};
 
         let redSum = redSqBoard[i][j];
         let blueSum = blueSqBoard[i][j];
