@@ -10,4 +10,6 @@ const makeEmptyMatrix = () => {
   return emptyMatrix;
 };
 
-export const emptyMatrix = makeEmptyMatrix();
+const emptyMatrix = makeEmptyMatrix();
+
+export default emptyMatrix;

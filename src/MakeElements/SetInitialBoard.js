@@ -1,4 +1,4 @@
-import {emptyMatrix} from '../HelperFunctions/MakeEmptyMatrix';
+import emptyMatrix from '../HelperFunctions/MakeEmptyMatrix';
 
 const setInitialBoardPosition = emptyMatrix => {
   let newBoard = JSON.parse(JSON.stringify(emptyMatrix));
