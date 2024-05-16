@@ -1,13 +1,11 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
-
+import {useState} from 'react';
 const Sidebar = ({
-  showPieceElements,
   pieceObj,
   RenderPieces,
   setInitialBoard,
   clearBoard,
-  setShowPieceElements,
   setWhiteCtrlOn,
   whiteCtrlOn,
   setBlackCtrlOn,
@@ -17,6 +15,9 @@ const Sidebar = ({
   onDrop,
   setPos,
 }) => {
+
+  const [showPieceElements, setShowPieceElements] = useState(false);
+
   return (
     <div className="flex w-64 h-[400px] shadow-md">
       <ul className="menu menu-vertical lg:menu-horizontal bg-inherit rounded-box">

@@ -1,20 +1,13 @@
-import React from "react";
-import Visualizer from "./Visualizer.jsx";
+import React, {useState} from 'react';
+import Visualizer from '../Visualizer.jsx';
+import {initialBoard} from '../MakeElements/SetInitialBoard.js';
+import {MyContext} from './Context.jsx';
 
-const BigFunction = (cookies) => {
+const BigFunction = cookies => {
   var currentHoverPosition;
-  var colorToUpdate = "";
-
-  const updateColor = (color) => {
-    colorToUpdate = color;
-  };
-  const getColor = () => {
-    return colorToUpdate;
-  };
-
   //mouse position
-  const setPos = (id) => {
-    console.log("setPos", id);
+  const setPos = id => {
+    // console.log('setPos', id);
     currentHoverPosition = id;
     return currentHoverPosition;
   };
@@ -22,9 +15,9 @@ const BigFunction = (cookies) => {
     return currentHoverPosition;
   };
 
-  var globalBoard;
+  var globalBoard = initialBoard;
 
-  const updateGlobalBoard = (newBoard) => {
+  const updateGlobalBoard = newBoard => {
     globalBoard = newBoard;
     return globalBoard;
   };
@@ -32,20 +25,13 @@ const BigFunction = (cookies) => {
     return globalBoard;
   };
 
-  var alwaysInitialBoard;
-
-  const updateInitialBoard = (newBoard) => {
-    alwaysInitialBoard = newBoard;
-  };
-  const getInitialBoard = () => {
-    return alwaysInitialBoard;
-  };
+  var alwaysInitialBoard = initialBoard;
 
   //for displaying and storing games
 
   var pgnBoardArray;
 
-  const updatePgnBoardArray = (array) => {
+  const updatePgnBoardArray = array => {
     pgnBoardArray = array;
   };
 
@@ -99,7 +85,7 @@ const BigFunction = (cookies) => {
   };
 
   let boardElsMatrix;
-  const updateBoardEls = (newMatrix) => {
+  const updateBoardEls = newMatrix => {
     boardElsMatrix = newMatrix;
   };
   const returnBoardEls = () => {
@@ -113,22 +99,14 @@ const BigFunction = (cookies) => {
           setPos={setPos}
           currentHoverPosition={currentHoverPosition}
           getPos={getPos}
-          globalBoard={globalBoard}
           updateGlobalBoard={updateGlobalBoard}
           getGlobalBoard={getGlobalBoard}
-          updateInitialBoard={updateInitialBoard}
-          getInitialBoard={getInitialBoard}
           updatePgnBoardArray={updatePgnBoardArray}
           getNextBoard={getNextBoard}
           getPreviousBoard={getPreviousBoard}
-          cookies={cookies.cookies}
-          colorToUpdate={colorToUpdate}
-          updateColor={updateColor}
-          getColor={getColor}
           resetMoveNum={resetMoveNum}
           getFirstBoard={getFirstBoard}
           getLastBoard={getLastBoard}
-          moveNum={moveNum}
           boardElsMatrix={boardElsMatrix}
           updateBoardEls={updateBoardEls}
           returnBoardEls={returnBoardEls}

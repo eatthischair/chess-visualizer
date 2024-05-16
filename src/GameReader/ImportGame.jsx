@@ -1,10 +1,9 @@
-const ImportGame = ({ pgnInput, readPgn, pgnValid }) => {
+const ImportGame = ({pgnInput, readPgn, pgnValid}) => {
   return (
     <div>
       <button
         className="flex flex-initial btn-secondary w-32 bg-inherit"
-        onClick={() => document.getElementById("my_modal_2").showModal()}
-      >
+        onClick={() => document.getElementById('my_modal_2').showModal()}>
         Import Game
       </button>
       <dialog id="my_modal_2" className="modal">
@@ -13,22 +12,20 @@ const ImportGame = ({ pgnInput, readPgn, pgnValid }) => {
             {!pgnValid ? (
               <div className="text-red-600 text-sm">Cannot parse PGN</div>
             ) : (
-              ""
+              ''
             )}
           </div>
           <textarea
             className="flex w-full text-black h-32 min-h-32 max-h-32 border-amber-300 border-2 text-sm bg-white"
-            onChange={(e) => pgnInput(e)}
+            onChange={e => pgnInput(e)}
             id="w3review"
             name="w3review"
             rows="4"
-            cols="50"
-          ></textarea>
+            cols="50"></textarea>
           <button
             className="flex btn-secondary w-32 min-w-32 max-w-32 place-self-end text-center"
             onClick={() => readPgn()}
-            type="button"
-          >
+            type="button">
             Render Game
           </button>
         </div>

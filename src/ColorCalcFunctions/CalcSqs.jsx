@@ -12,9 +12,6 @@ const CalcSqs = ({
   setPos,
   boardIsFlipped,
   sumMode,
-  color1,
-  color2,
-  hexObj,
   boardElsMatrix,
   updateBoardEls,
   returnBoardEls,
@@ -118,7 +115,6 @@ const CalcSqs = ({
         colorMatrix={colorMatrix}
         setPos={setPos}
         boardIsFlipped={boardIsFlipped}
-        hexObj={hexObj}
         boardElsMatrix={boardElsMatrix}
         updateBoardEls={updateBoardEls}
         returnBoardEls={returnBoardEls}

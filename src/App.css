@@ -1,7 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import url("https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
 
 @layer components {
   .btn-primary {
@@ -23,95 +23,133 @@
     @apply focus:outline-none;
   }
 }
-
-:root {
-  --boardWidth: 600px;
-  --sqWidth: calc(var(--boardWidth) / 8);
+@media (max-width: 700px) {
+  :root {
+    --boardWidth: 300px;
+    --sqWidth: calc(var(--boardWidth) / 8);
+  }
 }
 
-.cell {
-  transition: background-color 2.5s ease, opacity 1200ms;
-  border-style: solid;
-  width: var(--sqWidth);
-  height: var(--sqWidth);
-  float: left;
-}
+@media (max-width: 1600px) {
+  :root {
+    --boardWidth: 600px;
+    --sqWidth: calc(var(--boardWidth) / 8);
+  }
 
-body {
-  background-color: rgb(55 65 81);
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
+  .cell {
+    transition: background-color 2.5s ease, opacity 1200ms;
+    border-style: solid;
+    width: var(--sqWidth);
+    height: var(--sqWidth);
+    float: left;
+  }
 
-.App-link {
-  color: #61dafb;
-}
+  body {
+    background-color: rgb(55 65 81);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
+  }
 
-.chessboard {
-  width: var(--boardWidth);
-  height: var(--boardWidth);
-}
+  .App-link {
+    color: #61dafb;
+  }
 
-.piece {
-  width: var(--sqWidth);
-  height: var(--sqWidth);
-  touch-action: none;
-}
+  .chessboard {
+    width: var(--boardWidth);
+    height: var(--boardWidth);
+  }
 
-.chessPiece {
-  z-index: 1;
-}
+  .piece {
+    width: var(--sqWidth);
+    height: var(--sqWidth);
+    touch-action: none;
+  }
 
-.lightSquare {
-  background-color: #feffd7;
-}
-.darkSquare {
-  background-color: #feffd9f5
-}
-.whiteSquare1 {
-  background-color: #ffdef5;
-}
-.whiteSquare2 {
-  background-color: #ffbcde;
-}
-.whiteSquare3 {
-  background-color: #fe9ac6;
-}
-.whiteSquare4 {
-  background-color: #fe78af;
-}
-.whiteSquare5 {
-  background-color: #fd5697;
-}
-.whiteSquare6 {
-  background-color: #fd3480;
-}
-.whiteSquare7 {
-  background-color: #fc1268;
-}
-.blackSquare1 {
-  background-color: #bad5ff;
-}
-.blackSquare2 {
-  background-color: #a1bcff;
-}
-.blackSquare3 {
-  background-color: #87a3ff;
-}
-.blackSquare4 {
-  background-color: #6e8bff;
-}
-.blackSquare5 {
-  background-color: #5472ff;
-}
-.blackSquare6 {
-  background-color: #3b59ff;
-}
-.blackSquare7 {
-  background-color: #2140ff;
+  .chessPiece {
+    z-index: 1;
+  }
+
+  /* .nullSquare {
+    transition: background-color 0.1s ease;
+
+    background-color: #ffffff;
+  }
+  .nullPink {
+    transition: background-color 1.5s ease;
+
+    background-color: #fe78af;
+  }
+  .nullBlue {
+    transition: background-color 1.5s ease;
+
+    background-color: #6e8bff;
+  } */
+  .nullSquare {
+    transition: background-color 0.1s ease-out;
+
+    background-color: #feffd7b5;
+  }
+  .nullPink {
+    transition: background-color 1.5s ease;
+
+    background-color: '#00000';
+  }
+  .nullBlue {
+    transition: background-color 1.5s ease;
+
+    background-color: '#00000';
+  }
+  .lightSquare {
+    background-color: #feffd7;
+  }
+  .darkSquare {
+    background-color: #feffd9f5;
+  }
+  .whiteSquare1 {
+    background-color: #ffdef5;
+  }
+  .whiteSquare2 {
+    background-color: #ffbcde;
+  }
+  .whiteSquare3 {
+    background-color: #fe9ac6;
+  }
+  .whiteSquare4 {
+    background-color: #fe78af;
+  }
+  .whiteSquare5 {
+    background-color: #fd5697;
+  }
+  .whiteSquare6 {
+    background-color: #fd3480;
+  }
+  .whiteSquare7 {
+    background-color: #fc1268;
+  }
+  .blackSquare1 {
+    background-color: #bad5ff;
+  }
+  .blackSquare2 {
+    background-color: #a1bcff;
+  }
+  .blackSquare3 {
+    background-color: #87a3ff;
+  }
+  .blackSquare4 {
+    background-color: #6e8bff;
+  }
+  .blackSquare5 {
+    background-color: #5472ff;
+  }
+  .blackSquare6 {
+    background-color: #3b59ff;
+  }
+  .blackSquare7 {
+    background-color: #2140ff;
+  }
 }
