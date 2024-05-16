@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import './App.css';
 import RenderPieces from './MakeElements/RenderPieces';
 import CalcSqs from './ColorCalcFunctions/CalcSqs';
-import emptyMatrix from './HelperFunctions/MakeEmptyMatrix';
+import {emptyMatrix} from './HelperFunctions/MakeEmptyMatrix';
 import PgnReader from './GameReader/PgnReader';
 import MakePieceElements from './MakeElements/MakePieceElements.js';
 import {initialBoard} from './MakeElements/SetInitialBoard';
