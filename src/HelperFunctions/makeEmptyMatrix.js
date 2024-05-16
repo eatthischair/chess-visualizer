@@ -1,13 +1,13 @@
 const makeEmptyMatrix = () => {
-  let emptyMatrix = [];
+  let matrix = [];
   for (var i = 0; i < 8; i++) {
     let zeros = [];
     for (var j = 0; j < 8; j++) {
       zeros.push(0);
     }
-    emptyMatrix.push(zeros);
+    matrix.push(zeros);
   }
-  return emptyMatrix;
+  return matrix;
 };
 
 const emptyMatrix = makeEmptyMatrix();
