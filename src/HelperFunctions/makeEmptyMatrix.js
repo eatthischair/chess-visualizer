@@ -1,4 +1,4 @@
-const makeEmptyMatrix = () => {
+export const makeEmptyMatrix = () => {
   let matrix = [];
   for (var i = 0; i < 8; i++) {
     let zeros = [];
@@ -11,6 +11,4 @@ const makeEmptyMatrix = () => {
   return matrix;
 };
 
-let emptyMatrix = makeEmptyMatrix();
-
-export default emptyMatrix;
+export const emptyMatrix = makeEmptyMatrix();
