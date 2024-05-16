@@ -1,4 +1,4 @@
-export const emptyMatrix = [
+const emptyMatrix = [
   [0, 0, 0, 0, 0, 0, 0, 0],
   [0, 0, 0, 0, 0, 0, 0, 0],
   [0, 0, 0, 0, 0, 0, 0, 0],
@@ -8,3 +8,5 @@ export const emptyMatrix = [
   [0, 0, 0, 0, 0, 0, 0, 0],
   [0, 0, 0, 0, 0, 0, 0, 0],
 ];
+
+export default emptyMatrix;
