@@ -1,5 +1,5 @@
 import './App.css';
-import BigFunction from './ContextFiles/BigFunction.jsx';
+import {BigFunction} from './ContextFiles/BigFunction.jsx';
 import {MyProvider} from './ContextFiles/Provider.jsx';
 function App() {
   return (

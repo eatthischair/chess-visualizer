@@ -1,11 +1,10 @@
-const MakePieceElements = (onDrop) => {
+const MakePieceElements = onDrop => {
   var pieceElementsObj = {};
-  let pieceArray = ["K", "N", "B", "R", "Q", "P", "k", "n", "b", "r", "q", "p"];
-
+  let pieceArray = ['K', 'N', 'B', 'R', 'Q', 'P', 'k', 'n', 'b', 'r', 'q', 'p'];
   let imgColor;
 
-  pieceArray.forEach((piece) => {
-    piece === piece.toUpperCase() ? (imgColor = "l") : (imgColor = "d");
+  pieceArray.forEach(piece => {
+    piece === piece.toUpperCase() ? (imgColor = 'l') : (imgColor = 'd');
     for (var i = 1; i <= 64; i++) {
       let pieceString = `${piece}${i}`;
       pieceElementsObj[pieceString] = (
@@ -14,15 +13,9 @@ const MakePieceElements = (onDrop) => {
           alt=""
           src={`../assets/${piece.toLowerCase()}${imgColor}.png`}
           className="piece"
-          onDragEnd={(e) => {
+          onDragEnd={e => {
             onDrop(e, pieceString);
-          }}
-          onTouchEnd={(e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            onDrop(e, pieceString);
-          }}
-        ></img>
+          }}></img>
       );
     }
   });

@@ -1,13 +1,7 @@
-import isWhiteSquare from '../HelperFunctions/IsWhiteSquare';
-import '../App.css';
-import {useContext, useState, useCallback} from 'react';
-import {MyContext} from '../ContextFiles/Context';
-import usePreviousColorMatrix from '../CustomHooks/UsePrevColorMatrix';
-import {useEffect} from 'react';
 import {NormalString, NullString} from './ColorStr';
+import {RenderCell} from './RenderCell';
 
 export const RenderLogic = (
-  setPos,
   boardToMap,
   currentBoard,
   colorMatrix,
@@ -47,14 +41,13 @@ export const RenderLogic = (
       }
 
       return (
-        <div
-          key={keyString}
-          id={keyString}
-          className={`cell ${color}`}
-          onDragOver={() => {
-            setPos(matrixIndex);
-          }}>
-          {piece}
+        <div>
+          <RenderCell
+            keyString={keyString}
+            color={color}
+            piece={piece}
+            matrixIndex={matrixIndex}
+          />
         </div>
       );
     });

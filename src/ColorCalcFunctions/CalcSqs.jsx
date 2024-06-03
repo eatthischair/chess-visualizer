@@ -1,29 +1,23 @@
 import React from 'react';
 import calcSqsPerSide from './CalcSqsPerSide';
 import RenderBoard from '../Rendering/RenderBoard';
-
+import {emptyMatrix} from '../utils/Constants.js';
 //this function calculates the colors on the board depending on if the switches for each color are turned on
 const CalcSqs = ({
   blackCtrlOn,
   whiteCtrlOn,
   currentBoard,
   pieceObj,
-  alwaysEmptyMatrix,
-  setPos,
   boardIsFlipped,
-  sumMode,
-  boardElsMatrix,
-  updateBoardEls,
-  returnBoardEls,
 }) => {
   var colorMatrix;
   let [redSqBoard, redSqBoardPriority, redSqBoardPiecePriority] =
-    calcSqsPerSide(currentBoard, alwaysEmptyMatrix, true);
+    calcSqsPerSide(currentBoard, true);
   let [blueSqBoard, blueSqBoardPriority, blueSqBoardPiecePriority] =
-    calcSqsPerSide(currentBoard, alwaysEmptyMatrix, false);
+    calcSqsPerSide(currentBoard, false);
 
   if (whiteCtrlOn && blackCtrlOn) {
-    let totalBoard = JSON.parse(JSON.stringify(alwaysEmptyMatrix));
+    let totalBoard = JSON.parse(JSON.stringify(emptyMatrix));
     let whiteKingCoord;
     let blackKingCoord;
 
@@ -44,7 +38,9 @@ const CalcSqs = ({
         let hasBlackPiece =
           !!blueSqBoardPiecePriority[i][j] &&
           blueSqBoardPiecePriority[i][j] !== 5;
+        //-------------------------------
         //if a lower value pieces attacks a higher value piece (i.e. Knights attacks Queen), then the Queen's square is given the Knights color value. Since the queen (probably) has to move, the knight controls that square until the queen moves
+        //------------------------------
         if (
           hasWhitePiece &&
           blueSqBoardPriority[i][j] > redSqBoardPiecePriority[i][j]
@@ -56,7 +52,9 @@ const CalcSqs = ({
         ) {
           totalBoard[i][j] = redSum;
         }
-
+        //---------------------------------
+        //if a pawn controls a square, the square will be the color of the pawn, since pawns are worth much less than pieces //
+        //---------------------------------
         let protectedByWhitePawn = redSqBoardPriority[i][j] === 5;
         let isWhitePawn = redSqBoardPiecePriority[i][j] === 5;
         let isBlackPawn = blueSqBoardPiecePriority[i][j] === 5;
@@ -84,7 +82,7 @@ const CalcSqs = ({
 
     if (whiteKingCoord && blackKingCoord) {
       //if a King is in check, the square colors for the side that is in check are disabled, for better Mating Net illustrations
-      //this is wrapped in an if statement so the calculation is not done if there are no kings on the board
+      //this is wrapped in an if statement so the calculation is not done if there are no kings on the board, which crashes the app
       let whiteKinginCheck =
         blueSqBoard[whiteKingCoord.i][whiteKingCoord.j] < 0;
       let blackKinginCheck = redSqBoard[blackKingCoord.i][blackKingCoord.j] > 0;
@@ -104,7 +102,7 @@ const CalcSqs = ({
     } else if (blackCtrlOn) {
       colorMatrix = blueSqBoard;
     } else if (!whiteCtrlOn && !blackCtrlOn) {
-      colorMatrix = alwaysEmptyMatrix;
+      colorMatrix = emptyMatrix;
     }
   }
   return (
@@ -113,11 +111,7 @@ const CalcSqs = ({
         currentBoard={currentBoard}
         pieceObj={pieceObj}
         colorMatrix={colorMatrix}
-        setPos={setPos}
         boardIsFlipped={boardIsFlipped}
-        boardElsMatrix={boardElsMatrix}
-        updateBoardEls={updateBoardEls}
-        returnBoardEls={returnBoardEls}
       />
     </div>
   );

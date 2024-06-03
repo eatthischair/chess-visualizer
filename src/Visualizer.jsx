@@ -1,86 +1,43 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import './App.css';
-import RenderPieces from './MakeElements/RenderPieces';
-import CalcSqs from './ColorCalcFunctions/CalcSqs';
-import emptyMatrix from './StaticVariables/EmptyMatrix.js';
-import PgnReader from './GameReader/PgnReader';
-import MakePieceElements from './MakeElements/MakePieceElements.js';
-import {initialBoard} from './MakeElements/SetInitialBoard';
-import MovePiece from './Rendering/MovePiece';
 import 'react-color-palette/lib/css/styles.css';
-import GrabTitle from './GameReader/GrabTitle';
 import 'react-toastify/dist/ReactToastify.css';
-import Sidebar from './Sidebar';
+import {emptyMatrix, initialBoard} from './utils/Constants.js';
+import MakePieceElements from './utils/MakePieceElements.js';
+import {selectedGames} from './utils/selectedGames.js';
+import CalcSqs from './ColorCalcFunctions/CalcSqs';
+import PgnReader from './GameReader/PgnReader';
+import MovePiece from './Rendering/MovePiece';
+import GrabTitle from './GameReader/GrabTitle';
 import ImportGame from './GameReader/ImportGame';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import useKeyboardNavigation from './CustomHooks/UseKeyboardNavigation';
-import {
-  faBackwardFast,
-  faBackwardStep,
-  faForwardStep,
-  faForwardFast,
-} from '@fortawesome/free-solid-svg-icons';
-import SelectedGames from './MakeElements/SelectedGames';
-const Visualizer = ({
-  setPos,
-  currentHoverPosition,
-  getPos,
-  updateGlobalBoard,
-  getGlobalBoard,
-  updatePgnBoardArray,
-  getNextBoard,
-  getPreviousBoard,
-  resetMoveNum,
-  getFirstBoard,
-  getLastBoard,
-  boardElsMatrix,
-  updateBoardEls,
-  returnBoardEls,
-}) => {
-  const [currentBoard, setCurrentBoard] = useState(initialBoard);
-  const [boardIsFlipped, setBoardIsFlipped] = useState(false);
-  const next = () => {
-    setCurrentBoard(getNextBoard());
-  };
-  const prev = () => {
-    setCurrentBoard(getPreviousBoard());
-  };
-  const first = () => {
-    let firstBoard = getFirstBoard();
-    if (firstBoard) setCurrentBoard(firstBoard);
-  };
-  const last = () => {
-    let lastBoard = getLastBoard();
-    if (lastBoard) setCurrentBoard(getLastBoard());
-  };
+import RightSidebar from './RightSideBar.jsx';
+import {BottomBar} from './BottomBar';
+import LeftSideBar from './LeftSideBar';
 
-  useKeyboardNavigation(next, prev, last, first);
+const Visualizer = ({setPos, getPos, updatePgnBoardArray, resetMoveNum}) => {
+  const [currentBoard, setCurrentBoard] = useState(initialBoard);
+
+  //sidebar Toggles
+  const [boardIsFlipped, setBoardIsFlipped] = useState(false);
+  const [blackCtrlOn, setBlackCtrlOn] = useState(true);
+  const [whiteCtrlOn, setWhiteCtrlOn] = useState(true);
 
   //function attached to piece elements, runs when the piece is dropped on a new square, or in trashcan
   const onDrop = (e, pieceId) => {
     e.preventDefault();
     e.stopPropagation();
-    MovePiece(
-      getPos(),
-      pieceId,
-      getGlobalBoard,
-      updateGlobalBoard,
-      setCurrentBoard,
-    );
+    MovePiece(getPos(), pieceId, setCurrentBoard, currentBoard);
   };
 
   const pieceObj = MakePieceElements(onDrop);
 
+  const [playerNames, setPlayerNames] = useState('');
   const clearBoard = () => {
-    updateGlobalBoard(emptyMatrix);
     setCurrentBoard(emptyMatrix);
+    //reset all PGN related states
     resetMoveNum();
     setCurrentPgn('');
     setPlayerNames('');
-  };
-  const setInitialBoard = () => {
-    updateGlobalBoard(initialBoard);
-    first();
   };
 
   //pgn functions
@@ -89,9 +46,11 @@ const Visualizer = ({
     setCurrentPgn(e.target.value);
   };
 
+  //to prevent crashes by rendering invalid pgn
+  const [pgnValid, setPgnValid] = useState(true);
+
   const readPgn = index => {
-    //index is only passed via the games in the sidebar. userGames is the array of games to the left of the board
-    let pgnToRead = index || index === 0 ? SelectedGames[index] : currentPgn;
+    let pgnToRead = index || index === 0 ? selectedGames[index] : currentPgn;
     let {boardArray, pgnIsValid} = PgnReader(initialBoard, pgnToRead);
     setCurrentPgn(pgnToRead);
     updatePgnBoardArray(boardArray);
@@ -101,40 +60,20 @@ const Visualizer = ({
     resetMoveNum();
   };
 
-  const [pgnValid, setPgnValid] = useState(true);
-  const [playerNames, setPlayerNames] = useState('');
-  const [blackCtrlOn, setBlackCtrlOn] = useState(true);
-  const [whiteCtrlOn, setWhiteCtrlOn] = useState(true);
-
   return (
     <div>
       <div className="mt-2"></div>
-      <div className="flex justify-center body-font font-GreatVibes text-6xl mt-4">
+      <h1 className="flex justify-center body-font font-GreatVibes text-6xl mt-4">
         Chess Visualizer
-      </div>
+      </h1>
       <div className="flex justify-center">
         {playerNames ? playerNames : <br></br>}
       </div>
 
       <div className="flex justify-center h-[520px] m-0">
-        <div className="w-64 h-[520px] overflow-x-clip overflow-y-scroll">
-          <div className="flex flex-row">
-            <div className="flex justify-center place-self-center basis-2 grow text-sm leading-3 indent-0 h-8 mt-4 font-semibold text-slate-100">
-              Selected Games
-            </div>
-          </div>
-          {SelectedGames.map((game, index) => (
-            <div
-              key={game}
-              onClick={() => {
-                readPgn(index);
-              }}
-              className="btn-tertiary shadow-md">
-              {GrabTitle(game)}
-            </div>
-          ))}
+        <div>
+          <LeftSideBar readPgn={readPgn} />
         </div>
-
         <div className="flex">
           <CalcSqs
             blackCtrlOn={blackCtrlOn}
@@ -142,18 +81,13 @@ const Visualizer = ({
             currentBoard={currentBoard}
             pieceObj={pieceObj}
             alwaysEmptyMatrix={emptyMatrix}
-            setPos={setPos}
             boardIsFlipped={boardIsFlipped}
-            boardElsMatrix={boardElsMatrix}
-            updateBoardEls={updateBoardEls}
-            returnBoardEls={returnBoardEls}
           />
         </div>
         <div className="flex">
-          <Sidebar
+          <RightSidebar
+            setCurrentBoard={setCurrentBoard}
             pieceObj={pieceObj}
-            RenderPieces={RenderPieces}
-            setInitialBoard={setInitialBoard}
             clearBoard={clearBoard}
             setWhiteCtrlOn={setWhiteCtrlOn}
             whiteCtrlOn={whiteCtrlOn}
@@ -161,35 +95,18 @@ const Visualizer = ({
             blackCtrlOn={blackCtrlOn}
             setBoardIsFlipped={setBoardIsFlipped}
             boardIsFlipped={boardIsFlipped}
-            onDrop={onDrop}
             setPos={setPos}
           />
         </div>
       </div>
-
-      <div className="flex flex-initial justify-center gap-x-32 mt-24">
+      <div className="grid grid-rows-2 justify-center gap-x-32 mt-24">
+        <div>
+          <BottomBar
+            currentPgn={currentPgn}
+            setCurrentBoard={setCurrentBoard}
+          />
+        </div>
         <ImportGame pgnInput={pgnInput} readPgn={readPgn} pgnValid={pgnValid} />
-      </div>
-
-      <div>
-        {currentPgn ? (
-          <div className="flex flex-initial justify-center gap-x-32 text-gray-700">
-            <div onClick={() => first()}>
-              <FontAwesomeIcon icon={faBackwardFast} />
-            </div>
-            <div onClick={() => prev()}>
-              <FontAwesomeIcon icon={faBackwardStep} />
-            </div>
-            <div onClick={() => next()}>
-              <FontAwesomeIcon icon={faForwardStep} />
-            </div>
-            <div onClick={() => last()}>
-              <FontAwesomeIcon icon={faForwardFast} />
-            </div>
-          </div>
-        ) : (
-          ''
-        )}
       </div>
     </div>
   );

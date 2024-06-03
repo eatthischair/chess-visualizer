@@ -90,7 +90,7 @@
     background-color: #6e8bff;
   } */
   .nullSquare {
-    transition: background-color 0.1s ease-out;
+    transition: background-color 0.6s ease-out;
 
     background-color: #feffd7b5;
   }
@@ -100,7 +100,7 @@
     background-color: '#00000';
   }
   .nullBlue {
-    transition: background-color 1.5s ease;
+    transition: background-color 1s ease;
 
     background-color: '#00000';
   }

@@ -1,4 +1,4 @@
-import isInBounds from "../HelperFunctions/IsInBounds";
+import {isInBounds} from '../utils/PureFuncs';
 
 const movePawnKnightandKing = (
   index,
@@ -10,7 +10,7 @@ const movePawnKnightandKing = (
   currentColumn,
   pawnColumn,
   isEnPassant,
-  pinnedPiecesIndices
+  pinnedPiecesIndices,
 ) => {
   slice = JSON.parse(JSON.stringify(slice));
   let pawnFound = false;
@@ -24,7 +24,7 @@ const movePawnKnightandKing = (
     if (isInBounds(row, column)) {
       let isPinned;
       if (pinnedPiecesIndices) {
-        pinnedPiecesIndices.forEach((coords) => {
+        pinnedPiecesIndices.forEach(coords => {
           let [pinnedRow, pinnedCol] = coords;
           if (pinnedRow === row && pinnedCol === column) {
             isPinned = true;
@@ -61,7 +61,7 @@ const queeningPawn = (
   slice,
   queenCount,
   pawnCaptureColumn,
-  promotedPiece
+  promotedPiece,
 ) => {
   slice = JSON.parse(JSON.stringify(slice));
   let [row, column] = coords;
@@ -82,7 +82,7 @@ const determinePawnVals = (
   currentIndex,
   slice,
   pawnId,
-  isEnPassant
+  isEnPassant,
 ) => {
   let pawnColumn = pawnId.charCodeAt(0) - 97;
   var pawnVals;
@@ -114,7 +114,7 @@ const determinePawnVals = (
   }
   let currentRow = currentIndex[0];
   let currentColumn = currentIndex[1];
-  let pieceToSearchFor = calcForWhite ? "P" : "p";
+  let pieceToSearchFor = calcForWhite ? 'P' : 'p';
   slice = movePawnKnightandKing(
     currentIndex,
     calcForWhite,
@@ -124,9 +124,9 @@ const determinePawnVals = (
     currentRow,
     currentColumn,
     pawnColumn,
-    isEnPassant
+    isEnPassant,
   );
   return slice;
 };
 
-export { movePawnKnightandKing, determinePawnVals, queeningPawn };
+export {movePawnKnightandKing, determinePawnVals, queeningPawn};

@@ -1,4 +1,4 @@
-import isInBounds from "../HelperFunctions/IsInBounds";
+import {isInBounds} from '../utils/PureFuncs';
 
 const moveBRandQ = (
   index,
@@ -7,7 +7,7 @@ const moveBRandQ = (
   type,
   slice,
   pinnedPiecesIndices,
-  pinnedPieces
+  pinnedPieces,
 ) => {
   slice = JSON.parse(JSON.stringify(slice));
 
@@ -42,7 +42,7 @@ const moveBRandQ = (
         pinnedPieces[pinnedIndex].pinnedPieceCallObj[
           currentSqType.toUpperCase()
         ];
-      if (currentSqType.toUpperCase() === "Q") {
+      if (currentSqType.toUpperCase() === 'Q') {
         callObj = pinnedPieces[pinnedIndex].pinnedPieceCallObj;
         isQueen = true;
       }
@@ -124,17 +124,17 @@ const moveBRandQ = (
     },
   };
   let callObj;
-  if (type === "B") {
+  if (type === 'B') {
     callObj = recurseCallObj.B;
   }
-  if (type === "R") {
+  if (type === 'R') {
     callObj = recurseCallObj.R;
   }
-  if (type === "Q") {
+  if (type === 'Q') {
     for (let type in recurseCallObj) {
       for (let direction in recurseCallObj[type]) {
         let arr = recurseCallObj[type][direction];
-        arr.forEach((increments) => {
+        arr.forEach(increments => {
           recurse(index, increments[0], increments[1]);
         });
       }
@@ -142,7 +142,7 @@ const moveBRandQ = (
   } else {
     for (let key in callObj) {
       let arr = callObj[key];
-      arr.forEach((increments) => {
+      arr.forEach(increments => {
         recurse(index, increments[0], increments[1]);
       });
     }

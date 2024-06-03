@@ -1,10 +1,11 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {faTrashCan} from '@fortawesome/free-solid-svg-icons';
 import {useState} from 'react';
+import {initialBoard} from './utils/Constants.js';
+import RenderPieces from './utils/RenderPieces.js';
+import {resetMoveNum} from './ContextFiles/BigFunction';
 const Sidebar = ({
   pieceObj,
-  RenderPieces,
-  setInitialBoard,
   clearBoard,
   setWhiteCtrlOn,
   whiteCtrlOn,
@@ -12,11 +13,15 @@ const Sidebar = ({
   blackCtrlOn,
   setBoardIsFlipped,
   boardIsFlipped,
-  onDrop,
   setPos,
+  setCurrentBoard,
 }) => {
-
   const [showPieceElements, setShowPieceElements] = useState(false);
+
+  const startingPosition = () => {
+    resetMoveNum();
+    setCurrentBoard(initialBoard);
+  };
 
   return (
     <div className="flex w-64 h-[400px] shadow-md">
@@ -25,9 +30,8 @@ const Sidebar = ({
           <button
             className="btn-secondary"
             onClick={() => {
-              setInitialBoard();
-            }}
-          >
+              startingPosition();
+            }}>
             Starting Position
           </button>
         </li>
@@ -39,8 +43,7 @@ const Sidebar = ({
         <li>
           <button
             className="btn-secondary"
-            onClick={() => setShowPieceElements(!showPieceElements)}
-          >
+            onClick={() => setShowPieceElements(!showPieceElements)}>
             Add Pieces
           </button>
           {showPieceElements ? (
@@ -57,13 +60,12 @@ const Sidebar = ({
               </div>
               <div
                 className="w-16 h-12 text-[40px] text-gray-400 ml-2"
-                onDragOver={() => setPos(false)}
-              >
+                onDragOver={() => setPos(false)}>
                 <FontAwesomeIcon icon={faTrashCan} />
               </div>
             </div>
           ) : (
-            ""
+            ''
           )}
         </li>
         <li>
@@ -101,8 +103,7 @@ const Sidebar = ({
           <button
             className="btn-secondary"
             onClick={() => setBoardIsFlipped(!boardIsFlipped)}
-            type="button"
-          >
+            type="button">
             Flip Board
           </button>
         </li>

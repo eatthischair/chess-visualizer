@@ -1,11 +1,6 @@
-const MovePiece = (
-  squareId,
-  pieceId,
-  getGlobalBoard,
-  updateGlobalBoard,
-  setCurrentBoard
-) => {
-  let boardMatrix = JSON.parse(JSON.stringify(getGlobalBoard()));
+const MovePiece = (squareId, pieceId, setCurrentBoard, currentBoard) => {
+  let boardMatrix = JSON.parse(JSON.stringify(currentBoard));
+  console.log('MOVEPIECE', 'curboard', currentBoard, 'matrix', boardMatrix);
   let pieceIsOnBoard = false;
   let pieceType = pieceId[0];
   let pieceTypeCounter = 0;
@@ -33,7 +28,6 @@ const MovePiece = (
     //squareId is a truthy value unless the piece is moved to trash can
     if (squareId) boardMatrix[squareId[0]][squareId[1]] = pieceId;
   }
-  updateGlobalBoard(boardMatrix);
   setCurrentBoard(boardMatrix);
 };
 

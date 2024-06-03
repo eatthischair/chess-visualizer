@@ -1,4 +1,4 @@
-const SelectedGames = [
+export const selectedGames = [
   `[Event "Paris"]
   [Site "Paris FRA"]
   [Date "1858.??.??"]
@@ -217,4 +217,3 @@ Ndf6 29.Qg6+ Kg8 30.h6 Ra7 31.Kh2 Re7 32.Rh3 Nh7 33.Rd3 Qa8
   18. a5 g4 19. b6 g3 20. Kh1 Nh7 21. d6 Qh4 22. Bg1 Bh3
   23. bxc7 Bxg2+ 24. Kxg2 Qh3+ 25. Kxh3 Ng5+ 26. Kg2 Nh4+ Kh1 g2 0-1`,
 ];
-export default SelectedGames;

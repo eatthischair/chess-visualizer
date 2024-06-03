@@ -1,4 +1,4 @@
-import isWhiteSquare from '../HelperFunctions/IsWhiteSquare.js';
+import {isWhiteSquare} from '../utils/PureFuncs';
 
 export const NormalString = (colorSum, matrixIndex) => {
   let color;
