@@ -1,4 +1,7 @@
-const MovePiece = (squareId, pieceId, setCurrentBoard, currentBoard) => {
+import {getPos} from '../ContextFiles/State.jsx';
+
+const MovePiece = (pieceId, setCurrentBoard, currentBoard) => {
+  let squareId = getPos();
   let boardMatrix = JSON.parse(JSON.stringify(currentBoard));
   console.log('MOVEPIECE', 'curboard', currentBoard, 'matrix', boardMatrix);
   let pieceIsOnBoard = false;

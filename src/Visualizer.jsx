@@ -1,44 +1,45 @@
-import React, {useState} from 'react';
+import React, {useState, useReducer} from 'react';
 import './App.css';
-import 'react-color-palette/lib/css/styles.css';
-import 'react-toastify/dist/ReactToastify.css';
 import {emptyMatrix, initialBoard} from './utils/Constants.js';
 import MakePieceElements from './utils/MakePieceElements.js';
-import {selectedGames} from './utils/selectedGames.js';
+import {selectedGames} from './utils/SelectedGames.js';
 import CalcSqs from './ColorCalcFunctions/CalcSqs';
-import PgnReader from './GameReader/PgnReader';
+import PgnReader from './PGNReader/PgnReader.js';
 import MovePiece from './Rendering/MovePiece';
-import GrabTitle from './GameReader/GrabTitle';
-import ImportGame from './GameReader/ImportGame';
-import RightSidebar from './RightSideBar.jsx';
-import {BottomBar} from './BottomBar';
-import LeftSideBar from './LeftSideBar';
+import GrabTitle from './PGNReader/GrabTitle.js';
+import ImportGame from './PGNReader/ImportGame.js';
+import RightSidebar from './SideAndBottomBars/RightSideBar.jsx';
+import {BottomBar} from './SideAndBottomBars/BottomBar';
+import LeftSideBar from './SideAndBottomBars/LeftSideBar';
+import {reducer, initialState} from './ContextFiles/Reducer';
 
-const Visualizer = ({setPos, getPos, updatePgnBoardArray, resetMoveNum}) => {
+const Visualizer = ({updatePgnBoardArray, resetMoveNum}) => {
+  //board displayed on the app
   const [currentBoard, setCurrentBoard] = useState(initialBoard);
 
-  //sidebar Toggles
+  //sidebar Buttons
   const [boardIsFlipped, setBoardIsFlipped] = useState(false);
   const [blackCtrlOn, setBlackCtrlOn] = useState(true);
   const [whiteCtrlOn, setWhiteCtrlOn] = useState(true);
+  const clearBoard = () => {
+    setCurrentBoard(emptyMatrix);
+    //reset all PGN related states
+    //which is why func is not in sidebar component
+    resetMoveNum();
+    setCurrentPgn('');
+    setPlayerNames('');
+  };
 
   //function attached to piece elements, runs when the piece is dropped on a new square, or in trashcan
   const onDrop = (e, pieceId) => {
     e.preventDefault();
     e.stopPropagation();
-    MovePiece(getPos(), pieceId, setCurrentBoard, currentBoard);
+    MovePiece(pieceId, setCurrentBoard, currentBoard);
   };
 
   const pieceObj = MakePieceElements(onDrop);
 
   const [playerNames, setPlayerNames] = useState('');
-  const clearBoard = () => {
-    setCurrentBoard(emptyMatrix);
-    //reset all PGN related states
-    resetMoveNum();
-    setCurrentPgn('');
-    setPlayerNames('');
-  };
 
   //pgn functions
   const [currentPgn, setCurrentPgn] = useState('');
@@ -49,15 +50,22 @@ const Visualizer = ({setPos, getPos, updatePgnBoardArray, resetMoveNum}) => {
   //to prevent crashes by rendering invalid pgn
   const [pgnValid, setPgnValid] = useState(true);
 
+  const [state, dispatch] = useReducer(reducer, initialState);
+
   const readPgn = index => {
+    //index is for games from sidebar
     let pgnToRead = index || index === 0 ? selectedGames[index] : currentPgn;
     let {boardArray, pgnIsValid} = PgnReader(initialBoard, pgnToRead);
     setCurrentPgn(pgnToRead);
-    updatePgnBoardArray(boardArray);
+
+    dispatch({type: 'UPDATE_PGN_BOARD_ARRAY', payload: boardArray});
+    dispatch({type: 'RESET_MOVE_NUM', payload: -1});
+    // updatePgnBoardArray(boardArray);
     setPgnValid(pgnIsValid);
     setPlayerNames(GrabTitle(pgnToRead));
     setCurrentBoard(initialBoard);
-    resetMoveNum();
+
+    // resetMoveNum();
   };
 
   return (
@@ -95,7 +103,6 @@ const Visualizer = ({setPos, getPos, updatePgnBoardArray, resetMoveNum}) => {
             blackCtrlOn={blackCtrlOn}
             setBoardIsFlipped={setBoardIsFlipped}
             boardIsFlipped={boardIsFlipped}
-            setPos={setPos}
           />
         </div>
       </div>

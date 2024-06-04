@@ -1,5 +1,5 @@
-import GrabTitle from './GameReader/GrabTitle';
-import {selectedGames} from './utils/selectedGames.js';
+import GrabTitle from '../PGNReader/GrabTitle.js';
+import {selectedGames} from '../utils/SelectedGames.js';
 
 const LeftSideBar = ({readPgn}) => {
   console.log('leftsidebar', readPgn);

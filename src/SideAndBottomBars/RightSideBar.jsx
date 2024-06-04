@@ -1,9 +1,9 @@
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faTrashCan} from '@fortawesome/free-solid-svg-icons';
 import {useState} from 'react';
-import {initialBoard} from './utils/Constants.js';
-import RenderPieces from './utils/RenderPieces.js';
-import {resetMoveNum} from './ContextFiles/BigFunction';
+import {initialBoard} from '../utils/Constants.js';
+import RenderPieces from '../utils/RenderPieces.js';
+import {resetMoveNum, setPos} from '../ContextFiles/State.jsx';
 const Sidebar = ({
   pieceObj,
   clearBoard,
@@ -13,7 +13,6 @@ const Sidebar = ({
   blackCtrlOn,
   setBoardIsFlipped,
   boardIsFlipped,
-  setPos,
   setCurrentBoard,
 }) => {
   const [showPieceElements, setShowPieceElements] = useState(false);

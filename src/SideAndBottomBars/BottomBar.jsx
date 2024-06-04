@@ -10,16 +10,24 @@ import {
   getPreviousBoard,
   getLastBoard,
   getFirstBoard,
-} from './ContextFiles/BigFunction';
-import useKeyboardNavigation from './CustomHooks/UseKeyboardNavigation';
+} from '../ContextFiles/State';
+import useKeyboardNavigation from '../CustomHooks/UseKeyboardNavigation';
+import {reducer, initialState} from '../ContextFiles/Reducer';
+import {useReducer} from 'react';
+import {initialBoard} from '../utils/Constants.js';
 
 export const BottomBar = ({currentPgn, setCurrentBoard}) => {
+  const [state, dispatch] = useReducer(reducer, initialState);
+
   //arrow key event listeners
   const first = () => {
-    let firstBoard = getFirstBoard();
-    if (firstBoard) setCurrentBoard(firstBoard);
+    dispatch({type: 'RESET_MOVE_NUM', payload: -1});
+    setCurrentBoard(initialBoard);
   };
+
   const next = () => {
+    console.log('heh', dispatch({type: 'GET_NEXT_BOARD', payload: -1}));
+
     setCurrentBoard(getNextBoard());
   };
   const prev = () => {

@@ -1,15 +1,15 @@
 /* eslint-disable no-loop-func */
 import {isInBounds} from '../utils/PureFuncs';
 
-//this function iterates from the kings location in all cardinal directions to check if there is a piece standing between it and an attacker. If so, the 'sandwiched' piece is 'pinned' (cannot move) except in the direction it is pinned, and its movement will not be calculated in calcSqsPerSide
+//this function iterates from the kings location in all cardinal directions to check if there is a piece standing between it and an attacker i.e. sandwiched. If so, the 'sandwiched' piece is 'pinned' (cannot move) except in the direction it is pinned, its location is recorded, and its movement will not be calculated in calcSqsPerSide EXCEPT in the direction it can still move in.
 const CheckForAbsolutePin = (currentBoard, calcForWhite, recurseCallObj) => {
-  var pinnedPieceArray = [];
+  let pinnedPieceArray = [];
   let kingIdToFind = calcForWhite ? 'K1' : 'k1';
   let kingIndex = null;
 
   //find the index of the king we are calculating for
-  for (var i = 0; i < 8; i++) {
-    for (var j = 0; j < 8; j++) {
+  for (let i = 0; i < 8; i++) {
+    for (let j = 0; j < 8; j++) {
       if (currentBoard[i][j] === kingIdToFind) {
         kingIndex = [i, j];
       }
@@ -26,7 +26,6 @@ const CheckForAbsolutePin = (currentBoard, calcForWhite, recurseCallObj) => {
     checkDirection,
   ) => {
     var newIndex = [index[0] + incrementY, index[1] + incrementX];
-    // var inBounds = isInBounds(newIndex[0], newIndex[1]);
     if (!isInBounds(newIndex[0], newIndex[1])) return;
 
     var newIndexValue = currentBoard[newIndex[0]][newIndex[1]];

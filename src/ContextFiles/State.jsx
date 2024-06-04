@@ -3,20 +3,17 @@ import Visualizer from '../Visualizer.jsx';
 import {initialBoard} from '../utils/Constants.js';
 import {MyContext} from './Context.jsx';
 
-var currentHoverPosition;
 //mouse position
+var currentHoverPosition;
 export const setPos = id => {
-  // console.log('setPos', id);
   currentHoverPosition = id;
-  return currentHoverPosition;
 };
-const getPos = () => {
+export const getPos = () => {
   return currentHoverPosition;
 };
 
 //for displaying and storing games
 var pgnBoardArray;
-
 const updatePgnBoardArray = array => {
   pgnBoardArray = array;
 };
@@ -34,6 +31,7 @@ export const getNextBoard = () => {
     }
     return pgnBoardArray[moveNum];
   } else {
+    //error handling
     return initialBoard;
   }
 };
@@ -52,6 +50,7 @@ export const getPreviousBoard = () => {
       return pgnBoardArray[moveNum];
     }
   } else {
+    //error handling
     return initialBoard;
   }
 };
@@ -68,22 +67,17 @@ export const getLastBoard = () => {
   }
 };
 
-export const BigFunction = () => {
+export const State = () => {
+  // const [pgnBoardArray, setPgnBoardArray] = useState(null);
+
   return (
     <div>
-      <div>
-        <Visualizer
-          setPos={setPos}
-          currentHoverPosition={currentHoverPosition}
-          getPos={getPos}
-          updatePgnBoardArray={updatePgnBoardArray}
-          getNextBoard={getNextBoard}
-          getPreviousBoard={getPreviousBoard}
-          resetMoveNum={resetMoveNum}
-          getFirstBoard={getFirstBoard}
-          getLastBoard={getLastBoard}
-        />
-      </div>
+      <Visualizer
+        pgnBoardArray={pgnBoardArray}
+        // setPgnBoardArray={setPgnBoardArray}
+        updatePgnBoardArray={updatePgnBoardArray}
+        resetMoveNum={resetMoveNum}
+      />
     </div>
   );
 };

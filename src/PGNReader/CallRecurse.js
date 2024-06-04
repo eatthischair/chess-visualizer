@@ -1,13 +1,13 @@
-import {pieceType, toMatrixCoords} from '../utils/PureFuncs';
-import moveBRandQ from './MoveBRandQ';
-import handleCastles from './HandleCastles';
-import handleCollisions from './HandleCollisions';
+import {pieceType, toMatrixCoords} from '../utils/PureFuncs.js';
+import moveBRandQ from './MoveBRandQ.js';
+import handleCastles from './HandleCastles.js';
+import handleCollisions from './HandleCollisions.js';
 import {
   movePawnKnightandKing,
   determinePawnVals,
   queeningPawn,
 } from './MovePNandK.js';
-import CheckForAbsolutePin from '../ColorCalcFunctions/CheckForAbsolutePin';
+import CheckForAbsolutePin from '../ColorCalcFunctions/CheckForAbsolutePin.js';
 import {recurseCallObj, kingSqVals, knightSqVals} from '../utils/Constants.js';
 const CallRecurse = (
   pgnItem,

@@ -1,4 +1,4 @@
-import {setPos} from '../ContextFiles/BigFunction';
+import {setPos} from '../ContextFiles/State';
 
 export const RenderCell = ({keyString, color, piece, matrixIndex}) => {
   return (
