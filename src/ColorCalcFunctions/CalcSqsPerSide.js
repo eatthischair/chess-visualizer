@@ -1,72 +1,30 @@
 /* eslint-disable no-loop-func */
-import isInBounds from "../HelperFunctions/IsInBounds";
-import checkForAbsolutePin from "./CheckForAbsolutePin";
-
-const calcSqsPerSide = (positionBoard, alwaysEmptyMatrix, calcForWhite) => {
+import {isInBounds} from '../utils/PureFuncs';
+import checkForAbsolutePin from './CheckForAbsolutePin';
+import {emptyMatrix} from '../utils/Constants';
+import {
+  kingSqVals,
+  knightSqVals,
+  whitePawnVals,
+  blackPawnVals,
+  recurseCallObj,
+} from '../utils/Constants';
+const CalcSqsPerSide = (positionBoard, calcForWhite) => {
   //each Vals array corresponds to the X and Y increment values a piece can move to from the square it is currently placed. Kings, Knights, and Pawns have static values while Queens, Rooks and Bishops can be blocked
-  let kingSqVals = [
-    [-1, -1],
-    [-1, 0],
-    [-1, 1],
-    [0, -1],
-    [0, 1],
-    [1, -1],
-    [1, 0],
-    [1, 1],
-  ];
-  let knightSqVals = [
-    [-2, -1],
-    [-2, 1],
-    [-1, 2],
-    [1, 2],
-    [2, 1],
-    [2, -1],
-    [-1, -2],
-    [1, -2],
-  ];
-  let whitePawnVals = [
-    [-1, -1],
-    [-1, 1],
-  ];
-  let blackPawnVals = [
-    [1, 1],
-    [1, -1],
-  ];
   let pawnVals;
   calcForWhite ? (pawnVals = whitePawnVals) : (pawnVals = blackPawnVals);
 
-  //this object is used for all pieces. When a piece is absolutely pinned (i.e. moving the piece would result in the King being captured, it cannot move except along the diagonal/file/rank it is pinned on, which is why the calls are organized in the cardinal directions). If a piece is pinned, all values are deleted except the cardinal direction by which it is pinned
-  let recurseCallObj = {
-    B: {
-      NE: [
-        [1, -1],
-        [-1, 1],
-      ],
-      NW: [
-        [1, 1],
-        [-1, -1],
-      ],
-    },
-    R: {
-      N: [
-        [1, 0],
-        [-1, 0],
-      ],
-      W: [
-        [0, -1],
-        [0, 1],
-      ],
-    },
-    P: {
-      NW: pawnVals[0],
-      NE: pawnVals[1],
-    },
+  recurseCallObj.P = {
+    NW: pawnVals[0],
+    NE: pawnVals[1],
   };
+  //this object is used for all pieces. When a piece is absolutely pinned (i.e. moving the piece would result in the King being captured, it cannot move except along the diagonal/file/rank it is pinned on, which is why the calls are organized in the cardinal directions). If a piece is pinned, all values are deleted except the cardinal direction by which it is pinned
+
   //this returns an array of the pinned pieces (if there are any) for the side that is being calculated, with their callObj only containing the direction it is pinned.
   let pinnedPieceArray = checkForAbsolutePin(
     positionBoard,
     calcForWhite,
-    recurseCallObj
+    recurseCallObj,
   );
 
   const checkDiagonals = (index, checkType, isWhitePiece, callObj) => {
@@ -100,12 +58,12 @@ const calcSqsPerSide = (positionBoard, alwaysEmptyMatrix, calcForWhite) => {
           positionBoard[newRow][newColumn].toUpperCase();
         sqPiece = sqPiece.toUpperCase();
         let bothSameColor = isWhitePiece === sqPieceIsWhite;
-        let samePieceType = sqPiece[0] === checkType || sqPiece[0] === "Q";
-        let pieceIsOppKing = sqPiece === "K1" && !bothSameColor;
+        let samePieceType = sqPiece[0] === checkType || sqPiece[0] === 'Q';
+        let pieceIsOppKing = sqPiece === 'K1' && !bothSameColor;
         //this is because bishops and queens can recapture on a square a pawn captures on
         let pawnBattery =
-          checkType === "B" &&
-          sqPiece[0] === "P" &&
+          checkType === 'B' &&
+          sqPiece[0] === 'P' &&
           ((isWhitePiece && incrementX === -1) ||
             (!isWhitePiece && incrementX === 1));
 
@@ -129,7 +87,7 @@ const calcSqsPerSide = (positionBoard, alwaysEmptyMatrix, calcForWhite) => {
     for (let key in callObj) {
       let callIncrementsArray = callObj[key];
       if (callIncrementsArray.length !== 0) {
-        callIncrementsArray.forEach((callIncrement) => {
+        callIncrementsArray.forEach(callIncrement => {
           recursiveFunc(index, callIncrement[0], callIncrement[1]);
         });
       }
@@ -140,15 +98,15 @@ const calcSqsPerSide = (positionBoard, alwaysEmptyMatrix, calcForWhite) => {
   //the deep copies necessary as otherwise all 3 matrices would have the same memory location and overwrite each other
 
   //each value totals the number of times a square is controlled by pieces per side.
-  let sqCtrlBySum = JSON.parse(JSON.stringify(alwaysEmptyMatrix));
+  let sqCtrlBySum = JSON.parse(JSON.stringify(emptyMatrix));
   //each value is equal to the lowest value piece controlling that square, per side, where pawns = 5 and kings = 1
-  let sqCtrlByPriority = JSON.parse(JSON.stringify(alwaysEmptyMatrix));
+  let sqCtrlByPriority = JSON.parse(JSON.stringify(emptyMatrix));
   //each value is equal to the piece on that square, given a priority where pawns = 5 and kings = 1
-  let piecesByPriority = JSON.parse(JSON.stringify(alwaysEmptyMatrix));
+  let piecesByPriority = JSON.parse(JSON.stringify(emptyMatrix));
 
   const updateCallObjandPinStatus = (pinnedPieceArray, callObj, i, j) => {
     let pinned = false;
-    pinnedPieceArray.forEach((item) => {
+    pinnedPieceArray.forEach(item => {
       if (item.pinnedPieceIndex[0] === i && item.pinnedPieceIndex[1] === j) {
         callObj = item.pinnedPieceCallObj;
         pinned = true;
@@ -164,7 +122,7 @@ const calcSqsPerSide = (positionBoard, alwaysEmptyMatrix, calcForWhite) => {
         pinnedPieceArray,
         recurseCallObj,
         i,
-        j
+        j,
       );
 
       let isWhitePiece = sqValue !== 0 && sqValue.toUpperCase() === sqValue;
@@ -172,38 +130,38 @@ const calcSqsPerSide = (positionBoard, alwaysEmptyMatrix, calcForWhite) => {
       let correctPieceColor = calcForWhite === isWhitePiece;
 
       if (correctPieceColor) {
-        if (sqValue[0] === "K") {
+        if (sqValue[0] === 'K') {
           piecesByPriority[i][j] = 1;
-          kingSqVals.forEach((num) => {
+          kingSqVals.forEach(num => {
             let rowIndex = i + num[0];
             let columnIndex = j + num[1];
             if (isInBounds(rowIndex, columnIndex)) {
               sqCtrlBySum[rowIndex][columnIndex] += 1;
               sqCtrlByPriority[rowIndex][columnIndex] = Math.max(
                 sqCtrlByPriority[rowIndex][columnIndex],
-                1
+                1,
               );
             }
           });
         }
-        if (sqValue[0] === "N") {
+        if (sqValue[0] === 'N') {
           piecesByPriority[i][j] = 4;
           //If a knight is pinned, it cannot move at all, which is why we can forgo all calculation if it is
           if (!pinned) {
-            knightSqVals.forEach((num) => {
+            knightSqVals.forEach(num => {
               let rowIndex = i + num[0];
               let columnIndex = j + num[1];
               if (isInBounds(rowIndex, columnIndex)) {
                 sqCtrlBySum[rowIndex][columnIndex] += 1;
                 sqCtrlByPriority[rowIndex][columnIndex] = Math.max(
                   sqCtrlByPriority[rowIndex][columnIndex],
-                  4
+                  4,
                 );
               }
             });
           }
         }
-        if (sqValue[0] === "P") {
+        if (sqValue[0] === 'P') {
           piecesByPriority[i][j] = 5;
           for (let key in callObj.P) {
             let incrementArray = callObj.P[key];
@@ -214,81 +172,81 @@ const calcSqsPerSide = (positionBoard, alwaysEmptyMatrix, calcForWhite) => {
                 sqCtrlBySum[rowIndex][columnIndex] += 1;
                 sqCtrlByPriority[rowIndex][columnIndex] = Math.max(
                   sqCtrlByPriority[rowIndex][columnIndex],
-                  5
+                  5,
                 );
               }
             }
           }
         }
-        if (sqValue[0] === "B") {
+        if (sqValue[0] === 'B') {
           piecesByPriority[i][j] = 4;
           let coordinates = [i, j];
           let diagonalArray = checkDiagonals(
             coordinates,
-            "B",
+            'B',
             isWhitePiece,
-            callObj.B
+            callObj.B,
           );
-          diagonalArray.forEach((square) => {
+          diagonalArray.forEach(square => {
             let row = square[0];
             let column = square[1];
             sqCtrlBySum[row][column] += 1;
             sqCtrlByPriority[row][column] = Math.max(
               sqCtrlByPriority[row][column],
-              4
+              4,
             );
           });
         }
-        if (sqValue[0] === "R") {
+        if (sqValue[0] === 'R') {
           piecesByPriority[i][j] = 3;
           let coordinates = [i, j];
           let rookArray = checkDiagonals(
             coordinates,
-            "R",
+            'R',
             isWhitePiece,
-            callObj.R
+            callObj.R,
           );
-          rookArray.forEach((square) => {
+          rookArray.forEach(square => {
             let row = square[0];
             let column = square[1];
             sqCtrlBySum[row][column] += 1;
             sqCtrlByPriority[row][column] = Math.max(
               sqCtrlByPriority[row][column],
-              3
+              3,
             );
           });
         }
-        if (sqValue[0] === "Q") {
+        if (sqValue[0] === 'Q') {
           piecesByPriority[i][j] = 2;
           let coordinates = [i, j];
           let bishopArray = checkDiagonals(
             coordinates,
-            "B",
+            'B',
             isWhitePiece,
-            callObj.B
+            callObj.B,
           );
-          bishopArray.forEach((square) => {
+          bishopArray.forEach(square => {
             let row = square[0];
             let column = square[1];
             sqCtrlBySum[row][column] += 1;
             sqCtrlByPriority[row][column] = Math.max(
               sqCtrlByPriority[row][column],
-              2
+              2,
             );
           });
           let rookArray = checkDiagonals(
             coordinates,
-            "R",
+            'R',
             isWhitePiece,
-            callObj.R
+            callObj.R,
           );
-          rookArray.forEach((square) => {
+          rookArray.forEach(square => {
             let row = square[0];
             let column = square[1];
             sqCtrlBySum[row][column] += 1;
             sqCtrlByPriority[row][column] = Math.max(
               sqCtrlByPriority[row][column],
-              2
+              2,
             );
           });
         }
@@ -306,4 +264,4 @@ const calcSqsPerSide = (positionBoard, alwaysEmptyMatrix, calcForWhite) => {
   return [sqCtrlBySum, sqCtrlByPriority, piecesByPriority];
 };
 
-export default calcSqsPerSide;
+export default CalcSqsPerSide;

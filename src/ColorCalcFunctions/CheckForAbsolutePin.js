@@ -1,15 +1,15 @@
 /* eslint-disable no-loop-func */
-import isInBounds from "../HelperFunctions/IsInBounds";
+import {isInBounds} from '../utils/PureFuncs';
 
-//this function iterates from the kings location in all cardinal directions to check if there is a piece standing between it and an attacker. If so, the 'sandwiched' piece is 'pinned' (cannot move) except in the direction it is pinned, and its movement will not be calculated in calcSqsPerSide
-const checkForAbsolutePin = (currentBoard, calcForWhite, recurseCallObj) => {
-  var pinnedPieceArray = [];
-  let kingIdToFind = calcForWhite ? "K1" : "k1";
+//this function iterates from the kings location in all cardinal directions to check if there is a piece standing between it and an attacker i.e. sandwiched. If so, the 'sandwiched' piece is 'pinned' (cannot move) except in the direction it is pinned, its location is recorded, and its movement will not be calculated in calcSqsPerSide EXCEPT in the direction it can still move in.
+const CheckForAbsolutePin = (currentBoard, calcForWhite, recurseCallObj) => {
+  let pinnedPieceArray = [];
+  let kingIdToFind = calcForWhite ? 'K1' : 'k1';
   let kingIndex = null;
 
   //find the index of the king we are calculating for
-  for (var i = 0; i < 8; i++) {
-    for (var j = 0; j < 8; j++) {
+  for (let i = 0; i < 8; i++) {
+    for (let j = 0; j < 8; j++) {
       if (currentBoard[i][j] === kingIdToFind) {
         kingIndex = [i, j];
       }
@@ -23,10 +23,9 @@ const checkForAbsolutePin = (currentBoard, calcForWhite, recurseCallObj) => {
     pieceisSandwiched,
     sandwichedPieceIndex,
     checkType,
-    checkDirection
+    checkDirection,
   ) => {
     var newIndex = [index[0] + incrementY, index[1] + incrementX];
-    // var inBounds = isInBounds(newIndex[0], newIndex[1]);
     if (!isInBounds(newIndex[0], newIndex[1])) return;
 
     var newIndexValue = currentBoard[newIndex[0]][newIndex[1]];
@@ -45,7 +44,7 @@ const checkForAbsolutePin = (currentBoard, calcForWhite, recurseCallObj) => {
             true,
             newIndex,
             checkType,
-            checkDirection
+            checkDirection,
           );
         } else {
           return;
@@ -55,7 +54,7 @@ const checkForAbsolutePin = (currentBoard, calcForWhite, recurseCallObj) => {
         if (pieceisSandwiched) {
           let conformedPieceType = newIndexValue[0].toUpperCase();
           let pieceIsPinning =
-            conformedPieceType === checkType || conformedPieceType === "Q";
+            conformedPieceType === checkType || conformedPieceType === 'Q';
           if (pieceIsPinning) {
             //come back later and see if deep copy is necessary
             let recurseCallObjCopy = JSON.parse(JSON.stringify(recurseCallObj));
@@ -84,7 +83,7 @@ const checkForAbsolutePin = (currentBoard, calcForWhite, recurseCallObj) => {
         pieceisSandwiched,
         sandwichedPieceIndex,
         checkType,
-        checkDirection
+        checkDirection,
       );
     }
   };
@@ -92,7 +91,7 @@ const checkForAbsolutePin = (currentBoard, calcForWhite, recurseCallObj) => {
   //iterate in all 8 directions
   for (var checkType in recurseCallObj) {
     for (var checkDirection in recurseCallObj[checkType]) {
-      recurseCallObj[checkType][checkDirection].forEach((callIncrements) => {
+      recurseCallObj[checkType][checkDirection].forEach(callIncrements => {
         if (kingIndex) {
           recurseFunction(
             kingIndex,
@@ -101,7 +100,7 @@ const checkForAbsolutePin = (currentBoard, calcForWhite, recurseCallObj) => {
             false,
             null,
             checkType,
-            checkDirection
+            checkDirection,
           );
         }
       });
@@ -111,4 +110,4 @@ const checkForAbsolutePin = (currentBoard, calcForWhite, recurseCallObj) => {
   return pinnedPieceArray;
 };
 
-export default checkForAbsolutePin;
+export default CheckForAbsolutePin;
