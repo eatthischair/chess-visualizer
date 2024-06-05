@@ -6,6 +6,7 @@ export const UseBoardArray = () => {
 
   const updateBoardArray = boardArray => {
     boardArrayStorage.current = boardArray;
+    moveNum.current = -1;
   };
 
   const removeBoardArray = () => {

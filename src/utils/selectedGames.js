@@ -28,10 +28,6 @@ export const SelectedGames = [
  [Result "0-1"]
  [White "Robert Eugene Byrne"]
  [Black "Robert James Fischer"]
- [ECO "E60"]
- [WhiteElo "?"]
- [BlackElo "?"]
- [PlyCount "42"]
 
  1. d4 {Notes from various sources.} Nf6 2. c4 g6 3. g3 c6
  4. Bg2 d5 5. cxd5 {5.Qb3 maintains more tension. -- Fischer}

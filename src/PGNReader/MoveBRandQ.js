@@ -123,6 +123,7 @@ const moveBRandQ = (
       ],
     },
   };
+
   let callObj;
   if (type === 'B') {
     callObj = recurseCallObj.B;

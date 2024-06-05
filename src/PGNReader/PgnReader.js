@@ -1,6 +1,5 @@
 import callRecurse from './CallRecurse';
 import {initialBoard} from '../utils/Constants';
-import IsValid from './CheckIfValid';
 const PgnReader = pgn => {
   let pgnStart;
   let foundStart = false;
@@ -146,8 +145,23 @@ const PgnReader = pgn => {
     boardArray.push(nextBoard);
   });
 
-  let pgnIsValid = IsValid(boardArray);
+  let pgnIsValid = true;
+  //if a move did not get read properly, this will throw an error
 
+  boardArray.forEach((board, index) => {
+    if (index > 0) {
+      if (
+        JSON.stringify(boardArray[index]) ===
+          JSON.stringify(boardArray[index - 1]) ||
+        boardArray[index] === undefined
+      ) {
+        pgnIsValid = false;
+      }
+    }
+  });
+  if (!boardArray) {
+    pgnIsValid = false;
+  }
   return {boardArray, pgnIsValid};
 };
 

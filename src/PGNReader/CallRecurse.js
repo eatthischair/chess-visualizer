@@ -1,14 +1,14 @@
-import {pieceType, toMatrixCoords} from '../utils/PureFuncs.js';
-import moveBRandQ from './MoveBRandQ.js';
-import handleCastles from './HandleCastles.js';
-import handleCollisions from './HandleCollisions.js';
+import {pieceType, toMatrixCoords} from '../utils/PureFuncs';
+import moveBRandQ from './MoveBRandQ';
+import handleCastles from './HandleCastles';
+import handleCollisions from './HandleCollisions';
 import {
   movePawnKnightandKing,
   determinePawnVals,
   queeningPawn,
 } from './MovePNandK.js';
-import CheckForAbsolutePin from '../ColorCalcFunctions/CheckForAbsolutePin.js';
-import {recurseCallObj, kingSqVals, knightSqVals} from '../utils/Constants.js';
+import CheckForAbsolutePin from '../ColorCalcFunctions/CheckForAbsolutePin';
+import {kingSqVals, knightSqVals} from '../utils/Constants.js';
 const CallRecurse = (
   pgnItem,
   calcForWhite,
@@ -25,6 +25,31 @@ const CallRecurse = (
   let slice = JSON.parse(JSON.stringify(board));
   let piece = pieceType(pgnItem[0], calcForWhite);
   let nextBoard;
+
+  //for whatever reason this breaks when imported from ../utils/Constants even though console.logs confirm its the same
+  const recurseCallObj = {
+    B: {
+      NE: [
+        [1, -1],
+        [-1, 1],
+      ],
+      NW: [
+        [1, 1],
+        [-1, -1],
+      ],
+    },
+    R: {
+      N: [
+        [1, 0],
+        [-1, 0],
+      ],
+      W: [
+        [0, -1],
+        [0, 1],
+      ],
+    },
+  };
+  console.log('recurseallcl', recurseCallObj);
 
   let pinnedPieces = CheckForAbsolutePin(board, calcForWhite, recurseCallObj);
   let pinnedPiecesIndices = pinnedPieces.map(piece => piece.pinnedPieceIndex);
@@ -132,7 +157,7 @@ const CallRecurse = (
       nextBoard = handleCastles(calcForWhite, board, pgnItem);
     }
   }
-  // console.log('NEXT BOARD', nextBoard);
+  console.log('NEXT BOARD', nextBoard);
   return nextBoard;
 };
 
