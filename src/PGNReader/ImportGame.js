@@ -1,8 +1,8 @@
 const ImportGame = ({pgnInput, readPgn, pgnValid, currentPgn}) => {
   return (
-    <div>
+    <div className="flex justify-center">
       <button
-        className="flex flex-initial btn-secondary w-32 bg-inherit"
+        className="btn-secondary w-32 bg-inherit"
         onClick={() => document.getElementById('my_modal_2').showModal()}>
         Import Game
       </button>

@@ -11,6 +11,7 @@ import RightSidebar from './SideAndBottomBars/RightSideBar.jsx';
 import BottomBar from './SideAndBottomBars/BottomBar';
 import LeftSideBar from './SideAndBottomBars/LeftSideBar';
 import {UseBoardArray} from './CustomHooks/UseBoardArray';
+import {Header} from './Header';
 
 const Visualizer = () => {
   //board displayed on  app
@@ -69,19 +70,13 @@ const Visualizer = () => {
 
   return (
     <div>
-      <div className="mt-2"></div>
-      <h1 className="flex justify-center body-font font-GreatVibes text-6xl mt-4">
-        Chess Visualizer
-      </h1>
-      <div className="flex justify-center">
-        {playerNames ? playerNames : <br></br>}
-      </div>
+      <Header playerNames={playerNames}></Header>
 
       <div className="flex justify-center h-[520px] m-0">
-        <div>
+        <aside>
           <LeftSideBar readPgn={readPgn} />
-        </div>
-        <div className="flex">
+        </aside>
+        <main className="flex">
           <CalcSqs
             blackCtrlOn={blackCtrlOn}
             whiteCtrlOn={whiteCtrlOn}
@@ -90,8 +85,8 @@ const Visualizer = () => {
             alwaysEmptyMatrix={emptyMatrix}
             boardIsFlipped={boardIsFlipped}
           />
-        </div>
-        <div className="flex">
+        </main>
+        <aside className="flex">
           <RightSidebar
             setCurrentBoard={setCurrentBoard}
             pieceObj={pieceObj}
@@ -104,19 +99,17 @@ const Visualizer = () => {
             boardIsFlipped={boardIsFlipped}
             getFirstBoard={getFirstBoard}
           />
-        </div>
+        </aside>
       </div>
-      <div className="grid grid-rows-2 justify-center gap-x-32 mt-24">
-        <div>
-          <BottomBar
-            currentPgn={currentPgn}
-            setCurrentBoard={setCurrentBoard}
-            getNextBoard={getNextBoard}
-            getPreviousBoard={getPreviousBoard}
-            getFirstBoard={getFirstBoard}
-            getLastBoard={getLastBoard}
-          />
-        </div>
+      <div className="grid gap-x-32 mt-24">
+        <BottomBar
+          currentPgn={currentPgn}
+          setCurrentBoard={setCurrentBoard}
+          getNextBoard={getNextBoard}
+          getPreviousBoard={getPreviousBoard}
+          getFirstBoard={getFirstBoard}
+          getLastBoard={getLastBoard}
+        />
         <ImportGame
           pgnInput={pgnInput}
           readPgn={readPgn}
