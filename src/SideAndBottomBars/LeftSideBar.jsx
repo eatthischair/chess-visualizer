@@ -1,5 +1,5 @@
-import ParsePlayerNames from '../PGNReader/ParsePlayerNames';
-import {SelectedGames} from '../utils/SelectedGames';
+import ParsePlayerNames from '../PGNReader/ParsePlayerNames.js';
+import {SelectedGames} from '../utils/SelectedGames.js';
 
 const LeftSideBar = ({readPgn}) => {
   return (
