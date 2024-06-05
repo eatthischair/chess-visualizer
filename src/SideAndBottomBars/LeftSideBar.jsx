@@ -1,5 +1,5 @@
-import ParsePlayerNames from '../PGNReader/ParsePlayerNames.js';
-import {selectedGames} from '../utils/SelectedGames.js';
+import ParsePlayerNames from '../PGNReader/ParsePlayerNames';
+import {SelectedGames} from '../utils/SelectedGames';
 
 const LeftSideBar = ({readPgn}) => {
   return (
@@ -10,7 +10,7 @@ const LeftSideBar = ({readPgn}) => {
             Selected Games
           </div>
         </div>
-        {selectedGames.map((game, index) => (
+        {SelectedGames.map((game, index) => (
           <div
             key={game}
             onClick={() => {

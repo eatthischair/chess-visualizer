@@ -1,4 +1,4 @@
-export const selectedGames = [
+export const SelectedGames = [
   `[Event "Paris"]
   [Site "Paris FRA"]
   [Date "1858.??.??"]
