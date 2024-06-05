@@ -2,67 +2,24 @@
 import {isInBounds} from '../utils/PureFuncs';
 import checkForAbsolutePin from './CheckForAbsolutePin';
 import {emptyMatrix} from '../utils/Constants';
-
+import {
+  kingSqVals,
+  knightSqVals,
+  whitePawnVals,
+  blackPawnVals,
+  recurseCallObj,
+} from '../utils/Constants';
 const CalcSqsPerSide = (positionBoard, calcForWhite) => {
   //each Vals array corresponds to the X and Y increment values a piece can move to from the square it is currently placed. Kings, Knights, and Pawns have static values while Queens, Rooks and Bishops can be blocked
-  let kingSqVals = [
-    [-1, -1],
-    [-1, 0],
-    [-1, 1],
-    [0, -1],
-    [0, 1],
-    [1, -1],
-    [1, 0],
-    [1, 1],
-  ];
-  let knightSqVals = [
-    [-2, -1],
-    [-2, 1],
-    [-1, 2],
-    [1, 2],
-    [2, 1],
-    [2, -1],
-    [-1, -2],
-    [1, -2],
-  ];
-  let whitePawnVals = [
-    [-1, -1],
-    [-1, 1],
-  ];
-  let blackPawnVals = [
-    [1, 1],
-    [1, -1],
-  ];
   let pawnVals;
   calcForWhite ? (pawnVals = whitePawnVals) : (pawnVals = blackPawnVals);
 
-  //this object is used for all pieces. When a piece is absolutely pinned (i.e. moving the piece would result in the King being captured, it cannot move except along the diagonal/file/rank it is pinned on, which is why the calls are organized in the cardinal directions). If a piece is pinned, all values are deleted except the cardinal direction by which it is pinned
-  let recurseCallObj = {
-    B: {
-      NE: [
-        [1, -1],
-        [-1, 1],
-      ],
-      NW: [
-        [1, 1],
-        [-1, -1],
-      ],
-    },
-    R: {
-      N: [
-        [1, 0],
-        [-1, 0],
-      ],
-      W: [
-        [0, -1],
-        [0, 1],
-      ],
-    },
-    P: {
-      NW: pawnVals[0],
-      NE: pawnVals[1],
-    },
+  recurseCallObj.P = {
+    NW: pawnVals[0],
+    NE: pawnVals[1],
   };
+  //this object is used for all pieces. When a piece is absolutely pinned (i.e. moving the piece would result in the King being captured, it cannot move except along the diagonal/file/rank it is pinned on, which is why the calls are organized in the cardinal directions). If a piece is pinned, all values are deleted except the cardinal direction by which it is pinned
+
   //this returns an array of the pinned pieces (if there are any) for the side that is being calculated, with their callObj only containing the direction it is pinned.
   let pinnedPieceArray = checkForAbsolutePin(
     positionBoard,

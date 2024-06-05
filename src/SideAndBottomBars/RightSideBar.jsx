@@ -1,9 +1,9 @@
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faTrashCan} from '@fortawesome/free-solid-svg-icons';
 import {useState} from 'react';
-import {initialBoard} from '../utils/Constants.js';
 import RenderPieces from '../utils/RenderPieces.js';
-import {resetMoveNum, setPos} from '../ContextFiles/State.jsx';
+import {setPos} from '../ContextFiles/MousePos.jsx';
+
 const Sidebar = ({
   pieceObj,
   clearBoard,
@@ -14,13 +14,9 @@ const Sidebar = ({
   setBoardIsFlipped,
   boardIsFlipped,
   setCurrentBoard,
+  getFirstBoard,
 }) => {
   const [showPieceElements, setShowPieceElements] = useState(false);
-
-  const startingPosition = () => {
-    resetMoveNum();
-    setCurrentBoard(initialBoard);
-  };
 
   return (
     <div className="flex w-64 h-[400px] shadow-md">
@@ -29,7 +25,7 @@ const Sidebar = ({
           <button
             className="btn-secondary"
             onClick={() => {
-              startingPosition();
+              setCurrentBoard(getFirstBoard());
             }}>
             Starting Position
           </button>
@@ -59,7 +55,7 @@ const Sidebar = ({
               </div>
               <div
                 className="w-16 h-12 text-[40px] text-gray-400 ml-2"
-                onDragOver={() => setPos(false)}>
+                onDragOver={() => setPos(null)}>
                 <FontAwesomeIcon icon={faTrashCan} />
               </div>
             </div>

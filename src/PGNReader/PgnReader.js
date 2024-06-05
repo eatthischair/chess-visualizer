@@ -1,6 +1,7 @@
-import callRecurse from "./CallRecurse";
-
-const PgnReader = (initialBoard, pgn) => {
+import callRecurse from './CallRecurse';
+import {initialBoard} from '../utils/Constants';
+import IsValid from './CheckIfValid';
+const PgnReader = pgn => {
   let pgnStart;
   let foundStart = false;
   let commentIndexes = [];
@@ -10,37 +11,37 @@ const PgnReader = (initialBoard, pgn) => {
   let commentNestCounter = 0;
   //filter pgndata (contained within []) and comments
   //really wish i learned regex before writing this lmao
-  let pgnArray = pgn.split("");
+  let pgnArray = pgn.split('');
 
   for (let i = 0; i < pgnArray.length; i++) {
     //this is to find the "1." that always precedes a game, thus the start of the moves in the PGN
-    if (pgnArray[i] === "1" && !foundStart && !insidePgnData) {
-      if (pgnArray[i + 1] === ".") {
+    if (pgnArray[i] === '1' && !foundStart && !insidePgnData) {
+      if (pgnArray[i + 1] === '.') {
         pgnStart = i;
-        pgnArray.slice(i).join("");
+        pgnArray.slice(i).join('');
         foundStart = true;
       }
     }
     //in PGN format, all comments are nested within {}, so this operation parses out all text inside curly braces.
 
-    if (pgnArray[i] === "{") {
+    if (pgnArray[i] === '{') {
       commentIndexes.push(i);
       insideOfComment = true;
     }
-    if (pgnArray[i] === "}") {
+    if (pgnArray[i] === '}') {
       commentIndexes.push(i);
       insideOfComment = false;
     }
     //PGN comments can also be nested using (). this operations records the outermost layer of comments, and later removes all text inside
     if (!insideOfComment) {
-      if (pgnArray[i] === "(") {
+      if (pgnArray[i] === '(') {
         commentNestCounter++;
         //only push index of first parentheses
         if (commentNestCounter === 1) {
           commentIndexes.push(i);
         }
       }
-      if (pgnArray[i] === ")") {
+      if (pgnArray[i] === ')') {
         commentNestCounter--;
         //only push index of last of nested parentheses
         if (commentNestCounter === 0) {
@@ -49,11 +50,11 @@ const PgnReader = (initialBoard, pgn) => {
       }
     }
     //this is for the data at the beginning of some PGNs. sometimes a "1." might be included in the date and mess up the start of the pgn, so it is necessary to know where it ends and begins, and delete all text inside
-    if (pgnArray[i] === "[") {
+    if (pgnArray[i] === '[') {
       dataIndexes.push(i);
       insidePgnData = true;
     }
-    if (pgnArray[i] === "]") {
+    if (pgnArray[i] === ']') {
       dataIndexes.push(i);
       insidePgnData = false;
     }
@@ -62,7 +63,7 @@ const PgnReader = (initialBoard, pgn) => {
   for (let i = 0; i < dataIndexes.length; i += 2) {
     pgnArray
       .slice(dataIndexes[i] + 1, dataIndexes[i + 1])
-      .join("")
+      .join('')
       .split("'");
   }
 
@@ -70,28 +71,28 @@ const PgnReader = (initialBoard, pgn) => {
   commentIndexes.unshift(pgnStart - 1);
 
   let noComments = [];
-  let resultStr = "";
+  let resultStr = '';
 
   //this for loop slices all text that is not inside a comment, to concat into a single string
   for (let i = 0; i < commentIndexes.length; i += 2) {
     let slice = pgnArray.slice(commentIndexes[i] + 1, commentIndexes[i + 1]);
-    let newslice = slice.join("").split("\n").join(" ");
+    let newslice = slice.join('').split('\n').join(' ');
     noComments.push(newslice);
-    slice.join(",");
+    slice.join(',');
     resultStr += newslice;
   }
-  let newResultStr = resultStr.split(" ");
+  let newResultStr = resultStr.split(' ');
 
   //at this point all superflous PGN data/comments have been parsed. Now we delete all superflous items of the game moves
   let parsedArray = [];
   //this parses out move numbers, turning "2.Nf3" into "Nf3"
-  newResultStr.forEach((item) => {
-    let dotIndex = item.indexOf(".");
+  newResultStr.forEach(item => {
+    let dotIndex = item.indexOf('.');
     if (dotIndex !== -1) {
       let isMoveNum = item[dotIndex + 1] === undefined;
       if (!isMoveNum) {
         item = item.slice(dotIndex + 1);
-        if (item !== "..") {
+        if (item !== '..') {
           parsedArray.push(item);
         }
       }
@@ -102,26 +103,26 @@ const PgnReader = (initialBoard, pgn) => {
 
   let cleanPgn = [];
   let comments = [
-    "??",
-    "!?",
-    "!!",
-    "?!",
-    "?",
-    "!",
-    "x",
-    "+",
-    "#",
-    "1-0",
-    "1/2-1/2",
-    "0-1",
-    "*",
+    '??',
+    '!?',
+    '!!',
+    '?!',
+    '?',
+    '!',
+    'x',
+    '+',
+    '#',
+    '1-0',
+    '1/2-1/2',
+    '0-1',
+    '*',
   ];
 
   //parse all superflous symbols
-  parsedArray.forEach((item) => {
-    comments.forEach((comment) => {
+  parsedArray.forEach(item => {
+    comments.forEach(comment => {
       if (item.includes(comment)) {
-        item = item.split(`${comment}`).join("");
+        item = item.split(`${comment}`).join('');
       }
     });
 
@@ -140,29 +141,14 @@ const PgnReader = (initialBoard, pgn) => {
       calcForWhite,
       boardArray,
       initialBoard,
-      prevItem
+      prevItem,
     );
     boardArray.push(nextBoard);
   });
 
-  let pgnIsValid = true;
-  //if a move did not get read properly, this will throw an error
+  let pgnIsValid = IsValid(boardArray);
 
-  boardArray.forEach((board, index) => {
-    if (index > 0) {
-      if (
-        JSON.stringify(boardArray[index]) ===
-          JSON.stringify(boardArray[index - 1]) ||
-        boardArray[index] === undefined
-      ) {
-        pgnIsValid = false;
-      }
-    }
-  });
-  if (!boardArray) {
-    pgnIsValid = false;
-  }
-  return { boardArray, pgnIsValid };
+  return {boardArray, pgnIsValid};
 };
 
 export default PgnReader;

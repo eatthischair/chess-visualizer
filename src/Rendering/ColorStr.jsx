@@ -29,11 +29,6 @@ export const NullString = (
   let color;
   if (colorMatrix && colorMatrixStack) {
     if (colorMatrix[row][column] !== colorMatrixStack[row][column]) {
-      // console.log('color has changed', 'row', row, 'column', column);
-      // colorMatrix[row][column] > 0
-      //   ? (color = 'nullPink')
-      //   : (color = 'nullBlue');
-      // if (colorMatrix[row][column] === 0) color = 'nullSquare';
       color = 'nullSquare';
     } else {
       color = NormalString(colorSum, matrixIndex);

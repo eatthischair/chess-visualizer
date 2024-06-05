@@ -1,8 +1,7 @@
-import GrabTitle from '../PGNReader/GrabTitle.js';
+import ParsePlayerNames from '../PGNReader/ParsePlayerNames.js';
 import {selectedGames} from '../utils/SelectedGames.js';
 
 const LeftSideBar = ({readPgn}) => {
-  console.log('leftsidebar', readPgn);
   return (
     <div className="flex justify-center h-[520px] m-0">
       <div className="w-64 h-[520px] overflow-x-clip overflow-y-scroll">
@@ -15,10 +14,10 @@ const LeftSideBar = ({readPgn}) => {
           <div
             key={game}
             onClick={() => {
-              readPgn(index);
+              readPgn(game);
             }}
             className="btn-tertiary shadow-md">
-            {GrabTitle(game)}
+            {ParsePlayerNames(game)}
           </div>
         ))}
       </div>

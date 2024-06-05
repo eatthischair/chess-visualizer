@@ -1,9 +1,8 @@
-import {getPos} from '../ContextFiles/State.jsx';
+import {getPos} from '../ContextFiles/MousePos.jsx';
 
 const MovePiece = (pieceId, setCurrentBoard, currentBoard) => {
   let squareId = getPos();
   let boardMatrix = JSON.parse(JSON.stringify(currentBoard));
-  console.log('MOVEPIECE', 'curboard', currentBoard, 'matrix', boardMatrix);
   let pieceIsOnBoard = false;
   let pieceType = pieceId[0];
   let pieceTypeCounter = 0;

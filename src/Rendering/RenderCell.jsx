@@ -1,4 +1,4 @@
-import {setPos} from '../ContextFiles/State';
+import {setPos} from '../ContextFiles/MousePos';
 
 export const RenderCell = ({keyString, color, piece, matrixIndex}) => {
   return (

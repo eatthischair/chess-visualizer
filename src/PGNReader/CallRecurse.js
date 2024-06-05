@@ -132,7 +132,7 @@ const CallRecurse = (
       nextBoard = handleCastles(calcForWhite, board, pgnItem);
     }
   }
-  console.log('NEXT BOARD', nextBoard);
+  // console.log('NEXT BOARD', nextBoard);
   return nextBoard;
 };
 

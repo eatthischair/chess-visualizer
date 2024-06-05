@@ -5,37 +5,29 @@ import {
   faForwardStep,
   faForwardFast,
 } from '@fortawesome/free-solid-svg-icons';
-import {
+import useKeyboardNavigation from '../CustomHooks/UseKeyboardNavigation';
+
+const BottomBar = ({
+  currentPgn,
+  setCurrentBoard,
   getNextBoard,
   getPreviousBoard,
   getLastBoard,
   getFirstBoard,
-} from '../ContextFiles/State';
-import useKeyboardNavigation from '../CustomHooks/UseKeyboardNavigation';
-import {reducer, initialState} from '../ContextFiles/Reducer';
-import {useReducer} from 'react';
-import {initialBoard} from '../utils/Constants.js';
-
-export const BottomBar = ({currentPgn, setCurrentBoard}) => {
-  const [state, dispatch] = useReducer(reducer, initialState);
-
+}) => {
   //arrow key event listeners
   const first = () => {
-    dispatch({type: 'RESET_MOVE_NUM', payload: -1});
-    setCurrentBoard(initialBoard);
+    setCurrentBoard(getFirstBoard());
   };
 
   const next = () => {
-    console.log('heh', dispatch({type: 'GET_NEXT_BOARD', payload: -1}));
-
     setCurrentBoard(getNextBoard());
   };
   const prev = () => {
     setCurrentBoard(getPreviousBoard());
   };
   const last = () => {
-    let lastBoard = getLastBoard();
-    if (lastBoard) setCurrentBoard(getLastBoard());
+    setCurrentBoard(getLastBoard());
   };
   useKeyboardNavigation(next, prev, last, first);
 
@@ -62,3 +54,5 @@ export const BottomBar = ({currentPgn, setCurrentBoard}) => {
     </div>
   );
 };
+
+export default BottomBar;

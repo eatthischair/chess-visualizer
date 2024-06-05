@@ -7,7 +7,7 @@ const usePreviousColorMatrix = colorMatrix => {
     setColorMatrixStack(prevStack => {
       const newStack = [...prevStack, colorMatrix];
       if (newStack.length >= 3) {
-        newStack.shift(); // Remove the oldest entry if the stack size exceeds 2
+        newStack.shift();
       }
       return newStack;
     });

@@ -24,9 +24,9 @@ export const pieceType = (pieceString, isWhitePiece) => {
   return pieceString;
 };
 
-//--***********************/
+//-----------------------/
 //takes coordination from PGN Notation (e.g. 'e4') and converts to coordinates on the 2d array [5, 5]
-//--***********************/
+//-----------------------/
 export const toMatrixCoords = notationCoords => {
   let yIndex = notationCoords.charCodeAt(0) - 97;
   let xIndex = Math.abs(notationCoords[1] - 8);

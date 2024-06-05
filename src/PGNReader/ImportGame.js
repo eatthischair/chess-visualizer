@@ -1,4 +1,4 @@
-const ImportGame = ({pgnInput, readPgn, pgnValid}) => {
+const ImportGame = ({pgnInput, readPgn, pgnValid, currentPgn}) => {
   return (
     <div>
       <button
@@ -24,7 +24,7 @@ const ImportGame = ({pgnInput, readPgn, pgnValid}) => {
             cols="50"></textarea>
           <button
             className="flex btn-secondary w-32 min-w-32 max-w-32 place-self-end text-center"
-            onClick={() => readPgn()}
+            onClick={() => readPgn(currentPgn)}
             type="button">
             Render Game
           </button>

@@ -9,6 +9,9 @@ const RenderBoard = ({currentBoard, pieceObj, colorMatrix, boardIsFlipped}) => {
   const [board, setBoard] = useState(initialBoard);
 
   //this useEffect is to re-render to the board twice using view transitions
+  //first slightly discolors squares that have changed values to highlight how pieces move,
+  //second renders the 'correct' square colors
+
   useEffect(() => {
     let boardToMap = currentBoard;
 
