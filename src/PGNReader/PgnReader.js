@@ -16,7 +16,6 @@ const PgnReader = pgn => {
     .trim()
     .replace(/\s+/g, ' ')
     .split(' ');
-  // console.log('REGEXP', cleanPgn);
 
   var boardArray = [];
   cleanPgn.forEach((item, index) => {

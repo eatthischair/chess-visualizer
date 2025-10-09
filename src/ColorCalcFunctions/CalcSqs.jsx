@@ -1,5 +1,5 @@
 import React from 'react';
-import calcSqsPerSide from './CalcSqsPerSide';
+import calcSqsPerSide from './calcSqsPerSide';
 import RenderBoard from '../Rendering/RenderBoard';
 import {emptyMatrix} from '../utils/Constants.js';
 

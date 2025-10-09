@@ -51,6 +51,7 @@ export const UseBoardArray = () => {
       return initialBoard;
     }
   };
+  
   return {
     updateBoardArray,
     getNextBoard,

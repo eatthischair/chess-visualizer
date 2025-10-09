@@ -1,6 +1,6 @@
 /* eslint-disable no-loop-func */
 import {isInBounds} from '../utils/PureFuncs';
-import checkForAbsolutePin from './CheckForAbsolutePin';
+import checkForAbsolutePin from './checkForAbsolutePin';
 import {emptyMatrix} from '../utils/Constants';
 import {
   kingSqVals,

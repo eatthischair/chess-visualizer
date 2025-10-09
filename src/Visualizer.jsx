@@ -69,14 +69,13 @@ const Visualizer = () => {
   };
 
   return (
-    <div>
+    <div className="">
       <Header playerNames={playerNames}></Header>
-
       <div className="flex justify-center h-[520px] m-0">
         <aside>
           <LeftSideBar readPgn={readPgn} />
         </aside>
-        <main className="flex">
+        <main className="">
           <CalcSqs
             blackCtrlOn={blackCtrlOn}
             whiteCtrlOn={whiteCtrlOn}

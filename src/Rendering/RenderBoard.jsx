@@ -8,7 +8,7 @@ const RenderBoard = ({currentBoard, pieceObj, colorMatrix, boardIsFlipped}) => {
   const [colorMatrixStack] = usePreviousColorMatrix(colorMatrix);
   const [board, setBoard] = useState(initialBoard);
 
-  //this useEffect is to re-render to the board twice using view transitions
+  //this useEffect is to re-render to the board twice using css transitions
   //first slightly discolors squares that have changed values to highlight how pieces move,
   //second renders the 'correct' square colors
 

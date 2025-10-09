@@ -3,10 +3,8 @@
 
 var currentHoverPosition;
 export const setPos = id => {
-  console.log('setpos', id);
   currentHoverPosition = id;
 };
 export const getPos = () => {
-  console.log('getpos', currentHoverPosition);
   return currentHoverPosition;
 };
