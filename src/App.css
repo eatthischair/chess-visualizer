@@ -31,7 +31,7 @@
   }
 }
 
-@media (max-width: 3000px) {
+@media (max-width: 4000px) {
   :root {
     --boardWidth: 600px;
     --sqWidth: calc(var(--boardWidth) / 8);
